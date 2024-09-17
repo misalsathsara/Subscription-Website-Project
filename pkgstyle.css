@@ -1,0 +1,187 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background-color: #4CAF50;
+    padding: 15px 20px;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+}
+
+header:hover {
+    background-color: #45a049;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-links li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.2s;
+}
+
+.nav-links a:hover {
+    color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+/* Main Section */
+.package-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    transition: transform 0.3s;
+}
+
+.package-details:hover {
+    transform: translateY(-5px);
+}
+
+.package-info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.package-image {
+    height: 550px;
+    width: 800PX;
+    border-radius: 10px;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.package-image:hover {
+    transform: scale(1.05);
+}
+
+.items-list {
+    flex: 1;
+}
+
+.items-list h3 {
+    margin-bottom: 10px;
+    color: #4CAF50;
+    font-size: 24px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* List Styles */
+#item-list {
+    list-style: none;
+    padding: 0;
+}
+
+#item-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+#item-list li:hover {
+    background-color: #f0f0f0;
+}
+
+#item-list li span {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.remove-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.remove-btn:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+
+/* Total Cost and Button Styles */
+.total-cost {
+    margin: 20px 0;
+    font-size: 22px;
+    font-weight: bold;
+    color: #4CAF50;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+button {
+    margin: 10px 0;
+    padding: 12px 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #333;
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Apply Animation to Main Section */
+.package-details {
+    animation: fadeIn 0.5s ease-in-out;
+}

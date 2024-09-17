@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <h1>SubscriBuy</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Packages</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Contact Us</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>Discover the Best Packages for Your Needs</h1>
+            <p>Subscribe to our weekly or monthly packages and get your essentials delivered right to your door.</p>
+            <a href="#" class="cta-button">Explore Packages</a>
+        </div>
+        <img src="hero-banner.jpg" alt="Hero Image" class="hero-img">
+    </section>
+
+    <section class="featured-packages">
+        <h2>Featured Packages</h2>
+        <div class="package-grid">
+            <div class="package-card">
+                <img src="package1.jpeg" alt="Package 1">
+                <h3>Weekly Essentials</h3>
+                <p>Perfect for a quick top-up of your weekly needs.</p>
+                <a href="package-details.html" class="cta-button" onclick="navigateToDetails('Weekly Essentials')">View Details</a>
+            </div>
+            <div class="package-card">
+                <img src="package2.jpeg" alt="Package 2">
+                <h3>Monthly Mega Pack</h3>
+                <p>Everything you need for a whole month.</p>
+                <a href="package-details.html" class="cta-button" onclick="navigateToDetails('Monthly Mega Pack')">View Details</a>
+            </div>
+            <!-- Add more packages as needed -->
+        </div>
+    </section>
+
+    <section class="categories">
+        <h2>Browse by Categories</h2>
+        <ul class="category-list">
+            <li><a href="#">Groceries</a></li>
+            <li><a href="#">Personal Care</a></li>
+            <li><a href="#">Home Essentials</a></li>
+            <li><a href="#">Pet Supplies</a></li>
+            <!-- Add more categories as needed -->
+        </ul>
+    </section>
+
+    <section class="features">
+        <h2>Our Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="fast-delivery.svg" alt="Fast Delivery">
+                <h3>Fast Delivery</h3>
+                <p>Get your packages delivered quickly and efficiently.</p>
+            </div>
+            <div class="feature-card">
+                <img src="flexible-subscriptions.svg" alt="Flexible Subscriptions">
+                <h3>Flexible Subscriptions</h3>
+                <p>Choose from weekly or monthly subscription plans.</p>
+            </div>
+            <div class="feature-card">
+                <img src="quality-products.svg" alt="Quality Products">
+                <h3>Quality Products</h3>
+                <p>We only offer the best quality products in our packages.</p>
+            </div>
+            <!-- Add more features as needed -->
+        </div>
+    </section>
+
+    <section class="testimonial">
+        <h2>What Our Customers Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial-slide">
+                <p>"The best subscription service I've used. Highly recommend!"</p>
+                <span>- Jane Doe</span>
+            </div>
+            <div class="testimonial-slide">
+                <p>"Fast delivery and excellent customer service. Love it!"</p>
+                <span>- John Smith</span>
+            </div>
+            <!-- Add more testimonials as needed -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 SubscriBuy. All rights reserved.</p>
+    </footer>
+
+    <script src="home.js"></script>
+</body>
+</html>
