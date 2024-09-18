@@ -8,6 +8,8 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 </head>
 <body>
@@ -62,21 +64,40 @@
     font-size: 16px;
     font-weight: 500;
     padding: 10px 15px;
-    transition: color 0.3s, background-color 0.3s;
+    transition: color 0.3s, background-color 0.3s, text-decoration 0.3s; /* Added transition for underline */
   }
 
-  .navbar-nav .nav-link:hover {
-    color: #ffffff;
-    background-color: #007bff;
-    border-radius: 5px;
-  }
+  .navbar-nav .nav-link {
+  color: #333;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: color 0.3s, background-color 0.3s;
+  position: relative; /* Required for the pseudo-element */
+}
 
-  .navbar-nav .nav-link.active {
-    color: #ffffff;
-    background-color: #007bff;
-    border-radius: 5px;
-    font-weight: 700;
-  }
+.navbar-nav .nav-link:hover {
+  color: #007bff;
+  background-color: #ffffff; /* Keep background color white on hover */
+}
+
+.navbar-nav .nav-link::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px; /* Thickness of the underline */
+  background-color: #007bff; /* Color of the underline */
+  transition: width 0.3s; /* Smooth slide-in effect */
+}
+
+.navbar-nav .nav-link:hover::after {
+  width: 100%;
+}
+
+
 
   .navbar-toggler {
     border: none;
@@ -221,6 +242,7 @@
   </div>
 </nav>
 <!-- Navbar End -->
+
 
 
 
@@ -457,126 +479,95 @@
         </div>
     </section>
 
-    <!-- footer Start -->
-    <div class="my-5">
-  <footer class="text-center text-white" style="background-color: #3f51b5; width: 100vw;">
-    <div class="container py-5">
-      <!-- Section: Links -->
-      <section class="mt-5">
-        <div class="row text-center d-flex justify-content-center pt-3">
-          <!-- Column -->
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-white footer-link">About us</a>
-            </h6>
-          </div>
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-white footer-link">Products</a>
-            </h6>
-          </div>
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-white footer-link">Awards</a>
-            </h6>
-          </div>
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-white footer-link">Help</a>
-            </h6>
-          </div>
-          <div class="col-md-2">
-            <h6 class="text-uppercase font-weight-bold">
-              <a href="#!" class="text-white footer-link">Contact</a>
-            </h6>
-          </div>
+<!-- footer Start -->
+<footer class="py-lg-8 py-5 footer" style="background-color: #ffffff; color: #003366;">
+  <div class="container">
+    <div class="row gy-4 text-center">
+      <!-- About Company -->
+      <div class="col-lg-4 col-12 d-flex flex-column align-items-center">
+        <div class="mb-4">
+          <a class="navbar-brand" href="#" style="color: #003366; font-weight: bold; font-size: 1.5rem; text-decoration: none;">SubscriBuy</a>
         </div>
-      </section>
-
-      <hr class="my-5 text-white" />
-
-      <!-- Section: Text -->
-      <section class="mb-5">
-        <div class="row d-flex justify-content-center">
-          <div class="col-lg-8">
-            <p style="font-size: 16px; color: #ddd;">
-              We offer innovative and award-winning products that are trusted by people all over the world. Our commitment is to deliver excellence with every interaction. Have questions? Our team is here to help!
-            </p>
-          </div>
+        <p class="mb-4" style="color: #6c757d; font-size: 1rem; line-height: 1.6;">
+          SubscriBuy connects founders and marketers with experienced mentors who genuinely enjoy helping others succeed.
+        </p>
+        <!-- Social Media Icons -->
+        <div class="fs-4 d-flex justify-content-center gap-3">
+          <a href="#!" class="text-primary" style="font-size: 1.5rem;">
+            <i class="fa-brands fa-instagram"></i>
+          </a>
+          <a href="#!" class="text-primary" style="font-size: 1.5rem;">
+            <i class="fa-brands fa-facebook-f"></i>
+          </a>
+          <a href="#!" class="text-primary" style="font-size: 1.5rem;">
+            <i class="fa-brands fa-twitter"></i>
+          </a>
+          <a href="#!" class="text-primary" style="font-size: 1.5rem;">
+            <i class="fa-brands fa-youtube"></i>
+          </a>
         </div>
-      </section>
+      </div>
 
-      <!-- Section: Social Media -->
-      <section class="text-center mb-5">
-        <a href="" class="text-white me-4 social-link">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-        <a href="" class="text-white me-4 social-link">
-          <i class="fab fa-twitter"></i>
-        </a>
-        <a href="" class="text-white me-4 social-link">
-          <i class="fab fa-google"></i>
-        </a>
-        <a href="" class="text-white me-4 social-link">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="" class="text-white me-4 social-link">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="" class="text-white me-4 social-link">
-          <i class="fab fa-github"></i>
-        </a>
-      </section>
+      <!-- Support Links -->
+      <div class=" d-flex justify-content-end">
+        <ul class="list-unstyled d-flex gap-4 mb-0 align-items-center">
+          <li class="support"><a href="#" class="text-dark" style="text-decoration: none; transition: color 0.3s;">FAQ</a></li>
+          <li class="support"><a href="#" class="text-dark" style="text-decoration: none; transition: color 0.3s;">Contact</a></li>
+          <li class="support"><a href="#" class="text-dark" style="text-decoration: none; transition: color 0.3s;">Help Centre</a></li>
+          <li class="support"><a href="#" class="text-dark" style="text-decoration: none; transition: color 0.3s;">Join Community</a></li>
+        </ul>
+      </div>
     </div>
 
-    <!-- Copyright Section -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-      © 2024 Copyright:
-      <a class="text-white" href="#">developerFOUR</a>
+    <!-- Footer Bottom -->
+    <div class="row mt-lg-7 mt-5 text-center">
+      <div class="col-12">
+        <span style="color: #6c757d; font-size: 0.9rem;">
+          ©
+          <span id="copyright2" class="me-2">
+            <script>
+              document.getElementById("copyright2").appendChild(document.createTextNode(new Date().getFullYear()));
+            </script>
+          </span>
+          SubscriBuy. All Rights Reserved.
+        </span>
+      </div>
     </div>
-  </footer>
-</div>
+  </div>
+</footer>
+<!-- footer end -->
 
-<!-- Additional CSS for hover effects and better typography -->
 <style>
-  /* Footer links hover effect */
-  .footer-link {
-    color: #ffffff;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
+  /* Ensure the support links are aligned to the right */
+  .col-lg-4.d-flex.justify-content-end {
+    text-align: right;
   }
 
-  .footer-link:hover {
-    color: #FFEB3B; /* Matches the header with a slight yellow accent */
-    text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.7);
+  /* Ensure list items are displayed in a row */
+  .list-unstyled {
+    margin: 0;
+    padding: 0;
   }
 
-  /* Social Media icons hover effect */
-  .social-link {
-    font-size: 24px;
-    transition: transform 0.3s ease, color 0.3s ease;
+  .list-unstyled > li {
+    display: inline;
   }
 
-  .social-link:hover {
-    color: #FFEB3B; /* Matches the header with yellow accent */
-    transform: scale(1.2); /* Slight zoom effect */
+  .support {
+    padding-right: 20px; /* Adjust spacing between items */
   }
 
-  /* Footer text color for better readability */
-  footer p {
-    color: #ddd;
-    line-height: 1.8;
-  }
-
-  footer hr {
-    border-top: 1px solid #ffffff66;
-  }
-
-  footer .container {
-    padding: 20px 0;
+  /* Hover effects */
+  .support a:hover {
+    color: #003366;
+    font-weight: bold;
+    transition: color 0.3s ease, font-weight 0.3s ease;
   }
 </style>
 
- <!-- footer end -->
+
+
+
 
     <script src="home.js"></script>
     <!-- Bootstrap 5 JS and Popper.js -->
