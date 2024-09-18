@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>SubscriBuy - Buy Your Subscription Package</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -12,263 +12,402 @@
 </head>
 <body>
 
-<!-- navbar start -->
+<!-- Navbar Start -->
 <style>
-    /* Styling for the main navbar */
-    .main-navbar {
-        border-bottom: 2px solid #f1f1f1;
-        font-family: 'Poppins', sans-serif;
-    }
+  /* Main navbar container */
+  .navbar-custom {
+    background-color: #ffffff; /* White background for clarity */
+    border-bottom: 1px solid #e1e1e1;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 40px; /* Adjust according to the height of the contact-info section */
+    z-index: 1020; /* Ensure it stays on top of other content */
+  }
 
-    .brand-name {
-        font-size: 24px;
-        font-weight: bold;
-        color: #007BFF;
-    }
+  /* Contact info styling */
+  .contact-info {
+    background-color: #ffffff; /* Match the navbar background color */
+    padding: 10px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    border-bottom: none; /* Remove the bottom border */
+    position: sticky;
+    top: 0; /* Sticks to the top */
+    z-index: 1010; /* Ensure it stays below the navbar but on top of other content */
+  }
 
-    .contact-info span {
-        color: #555;
-        font-size: 14px;
-    }
+  .contact-info span {
+    margin-left: 20px;
+  }
 
-    .contact-info span i {
-        color: #007BFF;
-        margin-right: 5px;
-    }
+  .contact-info i {
+    color: #007bff;
+    margin-right: 5px;
+  }
 
-    /* Flexbox to align items properly */
-    .navbar-collapse {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
+  /* Navbar brand styling */
+  .navbar-brand {
+    font-size: 30px;
+    font-weight: 700;
+    color: #007bff;
+    text-transform: uppercase;
+  }
 
-    .navbar-nav-left {
-        margin-left: 0;
-        padding-left: 0;
-        display: flex;
-        justify-content: flex-start;
-    }
+  /* Navbar links styling */
+  .navbar-nav .nav-link {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px 15px;
+    transition: color 0.3s, background-color 0.3s;
+  }
 
-    .navbar-nav-right {
-        margin-left: auto;
-        display: flex;
-        justify-content: flex-end;
-    }
+  .navbar-nav .nav-link:hover {
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 5px;
+  }
 
-    /* Navbar link hover effect */
+  .navbar-nav .nav-link.active {
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 5px;
+    font-weight: 700;
+  }
+
+  .navbar-toggler {
+    border: none;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 6h16M4 12h16M4 18h16'/%3E%3C/svg%3E");
+  }
+
+  /* Dropdown menu styling */
+  .dropdown-menu {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+
+  .dropdown-item {
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #007bff;
+  }
+
+  /* Search bar styling */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Space between search bar and other elements */
+  }
+
+  .search-bar .form-control {
+    border-radius: 30px;
+    padding: 8px 15px;
+    border: 1px solid #e1e1e1;
+    box-shadow: none;
+    transition: border-color 0.3s;
+  }
+
+  .search-bar .form-control:focus {
+    border-color: #007bff;
+  }
+
+  .search-bar .btn {
+    border-radius: 30px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: 1px solid #007bff;
+    transition: background-color 0.3s, border-color 0.3s;
+    margin-left: 10px; /* Adds space between search input and button */
+  }
+
+  .search-bar .btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+
+  /* Icon button styling */
+  .icon-btn {
+    font-size: 20px; /* Increased size for better visibility */
+    color: #000000; /* Set color to black */
+    transition: color 0.3s;
+    margin-left: 20px; /* Space between icon buttons */
+  }
+
+  .icon-btn:hover {
+    color: #333333; /* Slightly lighter black on hover */
+  }
+
+  /* Adjust alignment of icon buttons */
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes icons to the right */
+  }
+
+  @media (max-width: 767px) {
     .navbar-nav .nav-link {
-        font-size: 16px;
-        color: #333;
-        font-weight: 500;
-        padding-right: 20px;
-        padding-left: 10px;
-        position: relative;
-        transition: color 0.3s ease;
+      font-size: 14px;
     }
 
-    .navbar-nav .nav-link:hover {
-        color: #007BFF;
+    .search-bar {
+      margin-left: 0; /* Remove space for small screens */
+      margin-top: 10px; /* Add space above search bar */
     }
 
-    /* Hover underline effect */
-    .navbar-nav .nav-link::after {
-        content: '';
-        display: block;
-        width: 0;
-        height: 2px;
-        background: #007BFF;
-        transition: width 0.3s ease-in-out;
-        position: absolute;
-        bottom: -2px;
-        left: 0;
+    .icon-btn {
+      font-size: 18px; /* Adjust size for small screens */
     }
-
-    .navbar-nav .nav-link:hover::after {
-        width: 100%;
-    }
-
-    /* Styling for buttons and icons */
-    .nav .nav-link i {
-        color: #007BFF;
-        font-size: 18px;
-        margin-right: 5px;
-        transition: transform 0.3s ease, color 0.3s ease;
-    }
-
-    .nav .nav-link:hover i {
-        transform: scale(1.2);
-        color: #0056b3;
-    }
-
-    /* Dropdown styling */
-    .dropdown-menu {
-        border: none;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .dropdown-menu a {
-        color: #333;
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-
-    .dropdown-menu a:hover {
-        background-color: #007BFF;
-        color: white;
-    }
-
-    /* Search bar styling */
-    .input-group .form-control {
-        border: 2px solid #e1e1e1;
-        border-right: 0;
-        padding: 8px;
-        font-size: 14px;
-        transition: border-color 0.3s ease;
-    }
-
-    .input-group .form-control:focus {
-        border-color: #007BFF;
-        box-shadow: none;
-    }
-
-    .input-group .btn {
-        background-color: #007BFF;
-        color: white;
-        border: 2px solid #007BFF;
-        transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-
-    .input-group .btn:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-    }
+  }
 </style>
 
-<div class="main-navbar shadow-sm fixed-top bg-white">
-    <div class="top-navbar">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
-                    <h5 class="brand-name">SubscriBuy</h5>
-                </div>
-                <div class="col-md-10">
-                    <div class="d-flex justify-content-end">
-                        <div class="contact-info me-3">
-                            <span><i class="fa fa-envelope"></i> info@example.com</span>
-                            <span class="ms-4"><i class="fa fa-phone"></i> +1 234 567 890</span>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-end align-items-center mt-2">
-                        <form role="search" class="w-50">
-                            <div class="input-group">
-                                <input type="search" placeholder="Search your product" class="form-control" />
-                                <button class="btn" type="submit">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="d-flex align-items-center mt-2">
-                        <nav class="navbar navbar-expand-lg w-100">
-                            <div class="container-fluid">
-                                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                    <span class="navbar-toggler-icon"></span>
-                                </button>
-                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                    <!-- Left-aligned navigation items -->
-                                    <ul class="navbar-nav navbar-nav-left mb-2 mb-lg-0">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Home</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">All Categories</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">New Arrivals</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Featured Products</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Electronics</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Fashions</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Accessories</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Home</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">Appliances</a>
-                                        </li>
-                                    </ul>
-                                    <!-- Right-aligned icons (Cart, Wishlist, Profile) -->
-                                    <ul class="navbar-nav navbar-nav-right">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <i class="fa fa-shopping-cart"></i> Cart (0)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="#">
-                                                <i class="fa fa-heart"></i> Wishlist (0)
-                                            </a>
-                                        </li>
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-user"></i> Username
-                                            </a>
-                                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
-                                                <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> My Orders</a></li>
-                                                <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> My Wishlist</a></li>
-                                                <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> My Cart</a></li>
-                                                <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="contact-info">
+  <span><i class="fa fa-envelope"></i> info@example.com</span>
+  <span><i class="fa fa-phone"></i> +1 234 567 890</span>
 </div>
 
-<!-- navbar End -->
-
-    <section class="hero-section">
-        <div class="hero-content">
-            <h1>Discover the Best Packages for Your Needs</h1>
-            <p>Subscribe to our weekly or monthly packages and get your essentials delivered right to your door.</p>
-            <a href="#" class="cta-button">Explore Packages</a>
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container">
+    <a class="navbar-brand" href="#">SubscriBuy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Blogs</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact Us</a>
+        </li>
+      </ul>
+      <div class="search-bar ms-auto">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+      <div class="navbar-right ms-3">
+        <a class="nav-link icon-btn" href="#"><i class="fa fa-shopping-cart"></i></a>
+        <a class="nav-link icon-btn" href="#"><i class="fa fa-heart"></i></a>
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-user"></i>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Orders</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
+          </ul>
         </div>
-        <img src="hero-banner.jpg" alt="Hero Image" class="hero-img">
-    </section>
+      </div>
+    </div>
+  </div>
+</nav>
+<!-- Navbar End -->
 
-    <section class="featured-packages">
-        <h2>Featured Packages</h2>
-        <div class="package-grid">
-            <div class="package-card">
-                <img src="package1.jpeg" alt="Package 1">
-                <h3>Weekly Essentials</h3>
-                <p>Perfect for a quick top-up of your weekly needs.</p>
-                <a href="package-details.html" class="cta-button" onclick="navigateToDetails('Weekly Essentials')">View Details</a>
-            </div>
-            <div class="package-card">
-                <img src="package2.jpeg" alt="Package 2">
-                <h3>Monthly Mega Pack</h3>
-                <p>Everything you need for a whole month.</p>
-                <a href="package-details.html" class="cta-button" onclick="navigateToDetails('Monthly Mega Pack')">View Details</a>
-            </div>
-            <!-- Add more packages as needed -->
+
+
+
+
+<!-- Hero Section Start -->
+<div class="hero-section bg-light-blue" style="position: relative;">
+  <div class="container h-100">
+    <div class="row align-items-center h-100">
+      <!-- Hero Text Section -->
+      <div class="col-xl-5 col-lg-6 col-md-12">
+        <div class="hero-content py-4 py-lg-4"> <!-- Adjusted padding -->
+          <h1 class="text-primary display-4 fw-bold">Welcome to SubscriBuy</h1>
+          <p class="text-secondary mb-3 lead"> <!-- Adjusted bottom margin -->
+            Explore top-quality Subscription Packages and enjoy exclusive deals, all in one place.
+          </p>
+          <a href="pages/shop.html" class="btn btn-primary btn-lg me-2">Shop Now</a> <!-- Adjusted margin -->
+          <a href="pages/deals.html" class="btn btn-outline-primary btn-lg">View Deals</a>
         </div>
-    </section>
+      </div>
+      <!-- Hero Image Section -->
+      <div class="col-xl-7 col-lg-6 col-md-12 text-lg-right text-center">
+        <img src="./Images/food_prev_ui.png" alt="E-commerce Products" class="img-fluid hero-img">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CSS Styles -->
+<style>
+  /* Light Blue Background */
+  .bg-light-blue {
+    background-color: #f0f8ff; /* Light blue background for a clean, minimalist look */
+  }
+
+  /* Hero Section Layout */
+  .hero-section {
+    min-height: 85vh; /* Adjusted min-height */
+    display: flex;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+  }
+
+  /* Hero Content Styling */
+  .hero-content {
+    margin-top: 0; /* Ensure no extra top margin */
+  }
+
+  .hero-content h1 {
+    font-size: 5rem; /* Adjusted font size */
+    font-weight: 700;
+    color: #0046ff; /* Primary Blue */
+    line-height: 1.2;
+    margin-bottom: 1rem; /* Adjusted bottom margin */
+  }
+
+  .hero-content p {
+    font-size: 1.1rem; /* Adjusted font size */
+    color: #606060; /* Neutral grey for the text */
+    margin-bottom: 1rem; /* Adjusted bottom margin */
+  }
+
+  /* Button Customizations */
+  .btn-primary {
+    background-color: #0046ff;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem; /* Adjusted padding */
+    font-size: 1rem; /* Adjusted font size */
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #0033cc; /* Slightly darker blue on hover */
+  }
+
+  .btn-outline-primary {
+    border: 2px solid #0046ff;
+    color: #0046ff;
+    padding: 0.75rem 1.25rem; /* Adjusted padding */
+    font-size: 1rem; /* Adjusted font size */
+    transition: background-color 0.3s ease;
+  }
+
+  .btn-outline-primary:hover {
+    background-color: #0046ff;
+    color: white;
+  }
+
+  /* Hero Image */
+  .hero-img {
+    width: 100%; /* Full width */
+    max-width: 700px; /* Adjusted max width */
+    margin-top: 0; /* Removed top margin */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adjusted shadow */
+  }
+
+  /* Responsive Design */
+  @media (max-width: 767.98px) {
+    .hero-content h1 {
+      font-size: 2.5rem; /* Adjusted font size for mobile */
+    }
+
+    .hero-content p {
+      font-size: 1rem; /* Adjusted font size for mobile */
+    }
+  }
+</style>
+<!-- Hero Section End -->
+
+<!-- Stat Start -->
+<!-- CSS Styles -->
+<style>
+  .section-heading {
+    color: #0046ff; /* Primary Blue */
+  }
+
+  .section-content p {
+    color: #606060; /* Neutral grey for the text */
+  }
+
+  .counter-box {
+    border-top: 2px solid #0046ff; /* Primary Blue border */
+    padding-top: 1rem;
+    margin-top: 3rem;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .counter-box h1 {
+    color: #0046ff; /* Primary Blue for counter text */
+  }
+
+  .counter-box p {
+    color: #606060; /* Neutral grey for labels */
+  }
+
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+</style>
+
+<div class="container my-5">
+  <!-- Heading and Description in One Line -->
+  <div class="row mb-4 align-items-center">
+    <div class="col-md-6">
+      <h1 class="display-4 fw-bold section-heading">Our Global Reach</h1>
+      <p class="lead section-content">
+      SubscriBuy offers subscription packages tailored for both rural and urban areas, providing people with reliable and high-quality services.
+      </p>
+    </div>
+    <!-- Counters in One Line -->
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="counter-box">
+            <h1 class="display-3 fw-bold mb-0">100+</h1>
+            <p class="text-uppercase">Products</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="counter-box">
+            <h1 class="display-3 fw-bold mb-0">20+</h1>
+            <p class="text-uppercase">Subscriptions</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="counter-box">
+            <h1 class="display-3 fw-bold mb-0">50+</h1>
+            <p class="text-uppercase">Customers</p>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="counter-box">
+            <h1 class="display-3 fw-bold mb-0">50+</h1>
+            <p class="text-uppercase">Reviews</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Stat End -->
+
 
     <section class="categories">
         <h2>Browse by Categories</h2>
