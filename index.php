@@ -9,6 +9,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Include Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    
 
 </head>
 </head>
@@ -430,39 +434,235 @@
 </div>
 <!-- Stat End -->
 
-
-    <section class="categories">
-        <h2>Browse by Categories</h2>
-        <ul class="category-list">
-            <li><a href="#">Groceries</a></li>
-            <li><a href="#">Personal Care</a></li>
-            <li><a href="#">Home Essentials</a></li>
-            <li><a href="#">Pet Supplies</a></li>
-            <!-- Add more categories as needed -->
-        </ul>
-    </section>
-
-    <section class="features">
-        <h2>Our Features</h2>
-        <div class="feature-grid">
-            <div class="feature-card">
-                <img src="fast-delivery.svg" alt="Fast Delivery">
-                <h3>Fast Delivery</h3>
-                <p>Get your packages delivered quickly and efficiently.</p>
+<!-- Trending Products Section Start -->
+<div class="container mt-5">
+  <h2 class="text-center display-4">Trending Products</h2>
+  <div class="divider mb-4"></div>
+  <div id="trendingCarousel" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="row">
+          <!-- Product Item -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card card-hover">
+              <img src="./Images/beauty pack.jpg" class="card-img-top img-hover-effect" alt="Product 1">
+              <div class="card-body">
+                <h4 class="card-title">Product 1</h4>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="text-muted">By Author 1</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between align-items-center">
+                <h5>$19.99</h5>
+                <div>
+                  <button class="btn btn-primary btn-hover-effect">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-danger btn-hover-effect ml-2">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="feature-card">
-                <img src="flexible-subscriptions.svg" alt="Flexible Subscriptions">
-                <h3>Flexible Subscriptions</h3>
-                <p>Choose from weekly or monthly subscription plans.</p>
+          </div>
+          <!-- Repeat for other products -->
+          <!-- Product Item -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card card-hover">
+              <img src="./Images/beauty pack.jpg" class="card-img-top img-hover-effect" alt="Product 2">
+              <div class="card-body">
+                <h4 class="card-title">Product 2</h4>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <p class="text-muted">By Author 2</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between align-items-center">
+                <h5>$29.99</h5>
+                <div>
+                  <button class="btn btn-primary btn-hover-effect">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-danger btn-hover-effect ml-2">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
             </div>
-            <div class="feature-card">
-                <img src="quality-products.svg" alt="Quality Products">
-                <h3>Quality Products</h3>
-                <p>We only offer the best quality products in our packages.</p>
+          </div>
+          <!-- Product Item -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card card-hover">
+              <img src="./Images/beauty pack.jpg" class="card-img-top img-hover-effect" alt="Product 3">
+              <div class="card-body">
+                <h4 class="card-title">Product 3</h4>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="text-muted">By Author 3</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between align-items-center">
+                <h5>$39.99</h5>
+                <div>
+                  <button class="btn btn-primary btn-hover-effect">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-danger btn-hover-effect ml-2">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
             </div>
-            <!-- Add more features as needed -->
+          </div>
+          <!-- Product Item -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card card-hover">
+              <img src="./Images/beauty pack.jpg" class="card-img-top img-hover-effect" alt="Product 4">
+              <div class="card-body">
+                <h4 class="card-title">Product 4</h4>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="text-muted">By Author 4</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between align-items-center">
+                <h5>$49.99</h5>
+                <div>
+                  <button class="btn btn-primary btn-hover-effect">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-danger btn-hover-effect ml-2">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+      <!-- Additional carousel items for more products -->
+      <div class="carousel-item">
+        <div class="row">
+          <!-- Repeat for other products -->
+          <div class="col-md-3 col-sm-6 mb-4">
+            <div class="card card-hover">
+              <img src="./Images/beauty pack.jpg" class="card-img-top img-hover-effect" alt="Product 5">
+              <div class="card-body">
+                <h4 class="card-title">Product 5</h4>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="text-muted">By Author 5</p>
+              </div>
+              <div class="card-footer d-flex justify-content-between align-items-center">
+                <h5>$59.99</h5>
+                <div>
+                  <button class="btn btn-primary btn-hover-effect">
+                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                  </button>
+                  <button class="btn btn-outline-danger btn-hover-effect ml-2">
+                    <i class="fas fa-heart"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Additional Product Items... -->
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#trendingCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#trendingCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+<!-- Trending Products Section End -->
+
+<!-- CSS Styles -->
+<style>
+  .divider {
+    width: 50px;
+    height: 4px;
+    background-color: #007bff; /* Bootstrap primary color */
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+  
+  .card-hover {
+    transition: transform 0.3s;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-5px);
+  }
+
+  .img-hover-effect {
+    transition: transform 0.3s;
+  }
+
+  .img-hover-effect:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-hover-effect {
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .btn-hover-effect:hover {
+    background-color: #0056b3; /* Darker shade of Bootstrap primary */
+    color: #fff; /* White text on hover */
+  }
+
+  .rating {
+    color: #ffc107; /* Gold color for stars */
+  }
+
+  /* Carousel Styles */
+  .carousel-item {
+    padding: 15px; /* Add padding around each carousel item */
+  }
+
+  .card {
+    border: none; /* Remove card borders for a cleaner look */
+    border-radius: 10px; /* Rounded corners for cards */
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+  }
+</style>
+
+
+
+
+
+
+
+
+
 
     <section class="testimonial">
         <h2>What Our Customers Say</h2>
