@@ -436,7 +436,7 @@
 
 <!-- Trending Products Section Start -->
 <div class="container mt-5">
-  <h2 class="text-center display-4 text-primary font-weight-bold">Trending Products</h2>
+  <h2 class="text-center display-4 fw-bold text-primary section-heading" style="font-weight: 900;">Trending Products</h2>
   <div class="divider mb-4"></div>
   <div id="trendingCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -587,7 +587,6 @@
     </a>
   </div>
 </div>
-<!-- Trending Products Section End -->
 
 <style>
 .card-hover {
@@ -656,82 +655,233 @@ h2 {
   background-color: #f1f1f1; /* Light gray background on hover */
 }
 </style>
+<!-- Trending Products Section End -->
 
+<!-- Banner Start -->
+<div class="banner-section bg-blue">
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="row align-items-center no-gutters">
+      <!-- Text Content Column -->
+      <div class="col-xl-5 col-lg-6 col-md-12">
+        <div class="banner-content py-5 py-lg-0">
+          <h1 class="text-white display-4 fw-bold banner-heading">
+            Welcome to SubscriBuy
+          </h1>
+          <p class="text-white-50 mb-4 lead banner-subtext">
+            Hand-picked clean and fresh items, packaged for rural and urban areas.
+          </p>
+          <!-- Call to Action Buttons -->
+          <a href="" class="btn btn-white text-blue me-3">View Products</a>
+        </div>
+      </div>
+      <!-- Image Column -->
+      <div class="col-xl-7 col-lg-6 col-md-12 text-lg-end text-center">
+        <img src="./Images/banner_man.png" alt="Hero Image" class="img-fluid banner-image">
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Banner End -->
 
-<!-- CSS Styles -->
 <style>
-  .divider {
-    width: 50px;
-    height: 4px;
-    background-color: #007bff; /* Bootstrap primary color */
-    margin: 0 auto;
-    border-radius: 2px;
-  }
-  
-  .card-hover {
-    transition: transform 0.3s;
+  .banner-section {
+    background-color: #0d6efd; /* Your preferred blue */
+    /* padding: 60px 0; */
+    position: relative;
+    overflow: hidden;
   }
 
-  .card-hover:hover {
-    transform: translateY(-5px);
+  /* Adding a subtle gradient overlay to make text more readable */
+  .banner-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background: linear-gradient(90deg, rgba(13, 110, 253, 0.9) 50%, rgba(13, 110, 253, 0.6) 100%); */
+    z-index: 1;
   }
 
-  .img-hover-effect {
-    transition: transform 0.3s;
+  /* Content Styling */
+  .banner-content {
+    position: relative;
+    z-index: 2;
   }
 
-  .img-hover-effect:hover {
-    transform: scale(1.05);
+  .banner-heading {
+    font-size: 3.5rem;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    animation: fadeInDown 1.5s ease-in-out;
   }
 
-  .btn-hover-effect {
-    transition: background-color 0.3s, color 0.3s;
+  .banner-subtext {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    animation: fadeIn 2s ease-in-out;
   }
 
-  .btn-hover-effect:hover {
-    background-color: #0056b3; /* Darker shade of Bootstrap primary */
-    color: #fff; /* White text on hover */
+  /* Button Styling */
+  .btn-white {
+    background-color: #ffffff;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
   }
 
-  .rating {
-    color: #ffc107; /* Gold color for stars */
+  .btn-white:hover {
+    background-color: #f8f9fa;
+    color: #0d6efd;
+    border-color: #0d6efd;
+    transform: translateY(-3px); /* Hover effect to elevate the button slightly */
   }
 
-  /* Carousel Styles */
-  .carousel-item {
-    padding: 15px; /* Add padding around each carousel item */
+  /* Image Styling */
+  .banner-image {
+    width: 100%;
+    height: auto;
+    animation: slideInRight 2s ease-in-out;
   }
 
-  .card {
-    border: none; /* Remove card borders for a cleaner look */
-    border-radius: 10px; /* Rounded corners for cards */
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for cards */
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .banner-heading {
+      font-size: 2.5rem;
+    }
+
+    .banner-subtext {
+      font-size: 1rem;
+    }
+
+    .btn-white {
+      font-size: 1rem;
+      padding: 10px 20px;
+    }
+  }
+
+  /* Animation Effects */
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInRight {
+    0% {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 </style>
 
 
 
 
+<!-- Bank Section Start -->
+<section class="scrolling-logos light">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="scrolling-logos-heading">Meet Partners</h2>
+    </div>
+    <div class="logos-wrapper">
+      <div class="logos d-flex justify-content-center align-items-center text-center">
+        <img src="./Images/Commercial-Bank.png" alt="Commercial Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/hnb.png" alt="HNB" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/logo-dfccbank.png" alt="DFCC Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/Nations_Trust_Bank_logo.png" alt="Nations Trust Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/ndb.png" alt="NDB" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/sampath bank.png" alt="Sampath Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/boc.png" alt="boc Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/helapay.png" alt="helapay" class="scrolling-logo img-fluid px-5 my-4" />
+        <!-- Repeat logos to create a continuous effect -->
+        <img src="./Images/Commercial-Bank.png" alt="Commercial Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/hnb.png" alt="HNB" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/logo-dfccbank.png" alt="DFCC Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/Nations_Trust_Bank_logo.png" alt="Nations Trust Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/ndb.png" alt="NDB" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/sampath bank.png" alt="Sampath Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/boc.png" alt="boc Bank" class="scrolling-logo img-fluid px-5 my-4" />
+        <img src="./Images/helapay.png" alt="helapay" class="scrolling-logo img-fluid px-5 my-4" />
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- Additional Styles -->
+<style>
+  .scrolling-logos {
+    background-color: #f6f6f6;
+    overflow: hidden;
+    padding: 60px 0;
+  }
 
+  @media (min-width: 768px) {
+    .scrolling-logos {
+      padding: 80px 0;
+    }
+  }
 
+  .scrolling-logos-heading {
+    font-weight: bold;
+    font-size: 25px;
+    color: #28303b;
+  }
 
+  @media (min-width: 768px) {
+    .scrolling-logos-heading {
+      font-size: 35px;
+    }
+  }
 
+  .logos-wrapper {
+    overflow: hidden; /* Ensure logos stay within the container */
+  }
 
-    <section class="testimonial">
-        <h2>What Our Customers Say</h2>
-        <div class="testimonial-slider">
-            <div class="testimonial-slide">
-                <p>"The best subscription service I've used. Highly recommend!"</p>
-                <span>- Jane Doe</span>
-            </div>
-            <div class="testimonial-slide">
-                <p>"Fast delivery and excellent customer service. Love it!"</p>
-                <span>- John Smith</span>
-            </div>
-            <!-- Add more testimonials as needed -->
-        </div>
-    </section>
+  .logos {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: max-content; /* Ensure logos are wide enough for the container */
+    animation: scroll-left 40s linear infinite; /* Slowed down the animation duration */
+  }
+
+  .scrolling-logo {
+    max-height: 50px;
+  }
+
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0); /* Start at the original position */
+    }
+    100% {
+      transform: translateX(-50%); /* Move to the left by 50% to slow down and create a smoother loop */
+    }
+  }
+</style>
+<!-- Bank Section End -->
 
 
 <!-- Footer Start -->
