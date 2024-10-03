@@ -18,7 +18,7 @@ try {
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 465;
 
-    $mail->setFrom('chamodi.malshika@ecyber.com', 'chamodi');
+    $mail->setFrom('chamodi.malshika@ecyber.com', 'Contact Request');
     $mail->addAddress('chamodi.malshika@ecyber.com', 'Recipient Name');
     $mail->addAddress('misal.sathsara@ecyber.com', 'Misal');
 

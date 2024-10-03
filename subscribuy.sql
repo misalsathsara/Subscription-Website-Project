@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Oct 03, 2024 at 10:49 AM
+-- Generation Time: Oct 03, 2024 at 10:59 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `grocery`
+-- Database: `subscribuy`
 --
 
 -- --------------------------------------------------------
@@ -39,7 +39,9 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `email`, `subject`, `message`) VALUES
-(1, 'chamodi.malshika@ecyber.com', 'new', 'newnew');
+(1, 'chamodi.malshika@ecyber.com', 'new', 'newnew'),
+(2, 'ranuga@gmail.com', 'test local', 'mkfjkdsfl new'),
+(3, 'as@gmail.com', 'test local', 'mkckzxc');
 
 --
 -- Indexes for dumped tables
@@ -59,7 +61,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
