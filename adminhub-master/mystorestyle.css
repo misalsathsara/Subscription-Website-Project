@@ -1,0 +1,240 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background: var(--grey);
+	overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    padding: 20px;
+}
+
+/* Button Styles */
+#add-item-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: left;
+}
+
+#add-item-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 60px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal.modal-open-animation {
+    opacity: 1;
+}
+
+.modal.modal-close-animation {
+    opacity: 0;
+}
+
+.modal-dialog {
+    margin: auto;
+    padding: 20px;
+    width: 60%;
+    transform: scale(0);
+    animation: modalOpen 0.3s forwards;
+}
+
+.modal.modal-close-animation .modal-dialog {
+    animation: modalClose 0.3s forwards;
+}
+
+@keyframes modalOpen {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes modalClose {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    padding: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.modal-close {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: 10px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Form Styles */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-top: 15px;
+}
+
+/* Drag and Drop Zone */
+.drag-drop-zone {
+    border: 2px dashed #007bff;
+    padding: 50px;
+    border-radius: 10px;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.drag-drop-zone p {
+    color: #6c757d;
+    margin: 10px 0 0;
+}
+
+.drag-drop-zone .plus-icon {
+    font-size: 50px;
+    color: #007bff;
+}
+
+.drag-drop-zone.dragover {
+    background-color: #e3f2fd;
+}
+
+.d-none {
+    display: none;
+}
+
+/* Modal Open and Close Animations */
+@keyframes modalOpen {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes modalClose {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.9); }
+}
+
+.modal-open-animation {
+    animation: modalOpen 0.3s ease-out;
+}
+
+.modal-close-animation {
+    animation: modalClose 0.3s ease-in;
+}
+
+/* Success Modal Styling */
+#successModal .modal-content {
+    border-radius: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+#successModal .modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+#successModal .modal-body {
+    font-size: 1rem;
+    padding: 20px;
+    text-align: center;
+}
+
+#successModal .modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+#successModal #success-ok-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#successModal #success-ok-btn:hover {
+    background-color: #218838;
+}
