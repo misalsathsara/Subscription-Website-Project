@@ -27,6 +27,10 @@
 ?>
 
 <?php
+  include 'faq.php';
+?>
+
+<?php
   include 'bankContainer.php';
 ?>
 
