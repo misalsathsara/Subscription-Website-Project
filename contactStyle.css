@@ -1,0 +1,113 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8; /* Soft background color */
+    margin: 0;
+    padding: 0;
+}
+
+.contact-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px; /* Adjust max width */
+    margin: 50px auto; /* Centering with margin */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Deeper shadow for more depth */
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); /* Gradient background */
+    overflow: hidden; /* Prevent overflow for rounded corners */
+}
+
+.contact-left, .contact-right {
+    flex: 1;
+    padding: 40px; /* Enhanced padding */
+}
+
+.contact-left {
+    border-right: 1px solid #e1e1e1; /* Separator line */
+}
+
+h2 {
+    font-size: 26px; /* Larger heading */
+    color: #007bff; /* Primary color for heading */
+    margin-bottom: 20px; /* Spacing below heading */
+}
+
+p {
+    margin-bottom: 20px; /* Spacing below paragraph */
+    color: #555; /* Darker gray for text */
+}
+
+input[type="email"], 
+input[type="text"], 
+textarea {
+    width: 100%; /* Full width inputs */
+    padding: 12px;
+    margin-bottom: 20px; /* Spacing between inputs */
+    border: 1px solid #ced4da; /* Light border */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 16px; /* Increased font size */
+    transition: border 0.3s, box-shadow 0.3s; /* Smooth transition */
+}
+
+input[type="email"]:focus, 
+input[type="text"]:focus, 
+textarea:focus {
+    border: 1px solid #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Light blue glow on focus */
+    outline: none; /* Remove outline */
+}
+
+button {
+    width: 100%; /* Full width button */
+    padding: 12px;
+    background-color: #007bff; /* Primary button color */
+    color: white; /* Text color */
+    border: none;
+    border-radius: 6px; /* Rounded corners */
+    font-size: 18px; /* Font size for button */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.contact-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px; /* Reduced padding */
+    text-align: center;
+}
+
+.contact-right img {
+    max-width: 100%; /* Responsive image */
+    height: auto;
+    border-radius: 12px; /* Rounded corners for the image */
+    margin-bottom: 20px; /* Spacing below image */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for the image */
+}
+
+.contact-info {
+    color: #555; /* Dark gray for contact info */
+}
+
+.contact-info p {
+    margin: 10px 0; /* Spacing between contact info items */
+    display: flex;
+    align-items: center; /* Center icons with text */
+    transition: color 0.3s; /* Smooth color transition */
+}
+
+.contact-info p:hover {
+    color: #007bff; /* Change color on hover */
+}
+
+.contact-info i {
+    margin-right: 10px; /* Spacing between icon and text */
+    color: #007bff; /* Icon color */
+    font-size: 1.2em; /* Slightly larger icons */
+}
