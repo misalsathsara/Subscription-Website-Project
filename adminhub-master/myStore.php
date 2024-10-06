@@ -9,7 +9,8 @@
 	<!-- My CSS -->
 	<link rel="stylesheet" href="style.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="mystorestyle.css">
+    <link rel="stylesheet" href="myStoreStyle.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 	<title>AdminHub</title>
 </head>
@@ -139,241 +140,292 @@
         </ul>
 
         <!-- ADD Iems Button -->
-        <div class="container">
-            <button type="button" class="btn-primary" id="add-item-btn">
-                Add Item
-            </button>
-        </div>
+        <button id="addItemBtn" class="add-item-button">Add Items</button>
 
         <div class="table-data">
-            <div class="order">
-                <div class="head">
-                    <i class='bx bx-search'></i>
-                    <i class='bx bx-filter'></i>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Date Order</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTableBody">
-                        <tr>
-                            <td>
-                                <img src="img/people.png">
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/people.png">
-                                <p>Jane Doe</p>
-                            </td>
-                            <td>02-10-2021</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/people.png">
-                                <p>Mike Smith</p>
-                            </td>
-                            <td>03-10-2021</td>
-                            <td><span class="status process">Process</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/people.png">
-                                <p>John Johnson</p>
-                            </td>
-                            <td>04-10-2021</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="img/people.png">
-                                <p>Emily Davis</p>
-                            </td>
-                            <td>05-10-2021</td>
-                            <td><span class="status completed">Completed</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="order">
+        <div class="head">
+            <i class='bx bx-search'></i>
+            <i class='bx bx-filter'></i>
         </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Name</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="itemsTableBody">
+                <!-- Rows will be dynamically populated here -->
+            </tbody>
+        </table>
+    </div>
+</div>
     </main>
     <!-- MAIN -->
 </section>
 <!-- CONTENT -->
 
-<!-- Modal -->
-<div class="modal" id="addItemModal">
-    <div class="modal-dialog">
+<!-- Modal  -->
+<div id="itemModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Add New Item</h5>
-                <span class="modal-close" id="closeModal">&times;</span>
+            <span class="close-btn">&times;</span>
+            <h2>Add New Item</h2>
+
+            <div class="drag-drop-area" id="drop-area">
+                <span>+</span>
+                <input type="file" id="itemImage" accept="image/*" style="display: none;">
             </div>
-            <div class="modal-body">
-                <form id="addItemForm" action="uploads.php" method="POST" enctype="multipart/form-data">
-                    <!-- Image Drag and Drop -->
-                    <div class="form-group text-center">
-                        <div class="drag-drop-zone" id="drop-zone">
-                            <i class="plus-icon">+</i>
-                            <p>Drag & Drop Image Here</p>
-                        </div>
-                        <input type="file" id="file-input" name="imageFile" class="form-control d-none">
-                    </div>
 
-                    <!-- Name Input -->
-                    <div class="form-group mt-3">
-                        <label for="itemName">Item Name</label>
-                        <input type="text" class="input-field" id="itemName" name="itemName" placeholder="Enter item name">
-                    </div>
+            <input type="text" id="itemName" placeholder="Item Name">
+            <select id="itemType">
+                <option value="electronic">Electronic</option>
+                <option value="beauty">Beauty</option>
+                <option value="home appliance">Home Appliance</option>
+            </select>
+            <textarea id="itemDescription" placeholder="Item Description"></textarea>
+            <input type="number" id="itemPrice" placeholder="Price">
 
-                    <!-- Description Input -->
-                    <div class="form-group mt-3">
-                        <label for="itemDescription">Description</label>
-                        <textarea class="input-field" id="itemDescription" name="itemDescription" rows="3" placeholder="Enter description"></textarea>
-                    </div>
-
-                    <!-- Type Input -->
-                    <div class="form-group mt-3">
-                        <label for="itemType">Type</label>
-                        <select class="input-field" id="itemType" name="itemType">
-                            <option value="home-appliance">Home Appliance</option>
-                            <option value="beauty">Beauty</option>
-                            <option value="electronic">Electronic</option>
-                            <option value="food-items">Food Items</option>
-                        </select>
-                    </div>
-
-                    <!-- Price Input -->
-                    <div class="form-group mt-3">
-                        <label for="itemPrice">Price</label>
-                        <input type="number" class="input-field" id="itemPrice" name="itemPrice" placeholder="Enter price">
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn-secondary" id="cancel-btn">Cancel</button>
-                        <button type="submit" class="btn-primary">Done</button>
-                    </div>
-                </form>
-            </div>
+            <button class="done-button" id="doneBtn">Done</button>
         </div>
+    </div>
+
+
+
+<!-- Modal Done -->
+
+<!-- Update Modal -->
+<div id="openUpdateModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h2>Update Item</h2>
+        <input type="hidden" id="itemId" value="">
+        <input type="text" id="itemName" placeholder="Item Name">
+        <select id="itemType">
+            <option value="electronic">Electronic</option>
+            <option value="beauty">Beauty</option>
+            <option value="home appliance">Home Appliance</option>
+        </select>
+        <input type="text" id="itemDescription" placeholder="Description">
+        <input type="text" id="itemPrice" placeholder="Price">
+        <button id="updateDoneBtn">Done</button>
     </div>
 </div>
 
-<!-- Success Modal -->
-<div class="modal" id="successModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Success!</h5>
-                <span class="modal-close" id="closeSuccessModal">&times;</span>
-            </div>
-            <div class="modal-body">
-                <p>Item has been added successfully.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn-primary" id="success-ok-btn">OK</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- SweetAlert CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    const modal = document.getElementById("addItemModal");
-    const openModalBtn = document.getElementById("add-item-btn");
-    const closeModalBtn = document.getElementById("closeModal");
-    const cancelModalBtn = document.getElementById("cancel-btn");
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('itemModal');
+    const addItemBtn = document.getElementById('addItemBtn');
+    const closeBtn = document.querySelector('.close-btn');
+    const dropArea = document.getElementById('drop-area');
+    const itemImageInput = document.getElementById('itemImage');
 
-    // Open modal with SweetAlert notification
-    openModalBtn.onclick = function() {
-        modal.style.display = "block";
-        modal.classList.add("modal-open-animation");
-        // Swal.fire({
-        //     icon: 'info',
-        //     title: 'Add New Item',
-        //     text: 'You can now add a new item. Fill out the details below.',
-        //     timer: 2000, // Auto close after 2 seconds
-        //     showConfirmButton: false
-        // });
+    // Open modal on button click
+    addItemBtn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
+
+    // Close modal on close button click
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
+
+    // Drag and drop image functionality
+    dropArea.onclick = function () {
+        itemImageInput.click(); // Trigger file input click
     };
 
-    // Close modal with SweetAlert when clicking on the close icon or cancel button
-    function closeModal() {
-        modal.classList.add("modal-close-animation");
-        setTimeout(() => {
-            modal.style.display = "none";
-            modal.classList.remove("modal-open-animation", "modal-close-animation");
+    itemImageInput.addEventListener('change', handleFileSelect);
 
-            // SweetAlert for modal closing
-            Swal.fire({
-                icon: 'warning',
-                title: 'Action Canceled',
-                text: 'You have closed the item form.',
-                showConfirmButton: true,
-                confirmButtonText: 'OK'
-            });
-        }, 300); // Match animation duration
+    dropArea.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropArea.style.backgroundColor = '#e3e3e3'; // Optional visual feedback on hover
+    });
+
+    dropArea.addEventListener('dragleave', () => {
+        dropArea.style.backgroundColor = ''; // Reset background when leaving the drop area
+    });
+
+    dropArea.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const file = e.dataTransfer.files[0];
+        itemImageInput.files = e.dataTransfer.files; // Assign the dropped file to the input
+        handleFileSelect({ target: itemImageInput }); // Reuse the file input change handler
+    });
+
+    function handleFileSelect(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                dropArea.style.backgroundImage = `url(${e.target.result})`;
+                dropArea.style.backgroundSize = 'cover';
+                dropArea.style.backgroundPosition = 'center';
+                dropArea.innerHTML = ''; // Remove the "+" sign
+            };
+
+            reader.readAsDataURL(file); // Read the image as a data URL
+        }
     }
 
-    closeModalBtn.onclick = closeModal;
-    cancelModalBtn.onclick = closeModal;
+    document.getElementById('doneBtn').onclick = function () {
+        const itemName = document.getElementById('itemName').value;
+        const itemType = document.getElementById('itemType').value;
+        const itemDescription = document.getElementById('itemDescription').value;
+        const itemPrice = document.getElementById('itemPrice').value;
+        const itemImage = itemImageInput.files[0];
 
-    // Close modal when clicking outside the modal content
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
+        if (!itemName || !itemType || !itemDescription || !itemPrice || !itemImage) {
+            Swal.fire('Error', 'Please fill all fields and upload an image.', 'error');
+            return;
         }
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'Do you want to add this item?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, add it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const formData = new FormData();
+                formData.append('itemName', itemName);
+                formData.append('itemType', itemType);
+                formData.append('itemDescription', itemDescription);
+                formData.append('itemPrice', itemPrice);
+                formData.append('itemImage', itemImage);
+
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'upload.php', true);
+                xhr.onload = function () {
+                    if (xhr.status === 200) {
+                        Swal.fire('Success', 'Item added successfully!', 'success');
+                        modal.style.display = 'none'; // Close modal
+                    } else {
+                        Swal.fire('Error', 'There was an issue adding the item.', 'error');
+                    }
+                };
+                xhr.send(formData); // Send the form data to the server
+            }
+        });
     };
+});
 
-    // JavaScript for drag and drop with SweetAlert notifications
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-
-    dropZone.addEventListener('click', () => {
-        fileInput.click();
-        Swal.fire({
-            icon: 'info',
-            title: 'Choose File',
-            text: 'Select an image to upload.',
-            timer: 1500, // Auto close after 1.5 seconds
-            showConfirmButton: false
-        });
-    });
-
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        fileInput.files = e.dataTransfer.files;
-        dropZone.classList.remove('dragover');
-
-        // Show SweetAlert on successful drop of the file
-        Swal.fire({
-            icon: 'success',
-            title: 'File Uploaded',
-            text: 'File has been added successfully.',
-            timer: 2000, // Auto close after 2 seconds
-            showConfirmButton: false
-        });
-    });
 </script>
+
+<script>
+    $(document).ready(function() {
+    const modal = $('#updateModal');
+
+    // Function to fetch items from the database
+    function fetchItems() {
+        $.ajax({
+            url: 'fetch_items.php', // PHP script to fetch items
+            method: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                const itemsTableBody = $('#itemsTableBody');
+                itemsTableBody.empty(); // Clear existing rows
+
+                data.forEach(item => {
+                    const row = `
+                        <tr>
+                            <td>${item.name}</td>
+                            <td>${item.type}</td>
+                            <td>${item.description}</td>
+                            <td>${item.price}</td>
+                            <td><button class="update-btn" data-id="${item.id}">Update</button></td>
+                        </tr>
+                    `;
+                    itemsTableBody.append(row);
+                });
+
+                // Add click event for update buttons
+                $('.update-btn').on('click', function() {
+                    const itemId = $(this).data('id');
+                    openUpdateModal(itemId);
+                });
+            },
+            error: function(error) {
+                console.error("Error fetching items:", error);
+            }
+        });
+    }
+
+    // Function to open the update modal and populate it with item data
+    function openUpdateModal(itemId) {
+        $.ajax({
+            url: 'get_item.php', // PHP script to get specific item data
+            method: 'GET',
+            data: { id: itemId },
+            dataType: 'json',
+            success: function(item) {
+                $('#itemId').val(item.id);
+                $('#itemName').val(item.item_name);
+                $('#itemType').val(item.type);
+                $('#itemDescription').val(item.description);
+                $('#itemPrice').val(item.price);
+                modal.show(); // Show the modal
+            },
+            error: function(error) {
+                console.error("Error fetching item:", error);
+            }
+        });
+    }
+
+    // Update item on button click
+    $('#updateDoneBtn').on('click', function() {
+        const itemId = $('#itemId').val();
+        const itemName = $('#itemName').val();
+        const itemType = $('#itemType').val();
+        const itemDescription = $('#itemDescription').val();
+        const itemPrice = $('#itemPrice').val();
+
+        $.ajax({
+            url: 'update.php', // PHP script to update the item
+            method: 'POST',
+            data: {
+                id: itemId,
+                item_name: itemName,
+                type: itemType,
+                description: itemDescription,
+                price: itemPrice
+            },
+            success: function(response) {
+                Swal.fire('Success', 'Updated successfully!', 'success');
+                modal.hide(); // Hide modal
+                fetchItems(); // Refresh items
+            },
+            error: function(error) {
+                console.error("Error updating item:", error);
+                Swal.fire('Error', 'Failed to update item.', 'error');
+            }
+        });
+    });
+
+    // Close modal
+    $('.close-btn').on('click', function() {
+        modal.hide();
+    });
+
+    // Fetch items on page load
+    fetchItems();
+});
+
+</script>
+
 
 <script src="script.js"></script>
 
