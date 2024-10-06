@@ -1,17 +1,10 @@
 <?php
-// Database connection settings
-$servername = "localhost:3308";
-$username = "root";
-$password = "";
-$dbname = "StoreAdmin";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include "dbase.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Start output buffering
+    ob_start();
+
     $itemName = $_POST['itemName'];
     $itemDescription = $_POST['itemDescription'];
     $itemType = $_POST['itemType'];
@@ -27,35 +20,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (in_array($fileType, $allowedTypes)) {
         if (move_uploaded_file($_FILES["imageFile"]["tmp_name"], $targetFilePath)) {
+            // Insert item data into the database
             $sql = "INSERT INTO items (name, description, type, price, image) VALUES ('$itemName', '$itemDescription', '$itemType', '$itemPrice', '$fileName')";
 
             if ($conn->query($sql) === TRUE) {
-                // Output the success SweetAlert script on success
-                echo "
-                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-            
-                <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Item Added Successfully',
-                        text: 'Your new item has been added!',
-                        showConfirmButton: true,
-                        confirmButtonText: 'OK'
-                    }).then(() => {
-                        window.location.href = 'myStore.php'; // Redirect to the store after confirmation
-                    });
-                </script>";
-            
+                // Redirect to myStore.php upon success
+                header("Location: myStore.php");
+                exit();
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                // Display database error message
+                echo "Error adding item: " . $conn->error;
             }
         } else {
+            // Display file upload error
             echo "Error uploading file.";
         }
     } else {
-        echo "Invalid file format.";
+        // Display invalid file format error
+        echo "Invalid file format. Only JPG, PNG, JPEG, and GIF files are allowed.";
     }
+
+    // Flush output
+    ob_end_flush();
 }
 
+// Close the connection
 $conn->close();
 ?>
