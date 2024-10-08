@@ -180,6 +180,7 @@
                 <input type="file" id="itemImage" accept="image/*" style="display: none;">
             </div>
 
+            <input type="text" id="itemID" placeholder="Item ID">
             <input type="text" id="itemName" placeholder="Item Name">
             <select id="itemType">
                 <option value="electronic">Electronic</option>
@@ -281,13 +282,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('doneBtn').onclick = function () {
+        const itemID = document.getElementById('itemID').value;
         const itemName = document.getElementById('itemName').value;
         const itemType = document.getElementById('itemType').value;
         const itemDescription = document.getElementById('itemDescription').value;
         const itemPrice = document.getElementById('itemPrice').value;
         const itemImage = itemImageInput.files[0];
 
-        if (!itemName || !itemType || !itemDescription || !itemPrice || !itemImage) {
+        if (!itemID || !itemName || !itemType || !itemDescription || !itemPrice || !itemImage) {
             Swal.fire('Error', 'Please fill all fields and upload an image.', 'error');
             return;
         }
@@ -301,6 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then((result) => {
             if (result.isConfirmed) {
                 const formData = new FormData();
+                formData.append('itemID', itemID);
                 formData.append('itemName', itemName);
                 formData.append('itemType', itemType);
                 formData.append('itemDescription', itemDescription);
@@ -325,106 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 </script>
 
-<script>
-    $(document).ready(function() {
-    const modal = $('#updateModal');
 
-    // Function to fetch items from the database
-    function fetchItems() {
-        $.ajax({
-            url: 'fetch_items.php', // PHP script to fetch items
-            method: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                const itemsTableBody = $('#itemsTableBody');
-                itemsTableBody.empty(); // Clear existing rows
-
-                data.forEach(item => {
-                    const row = `
-                        <tr>
-                            <td>${item.name}</td>
-                            <td>${item.type}</td>
-                            <td>${item.description}</td>
-                            <td>${item.price}</td>
-                            <td><button class="update-btn" data-id="${item.id}">Update</button></td>
-                        </tr>
-                    `;
-                    itemsTableBody.append(row);
-                });
-
-                // Add click event for update buttons
-                $('.update-btn').on('click', function() {
-                    const itemId = $(this).data('id');
-                    openUpdateModal(itemId);
-                });
-            },
-            error: function(error) {
-                console.error("Error fetching items:", error);
-            }
-        });
-    }
-
-    // Function to open the update modal and populate it with item data
-    function openUpdateModal(itemId) {
-        $.ajax({
-            url: 'get_item.php', // PHP script to get specific item data
-            method: 'GET',
-            data: { id: itemId },
-            dataType: 'json',
-            success: function(item) {
-                $('#itemId').val(item.id);
-                $('#itemName').val(item.item_name);
-                $('#itemType').val(item.type);
-                $('#itemDescription').val(item.description);
-                $('#itemPrice').val(item.price);
-                modal.show(); // Show the modal
-            },
-            error: function(error) {
-                console.error("Error fetching item:", error);
-            }
-        });
-    }
-
-    // Update item on button click
-    $('#updateDoneBtn').on('click', function() {
-        const itemId = $('#itemId').val();
-        const itemName = $('#itemName').val();
-        const itemType = $('#itemType').val();
-        const itemDescription = $('#itemDescription').val();
-        const itemPrice = $('#itemPrice').val();
-
-        $.ajax({
-            url: 'update.php', // PHP script to update the item
-            method: 'POST',
-            data: {
-                id: itemId,
-                item_name: itemName,
-                type: itemType,
-                description: itemDescription,
-                price: itemPrice
-            },
-            success: function(response) {
-                Swal.fire('Success', 'Updated successfully!', 'success');
-                modal.hide(); // Hide modal
-                fetchItems(); // Refresh items
-            },
-            error: function(error) {
-                console.error("Error updating item:", error);
-                Swal.fire('Error', 'Failed to update item.', 'error');
-            }
-        });
-    });
-
-    // Close modal
-    $('.close-btn').on('click', function() {
-        modal.hide();
-    });
-
-    // Fetch items on page load
-    fetchItems();
-});
-
-</script>
 
 
 <script src="script.js"></script>
