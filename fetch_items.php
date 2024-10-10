@@ -1,6 +1,6 @@
 <?php
 // fetch_items.php
-$host = 'localhost';
+$host = 'localhost:3308';
 $db = 'SubscriBuy';
 $user = 'root';  // replace with your database user
 $pass = '';      // replace with your database password

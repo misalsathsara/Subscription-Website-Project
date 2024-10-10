@@ -28,7 +28,7 @@
         position: sticky;
         top: 40px;
         /* Adjust according to the height of the contact-info section */
-        z-index: 1020;
+        z-index: 100;
         /* Ensure it stays on top of other content */
     }
 

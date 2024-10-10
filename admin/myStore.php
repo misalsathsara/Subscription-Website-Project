@@ -295,34 +295,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         Swal.fire({
-            title: 'Are you sure?',
-            text: 'Do you want to add this item?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes, add it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const formData = new FormData();
-                formData.append('itemID', itemID);
-                formData.append('itemName', itemName);
-                formData.append('itemType', itemType);
-                formData.append('itemDescription', itemDescription);
-                formData.append('itemPrice', itemPrice);
-                formData.append('itemImage', itemImage);
+    title: 'Are you sure?',
+    text: 'Do you want to add this item?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, add it!'
+}).then((result) => {
+    if (result.isConfirmed) {
+        const formData = new FormData();
+        formData.append('itemID', itemID);
+        formData.append('itemName', itemName);
+        formData.append('itemType', itemType);
+        formData.append('itemDescription', itemDescription);
+        formData.append('itemPrice', itemPrice);
+        formData.append('itemImage', itemImage);
 
-                const xhr = new XMLHttpRequest();
-                xhr.open('POST', 'upload.php', true);
-                xhr.onload = function () {
-                    if (xhr.status === 200) {
-                        Swal.fire('Success', 'Item added successfully!', 'success');
-                        modal.style.display = 'none'; // Close modal
-                    } else {
-                        Swal.fire('Error', 'There was an issue adding the item.', 'error');
-                    }
-                };
-                xhr.send(formData); // Send the form data to the server
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'upload.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.status === 'success') {
+                    Swal.fire('Success', response.message, 'success');
+                    modal.style.display = 'none'; // Close modal
+                } else {
+                    Swal.fire('Error', response.message, 'error');
+                }
+            } else {
+                Swal.fire('Error', 'There was an issue with the request.', 'error');
             }
-        });
+        };
+        xhr.send(formData); // Send the form data to the server
+    }
+});
+
     };
 });
 
