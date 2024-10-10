@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 
 // File upload logic
 if (isset($_FILES['itemImage']) && !empty($_POST['itemName'])) {
+    $itemID = $_POST['itemID'];
     $itemName = $_POST['itemName'];
     $itemType = $_POST['itemType'];
     $itemDescription = $_POST['itemDescription'];
@@ -23,8 +24,8 @@ if (isset($_FILES['itemImage']) && !empty($_POST['itemName'])) {
     $target_file = $target_dir . basename($_FILES["itemImage"]["name"]);
     move_uploaded_file($_FILES["itemImage"]["tmp_name"], $target_file);
 
-    $sql = "INSERT INTO items (name, type, description, price, image) 
-            VALUES ('$itemName', '$itemType', '$itemDescription', '$itemPrice', '$target_file')";
+    $sql = "INSERT INTO items (n_id, name, type, description, price, image) 
+            VALUES ('$itemID', '$itemName', '$itemType', '$itemDescription', '$itemPrice', '$target_file')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Item added successfully";
