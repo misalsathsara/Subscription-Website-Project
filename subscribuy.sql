@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Oct 11, 2024 at 05:08 AM
+-- Generation Time: Oct 11, 2024 at 05:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,61 @@ SET time_zone = "+00:00";
 --
 -- Database: `subscribuy`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contact`
+--
+
+CREATE TABLE `contact` (
+  `id` int(11) NOT NULL,
+  `email` varchar(150) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `message` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `c_id` varchar(20) NOT NULL,
+  `c_name` varchar(500) NOT NULL,
+  `c_email` varchar(200) NOT NULL,
+  `c_tel` varchar(12) NOT NULL,
+  `c_address` varchar(300) NOT NULL,
+  `c_uname` varchar(100) NOT NULL,
+  `c_pwd` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`c_id`, `c_name`, `c_email`, `c_tel`, `c_address`, `c_uname`, `c_pwd`) VALUES
+('1', '', '0', '0', '', '', ''),
+('10', '', '0', '0', '', '', ''),
+('11', '', '0', '0', '', '', ''),
+('12', '', '0', '0', '', '', ''),
+('2', '', '0', '0', '', '', ''),
+('3', '', '0', '0', '', '', ''),
+('4', '', '0', '0', '', '', ''),
+('5', '', '0', '0', '', '', ''),
+('6', '', '0', '0', '', '', ''),
+('7', '', '0', '0', '', '', ''),
+('8', '', '0', '0', '', '', ''),
+('9', '', '0', '0', '', '', ''),
+('C001', '', '0', '0', '', '', ''),
+('C002', '', '0', '0', '', '', ''),
+('C100', '', '0', '0', '', '', ''),
+('C101', '', '0', '0', '', '', ''),
+('C102', '', '0', '0', '', '', ''),
+('C103', 'sf', '0', '0', 'fdfad', '', ''),
+('C104', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'fdfad', '', ''),
+('C105', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'hi hi', 'ranuga', '$2y$10$xC1n5EgbEh7lRLnDtjx0uO7GZUI4.i/JsNjMPiw1T.GTPGEqBaWxO');
 
 -- --------------------------------------------------------
 
@@ -67,6 +122,7 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VALUES
+('001', 'Healthy Food', 'beauty', 'msdkmkd', 5000.00, 'uploads/healthy food pack.jpg'),
 ('AC001', 'phone', 'electronic', 'iwuediu', 120000.00, 'uploads/gauge-temperature-icon-free-vector.jpg'),
 ('AC003', 'phone', 'electronic', 'iwuediu', 120000.00, 'uploads/gauge-temperature-icon-free-vector.jpg'),
 ('AC004', 'item 2', 'electronic', 'hello', 12000.00, 'uploads/wallpaperflare.com_wallpaper.jpg'),
@@ -76,6 +132,12 @@ INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VA
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`c_id`);
 
 --
 -- Indexes for table `c_reviews`
