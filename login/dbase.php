@@ -1,9 +1,10 @@
 <?php
-// Database connection settings
-$servername = "localhost"; // Database server (usually "localhost" if running locally)
-$username = "root"; // Your MySQL username
-$password = ""; // Your MySQL password (leave empty if no password)
-$dbname = "subscribuy"; // The name of your database
+$servername = "localhost:3308";
+$password = "";
+// $servername = "localhost:3306";
+// $password = "root"; 
+$username = "root"; 
+$dbname = "SubscriBuy";
 
 // Create a connection
 $conn = new mysqli($servername, $username, $password, $dbname);

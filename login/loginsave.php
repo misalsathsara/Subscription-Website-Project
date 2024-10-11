@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['c_id'] = $c_id;
 
             // Perform the redirect
-            header('Location: home.php');
+            header('Location: ../index.php');
             exit;  // Make sure to call exit after header
         } else {
             echo "Invalid username or password"; // Optional: Show this message
