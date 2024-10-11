@@ -1,7 +1,7 @@
 <?php
-// $servername = "localhost:3308";
+$servername = "localhost:3308";
 $password = "";
-$servername = "localhost:3306";
+// $servername = "localhost:3306";
 // $password = "root"; 
 $username = "root"; 
 $dbname = "SubscriBuy";
