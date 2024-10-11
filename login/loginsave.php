@@ -21,17 +21,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['logged_in'] = true;
             $_SESSION['c_id'] = $c_id;
 
-            // Perform the redirect
-            header('Location: ../index.php');
-            exit;  // Make sure to call exit after header
+            // Send a JSON response instead of redirecting
+            echo json_encode(['status' => 'success', 'message' => 'Login successful!']);
         } else {
-            echo "Invalid username or password"; // Optional: Show this message
+            echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
         }
     } else {
-        echo "Invalid username or password"; // User not found
+        echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
     }
 
     $stmt->close();
     $conn->close();
 }
+
 ?>

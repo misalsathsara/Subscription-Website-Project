@@ -5,84 +5,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
+
     <style>
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Light background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #6ab1d7, #33d9b2);
+        }
 
-.login-container {
-    background: white;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    width: 350px; /* Width of the form */
-    text-align: center; /* Center text */
-    position: relative;
-}
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s ease-out;
+        }
 
-.illustration {
-    position: absolute;
-    top: -60px; /* Positioning of the illustration */
-    left: 50%;
-    transform: translateX(-50%);
-}
+        .login-container h2 {
+            color: #333;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in-out;
+        }
 
-.illustration img {
-    width: 120px; /* Size of the illustration */
-}
+        .illustration img {
+            max-width: 100px;
+            margin-bottom: 20px;
+            animation: floatImage 2s infinite ease-in-out;
+        }
 
-h2 {
-    margin: 40px 0 20px; /* Space around heading */
-    font-size: 24px; /* Font size for heading */
-    color: #333; /* Color of heading text */
-}
+        .login-container input {
+            width: 94%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #33d9b2;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+          
+            
+        }
 
-input[type="text"],
-input[type="password"] {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding for inputs */
-    margin: 10px 0; /* Space around inputs */
-    border: 1px solid #ddd; /* Light border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-}
+        .login-container input:focus {
+            border-color: #6ab1d7;
+            box-shadow: 0 0 10px rgba(33, 150, 243, 0.5);
+        }
 
-button {
-    width: 100%; /* Full width */
-    padding: 10px; /* Padding for button */
-    margin: 10px 0; /* Space around button */
-    border: none; /* No border */
-    border-radius: 5px; /* Rounded corners */
-    background-color: #4caf50; /* Green background */
-    color: white; /* Text color */
-    font-size: 16px; /* Font size */
-    cursor: pointer; /* Pointer cursor */
-    transition: background-color 0.3s; /* Smooth transition for hover effect */
-}
+        .login-container button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            background-color: #33d9b2;
+            color: white;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-button:hover {
-    background-color: #45a049; /* Darker green on hover */
-}
+        .login-container button:hover {
+            background-color: #6ab1d7;
+        }
 
-.forgot-password {
-    margin-top: 10px; /* Space above the link */
-}
+        .forgot-password {
+            margin-top: 15px;
+            color: #555;
+        }
 
-.forgot-password a {
-    text-decoration: none; /* No underline for the link */
-    color: #4caf50; /* Link color */
-    font-size: 14px; /* Font size */
-}
+        .forgot-password a {
+            color: #33d9b2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
+        .forgot-password a:hover {
+            color: #6ab1d7;
+        }
 
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes floatImage {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
     </style>
+   
 </head>
 <body>
 <div class="login-container">   
@@ -97,6 +139,7 @@ button:hover {
 
     <button type="submit">LOGIN</button>
     <p class="forgot-password"><a href="#">Forgot Password?</a></p>
+    <div class="formdata" id='formdata'></div>
   </form>   
 
 </div>
@@ -114,8 +157,8 @@ button:hover {
 <script type="text/javascript">
 $(document).ready(function() {
     $("#lform").submit(function(event) {
-        event.preventDefault();
-        // alert("test 1...");
+        event.preventDefault();  // Prevent the default form submission
+
         var vals = $(":input").map(function() {
             return $(this).val();
         }).get();
@@ -126,20 +169,23 @@ $(document).ready(function() {
                 var1: vals
             },
             url: 'loginsave.php',
-    success: function(json) {
-        console.log("Request successful");  // Debug message
-        $('#formdata').html(json);
-        // window.location.reload();
-        
-    },
-    error: function(jqXHR, textStatus, errorThrown) {
-        console.log("Request failed: " + textStatus + ", " + errorThrown);
-        
-    }
-  
+            dataType: 'json',  // Expect JSON response
+            success: function(response) {
+                if (response.status === 'success') {
+                    // Redirect to index page
+                    window.location.href = '../index.php';
+                } else {
+                    // Show error message
+                    $('#formdata').html('<p style="color: red;">' + response.message + '</p>');
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log("Request failed: " + textStatus + ", " + errorThrown);
+            }
         });
     });
 });
+
 </script>
 
 </html>
