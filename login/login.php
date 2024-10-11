@@ -86,6 +86,16 @@
             transition: color 0.3s ease;
         }
 
+        .register{
+            margin-top: 15px;
+            color: #555;
+        }
+        .register a{
+            color: #blue;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
         .forgot-password a:hover {
             color: #6ab1d7;
         }
@@ -139,6 +149,7 @@
 
     <button type="submit">LOGIN</button>
     <p class="forgot-password"><a href="#">Forgot Password?</a></p>
+    <p class="register">Haven,t Account Yet ? <a href="regform.php">Register Now</a></p>
     <div class="formdata" id='formdata'></div>
   </form>   
 

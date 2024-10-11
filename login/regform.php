@@ -8,160 +8,187 @@
     <style>
  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
-* {
+ body {
+    background-color: #e0f7fa; /* Light blue background */
+    font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body,
-input,
-textarea {
-    font-family: "Poppins", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .reg-container {
-    width: 100%;
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
+    background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%); /* Gradient background */
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 100%;
+    animation: fadeIn 0.6s ease-in-out; /* Fade-in animation */
 }
 
-h2.title {
-    font-size: 2rem;
-    color: #444;
-    margin-bottom: 20px;
+.title {
     text-align: center;
+    color: #0277bd; /* Blue color for title */
+    margin-bottom: 20px;
 }
 
-.input-field {
+.form-row {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 15px;
 }
 
-.input-field label {
-    font-weight: 600;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.input-field input,
-.input-field textarea,
-.input-field select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.input-field input:focus,
-.input-field textarea:focus,
-.input-field select:focus {
-    border-color: #5995fd;
-    outline: none;
-}
-
-.error-message {
-    color: red;
-    display: none; /* Initially hide error message */
-    font-size: 0.9rem;
-}
-
-.tel-input {
-    display: flex;
-    align-items: center;
-}
-
-.tel-input select {
-    width: 30%;
+.input-field {
+    flex: 1;
     margin-right: 10px;
 }
 
-.btn {
+.input-field:last-child {
+    margin-right: 0;
+}
+
+.input-field label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: bold;
+}
+
+.input-field input,
+.input-field select,
+.input-field textarea {
     width: 100%;
-    background-color: #5995fd;
-    border: none;
-    height: 45px;
+    padding: 12px;
+    border: 2px solid #81d4fa; /* Light blue border */
     border-radius: 5px;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 600;
+    background-color: #f0f4c3; /* Light green background for inputs */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Transition for focus effect */
+}
+
+.input-field input:focus,
+.input-field select:focus,
+.input-field textarea:focus {
+    border-color: #0288d1; /* Darker blue on focus */
+    box-shadow: 0 0 5px rgba(2, 136, 209, 0.5); /* Blue glow effect */
+}
+
+.error-message {
+    display: none; /* Initially hidden */
+    color: red;
+    margin-top: 5px;
+}
+
+.btn {
+    background-color: #03a9f4; /* Blue background */
+    color: white;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s; /* Button transitions */
+    width: 100%;
 }
 
 .btn:hover {
-    background-color: #4d84e2;
+    background-color: #0288d1; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
-@media (max-width: 500px) {
-    .reg-container {
-        padding: 15px;
-    }
+p {
+    text-align: center;
+    margin-top: 15px;
+}
 
-    .title {
-        font-size: 1.5rem;
+p a {
+    color: #03a9f4; /* Link color */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+p a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px); /* Start slightly above */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* End in place */
     }
 }
 
+   
     </style>
 </head>
-
 <body>
-<div class="reg-container">
-    <h2 class="title">Customer Registration</h2>
-    <form action="/" method="POST" id="regform">
-        <div class="input-field">
-            <label for="name">Full Name:</label>
-            <input type="text" id="name" name="name" placeholder="Your full name" required>
-        </div>
+    <div class="reg-container">
+        <h2 class="title">Customer Registration</h2>
+        <form action="/" method="POST" id="regform">
+            <!-- Full Name and Username in same row -->
+            <div class="form-row">
+                <div class="input-field">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Your full name" required>
+                </div>
+            </div>
+            <div class="form-row">
+            <div class="input-field">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Your username" required>
+                </div>
+            </div>
 
-        <div class="input-field">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Your username" required>
-        </div>
+            <!-- Password and Confirm Password in same row -->
+            <div class="form-row">
+                <div class="input-field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Set a password" required>
+                </div>
+                <div class="input-field">
+                    <label for="confirm-password">Re-enter Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+                </div>
+            </div>
 
-        <div class="input-field">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Set a password" required>
-        </div>
+            <div class="error-message" id="password-error">Passwords do not match!</div>
 
-        <div class="input-field">
-            <label for="confirm-password">Re-enter Password:</label>
-            <input type="password" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
-        </div>
+            <!-- Email Field -->
+            <div class="input-field">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required>
+            </div>
 
-        <div class="error-message" id="password-error">Passwords do not match!</div>
+            <!-- Phone Number Field -->
+            <div class="form-row">
+                <div class="input-field">
+                    <label for="country-code">Country Code:</label>
+                    <select id="country-code" name="country-code" required>
+                    </select>
+                </div>
+                <div class="input-field">
+                    <label for="tel">Phone Number:</label>
+                    <input type="tel" id="tel" name="tel" placeholder="Phone number" maxlength="9" required>
+                </div>
+            </div>
 
-        <div class="input-field">
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" placeholder="Your email address" required>
-        </div>
+            <!-- Address Field -->
+            <div class="input-field">
+                <label for="address">Address:</label>
+                <textarea id="address" name="address" rows="3" placeholder="Your address" required></textarea>
+            </div>
 
-        <div class="input-field tel-input">
-            <label for="tel">Phone Number:</label>
-            <select id="country-code" name="country-code" required>
-                <option value="+1">+1</option>
-                <option value="+44">+44</option>
-                <option value="+91">+91</option>
-            </select>
-            <input type="tel" id="tel" name="tel" placeholder="Phone number" maxlength="9" required>
-        </div>
-
-        <div class="input-field">
-            <label for="address">Address:</label>
-            <textarea id="address" name="address" rows="3" placeholder="Your address" required></textarea>
-        </div>
-
-        <button type="submit" class="btn">Register</button>
-        <div id="formdata">........</div>
-    </form>
-</div>
+            <!-- Register Button -->
+            <button type="submit" class="btn">Register</button>
+        </form>
+        <p>Already have an account? <a href="login.php">Login</a></p>
+    </div>
 
 
 <script>
