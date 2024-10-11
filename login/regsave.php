@@ -1,5 +1,5 @@
 <?php
-include 'dbase.php';
+include '../dbase.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
