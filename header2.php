@@ -253,8 +253,7 @@
                 <div class="navbar-right ms-3">
                     <a class="nav-link icon-btn" href="#"><i class="fa fa-shopping-cart"></i></a>
                     <a class="nav-link icon-btn" href="#"><i class="fa fa-heart"></i></a>
-                    <a class="nav-link icon-btn" href="#"><i class="fa fa-user"></i></a>
-                    <!-- <div class="nav-item dropdown">
+                    <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-user"></i>
@@ -266,7 +265,7 @@
                             <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Cart</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </ul>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
