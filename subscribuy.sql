@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Oct 11, 2024 at 05:32 AM
+-- Generation Time: Oct 12, 2024 at 11:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,11 @@ INSERT INTO `customers` (`c_id`, `c_name`, `c_email`, `c_tel`, `c_address`, `c_u
 ('C102', '', '0', '0', '', '', ''),
 ('C103', 'sf', '0', '0', 'fdfad', '', ''),
 ('C104', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'fdfad', '', ''),
-('C105', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'hi hi', 'ranuga', '$2y$10$xC1n5EgbEh7lRLnDtjx0uO7GZUI4.i/JsNjMPiw1T.GTPGEqBaWxO');
+('C105', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'hi hi', 'ranuga', '$2y$10$xC1n5EgbEh7lRLnDtjx0uO7GZUI4.i/JsNjMPiw1T.GTPGEqBaWxO'),
+('C106', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$9RATcPFwN9iyRLY9qRy7Pu9LAvFvsif6QZMe2BCCxAJlf8TLHahKS'),
+('C107', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$S8eIVhFpG7xKhr718/3Z1ezhdYbKB8VYDJVkO3.3ZsAdjf8wSDr1a'),
+('C108', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$ByepXqjN5i58H9JtMlwUG.KvdRDNADBlrh4VvihDcYzJm6wGTTdVq'),
+('C109', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$d/BirLrfKdIEwDpojd/zkemwlDpoIv6tN01/Bj/srSe.rC4iuo2wW');
 
 -- --------------------------------------------------------
 
