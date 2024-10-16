@@ -268,7 +268,7 @@
         <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Orders</a></li>
         <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
         <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-        <li><a class="dropdown-item" href="./login/logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
+        <li><a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
     </ul>
 </div>
 
