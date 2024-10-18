@@ -4,7 +4,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <?php
-  include 'header.php';
+session_start(); // Start the session
+
+// Check if the user is logged in
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    include('header2.php');
+} else {
+    include('header.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,45 +21,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fancy SubscriBuy Items</title>
     <style>
-        /* General Styles */
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
         }
 
+        #filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        #filter-container select, #filter-container input, .btn-filter {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 150px;
+        }
+
+        .btn-filter {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-filter:hover {
+            background-color: #218838;
+        }
+
         #card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    gap: 20px;
-}
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+        }
 
-.card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    max-width: 280px;
-}
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            max-width: 280px;
+        }
 
-.card:hover {
-    transform: scale(1.05);
-}
+        .card:hover {
+            transform: scale(1.05);
+        }
 
-.card img {
-    border-radius: 10px;
-    width: 280px; /* Set the width to 100% to make it responsive */
-    height: 200px; /* Set a fixed height for the image */
-    object-fit: cover; /* Scale the image to cover the entire area */
-    padding: 10px;
-}
+        .card img {
+            border-radius: 10px;
+            width: 280px;
+            height: 200px;
+            object-fit: cover;
+            padding: 10px;
+        }
 
-.card-body {
-    padding: 15px;
-}
-
+        .card-body {
+            padding: 15px;
+        }
 
         .star-rating {
             color: #FFD700;
@@ -69,10 +104,6 @@
             transition: background-color 0.3s ease;
         }
 
-        .btn i {
-            margin-right: 5px;
-        }
-
         .btn-cart, .btn-wishlist {
             background-color: #007bff;
             color: white;
@@ -82,7 +113,6 @@
             background-color: #0056b3;
         }
 
-        /* Modal Styles */
         #modal-overlay {
             display: none;
             position: fixed;
@@ -229,15 +259,25 @@
     </style>
 </head>
 <body>
+<?php include('product_banner.php'); ?>
 
-    <div id="card-container"></div>
+<!-- Filter Section -->
+<div id="filter-container">
+    <select id="categoryFilter">
+        <option value="">All Categories</option>
+        <option value="electronic">Electronic</option>
+        <option value="beauty">Beauty</option>
+        <option value="home appliance">Home Appliance</option>
+    </select>
+    <input type="number" id="minPrice" placeholder="Min Price">
+    <input type="number" id="maxPrice" placeholder="Max Price">
+    <button class="btn-filter" onclick="applyFilters()">Apply Filters</button>
+</div>
+<!-- Modal Overlay -->
+<div id="modal-overlay"></div>
+<div id="card-container"></div>
 
-   
-    <!-- Modal Overlay -->
-    <div id="modal-overlay"></div>
-
-    <!-- ... (rest of the HTML remains the same) ... -->
-
+<!-- Modal -->
 <div id="itemModal" class="modal">
     <div class="modal-header">
         <h2>Item Details</h2>
@@ -249,7 +289,6 @@
                 <img id="modalImage" src="" alt="Item Image" class="img-fluid">
                 <div id="reviews" class="reviews mt-3">
                     <h4>Customer Reviews</h4>
-                    <!-- Reviews will be inserted here -->
                 </div>
             </div>
             <div class="col-md-6">
@@ -266,67 +305,91 @@
     </div>
 </div>
 
-<!-- ... (rest of the HTML remains the same) ... -->
-    <script>
-        function fetchItems() {
-            fetch('fetch_items.php')
-                .then(response => response.json())
-                .then(data => {
-                    const cardContainer = document.getElementById('card-container');
-                    cardContainer.innerHTML = ''; // Clear existing cards
+<?php include('footer.php'); ?>
 
-                    data.forEach(item => {
-                        const card = document.createElement('div');
-                        card.classList.add('card');
+<script>
+// Fetch all items when the page loads
+// Fetch all items when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchItems(); // Fetch all items on load
+});
 
-                        const img = document.createElement('img');
-                        img.src = 'admin/' + item.image;
-                        img.alt = item.name;
+function fetchItems(category = '', minPrice = '', maxPrice = '') {
+    fetch(`fetch_items.php?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
+        .then(response => response.json())
+        .then(data => {
+            const cardContainer = document.getElementById('card-container');
+            cardContainer.innerHTML = ''; // Clear existing cards
 
-                        const cardBody = document.createElement('div');
-                        cardBody.classList.add('card-body');
+            if (data.length === 0) {
+                cardContainer.innerHTML = '<p>No items found.</p>';
+                return;
+            }
 
-                        const name = document.createElement('h2');
-                        name.classList.add('card-title');
-                        name.textContent = item.name;
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.classList.add('card');
 
-                        const stars = document.createElement('div');
-                        stars.classList.add('star-rating');
-                        stars.innerHTML = '★'.repeat(Math.round(item.avg_rating)) + '☆'.repeat(5 - Math.round(item.avg_rating));
+                const img = document.createElement('img');
+                img.src = 'admin/' + item.image;
+                img.alt = item.name;
 
-                        const price = document.createElement('p');
-                        price.classList.add('card-text');
-                        price.textContent = `Price: $${item.price}`;
+                const cardBody = document.createElement('div');
+                cardBody.classList.add('card-body');
 
-                        const moreInfoBtn = document.createElement('button');
-                        moreInfoBtn.classList.add('btn', 'btn-cart');
-                        moreInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i>';
-                        moreInfoBtn.onclick = () => openModal(item);
+                const name = document.createElement('h2');
+                name.classList.add('card-title');
+                name.textContent = item.name;
 
-                        const addToCartBtn = document.createElement('button');
-                        addToCartBtn.classList.add('btn', 'btn-cart');
-                        addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
-                        addToCartBtn.onclick = () => alert('Added to cart');
+                const stars = document.createElement('div');
+                stars.classList.add('star-rating');
+                stars.innerHTML = '★'.repeat(Math.round(item.avg_rating)) + '☆'.repeat(5 - Math.round(item.avg_rating));
 
-                        const addToWishlistBtn = document.createElement('button');
-                        addToWishlistBtn.classList.add('btn', 'btn-wishlist');
-                        addToWishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                const price = document.createElement('p');
+                price.classList.add('card-text');
+                price.textContent = `Price: $${item.price}`;
 
-                        cardBody.appendChild(name);
-                        cardBody.appendChild(stars);
-                        cardBody.appendChild(price);
-                        cardBody.appendChild(moreInfoBtn);
-                        cardBody.appendChild(addToCartBtn);
-                        cardBody.appendChild(addToWishlistBtn);
-                        card.appendChild(img);
-                        card.appendChild(cardBody);
+                const moreInfoBtn = document.createElement('button');
+                moreInfoBtn.classList.add('btn', 'btn-cart');
+                moreInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i>';
+                moreInfoBtn.onclick = () => openModal(item);
 
-                        cardContainer.appendChild(card);
-                    });
-                });
-        }
+                const addToCartBtn = document.createElement('button');
+                addToCartBtn.classList.add('btn', 'btn-cart');
+                addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
+                addToCartBtn.onclick = () => alert('Added to cart')
+                
+                const addToWishlistBtn = document.createElement('button');
+                addToWishlistBtn.classList.add('btn', 'btn-wishlist');
+                addToWishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
 
-        function openModal(item) {
+                cardBody.appendChild(name);
+                cardBody.appendChild(stars);
+                cardBody.appendChild(price);
+                cardBody.appendChild(moreInfoBtn);
+                cardBody.appendChild(addToCartBtn);
+                cardBody.appendChild(addToWishlistBtn);
+                card.appendChild(img);
+                card.appendChild(cardBody);
+
+                cardContainer.appendChild(card);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching items:', error);
+        });
+}
+
+function applyFilters() {
+    const category = document.getElementById('categoryFilter').value;
+    const minPrice = document.getElementById('minPrice').value;
+    const maxPrice = document.getElementById('maxPrice').value;
+
+    fetchItems(category, minPrice, maxPrice);
+}
+
+
+function openModal(item) {
     const modal = document.getElementById('itemModal');
     const overlay = document.getElementById('modal-overlay');
 
@@ -353,15 +416,12 @@ if (item.reviews.length > 0) {
     modal.classList.add('active');
     overlay.style.display = 'block'; // Show overlay
 }
-        function closeModal() {
-            const modal = document.getElementById('itemModal');
-            const overlay = document.getElementById('modal-overlay');
-            modal.classList.remove('active');
-            overlay.style.display = 'none'; // Hide overlay
-        }
-
-        // Fetch items on page load
-        document.addEventListener('DOMContentLoaded', fetchItems);
-    </script>
+function closeModal() {
+    const modal = document.getElementById('itemModal');
+    const overlay = document.getElementById('modal-overlay');
+    modal.classList.remove('active');
+    overlay.style.display = 'none'; // Hide overlay
+}
+</script>
 </body>
 </html>
