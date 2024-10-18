@@ -258,79 +258,22 @@
                 <div class="navbar-right ms-3">
                     <a class="nav-link icon-btn" href="#"><i class="fa fa-shopping-cart"></i></a>
                     <a class="nav-link icon-btn" href="#"><i class="fa fa-heart"></i></a>
-                    <a class="nav-link icon-btn" href="login.php" data-bs-toggle="modal" data-bs-target="#loginModal">
-                        <i class="fa fa-user"></i>
-                    </a>
+                    <div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-user"></i>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Orders</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+        <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+        <li><a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
+    </ul>
+</div>
 
-                    
-                    <!-- <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-user"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Orders</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i> Logout</a></li>
-                        </ul>
-                    </div> -->
                 </div>
             </div>
         </div>
     </nav>
     <!-- Navbar End -->
-
-
-    
-<!-- Login Modal Structure -->
-<style>
-    .custom-btn:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-}
-
-.custom-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
-    transition: box-shadow 0.3s ease-in-out;
-}
-
-</style>
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-primary fw-bold" id="loginModalLabel">Welcome Back</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Login form -->
-                <div class="login-container p-4 text-center">
-                    <div class="illustration mb-4">
-                        <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
-                    </div>
-                    <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
-                    <form action="" method="POST" id="lform">
-                        <div class="form-group mb-3">
-                            <input type="text" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Username" name="username" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <input type="password" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">Login</button>
-
-                        <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
-                        <p class="register mt-2">Don't have an account? <a href="regform.php" class="text-primary fw-bold">Register Now</a></p>
-
-                        <div class="formdata mt-4" id='formdata'></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Bootstrap & Optional JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
