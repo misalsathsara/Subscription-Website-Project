@@ -1,22 +1,13 @@
 <?php
-// Database connection
-$host = 'localhost:3308';
-$db = 'SubscriBuy';
-$user = 'root';  // replace with your database user
-$pass = '';      // replace with your database password
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+// Include the database connection
+include 'dbase.php';
 
 // Get filter values from the query parameters
 $category = $_GET['category'] ?? '';
 $minPrice = $_GET['minPrice'] ?? '';
 $maxPrice = $_GET['maxPrice'] ?? '';
 
-// Base SQL query
+// Base SQL query to retrieve items and their average rating and total reviews
 $sql = "SELECT i.*, 
                IFNULL(AVG(r.rating), 0) AS avg_rating, 
                COUNT(r.c_id) AS total_reviews 
@@ -45,6 +36,7 @@ $result = $conn->query($sql);
 
 $items = [];
 
+// Fetch the result set and retrieve reviews for each item
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         // Fetch reviews for each item
