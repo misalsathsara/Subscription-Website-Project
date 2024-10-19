@@ -7,7 +7,6 @@ $password = "";
 // $password = "root"; 
 $dbname = "SubscriBuy";
 
-
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 
