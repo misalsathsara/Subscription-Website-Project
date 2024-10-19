@@ -1,3 +1,8 @@
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 <?php
 session_start(); // Start the session
 
@@ -10,7 +15,19 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     include('header.php');
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fancy SubscriBuy Items</title>
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+        }
+
         #filter-container {
             display: flex;
             justify-content: center;
@@ -106,14 +123,14 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            z-index: 900;
             animation: fadeIn 0.4s ease-in-out;
         }
 
-        .modal {
+        .modal1 {
             display: none;
             position: fixed;
-            top: 50%;
+            top: 60%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
@@ -123,9 +140,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             width: 70%;
             max-width: 800px;
             height: 90%;
+            z-index: 1000;
         }
 
-        .modal.active {
+        .modal1.active {
             display: block;
         }
 
@@ -135,7 +153,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             align-items: center;
         }
 
-        .modal img {
+        .modal1 img {
             width: 100%; /* Adjusted for responsiveness */
             height: auto;
             border-radius: 10px;
@@ -165,7 +183,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             background-color: #e0a800;
         }
 
-        .modal-content {
+        .modal-content1 {
     /* overflow-y: auto; */
     border: white;
     max-height: 70vh; /* adjust the max height as needed */
@@ -188,18 +206,18 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     background-color: #f0f0f0;
     border-radius: 10px;
 } */
-        .modal-content .row {
+        .modal-content1 .row {
             flex-grow: 1;
             display: flex;
             flex-wrap: wrap;
         }
 
-        .modal-content .col-md-6 {
+        .modal-content1 .col-md-6 {
             flex-basis: 50%;
             padding: 5px 5px 20px 5px;
         }
 
-        .modal-content .col-md-6 img {
+        .modal-content1 .col-md-6 img {
             width: 300px; /* Set the width to 30% of the viewport width */
             height: 300px; /* Set the height to 20% of the viewport height */
             object-fit: cover; /* Scale the image to cover the entire area */
@@ -263,12 +281,12 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 <div id="card-container"></div>
 
 <!-- Modal -->
-<div id="itemModal" class="modal">
+<div id="itemModal" class="modal1">
     <div class="modal-header">
         <h2>Item Details</h2>
         <button class="btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
     </div>
-    <div class="modal-content">
+    <div class="modal-content1">
         <div class="row">
             <div class="col-md-6">
                 <img id="modalImage" src="" alt="Item Image" class="img-fluid">
