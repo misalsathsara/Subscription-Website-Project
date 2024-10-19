@@ -4,13 +4,10 @@
         <!-- Hero Section -->
         <div class="row align-items-center no-gutters">
             <!-- Text Content Column -->
-            <div class="col-xl-7 col-lg-6 col-md-12 text-lg-end text-center">
-                <img src="./Images/banner_man.png" alt="Hero Image" class="img-fluid banner-image">
-            </div>
             <div class="col-xl-5 col-lg-6 col-md-12">
                 <div class="banner-content py-5 py-lg-0">
                     <h1 class="text-white display-4 fw-bold banner-heading">
-                        Welcome to SubscriBuy
+                       Grab Your First Oder and and have a <h1 style = >Great Offer<h1>
                     </h1>
                     <p class="text-white-50 mb-4 lead banner-subtext">
                         Hand-picked clean and fresh items, packaged for rural and urban areas.
@@ -18,6 +15,9 @@
                     <!-- Call to Action Buttons -->
                     <a href="" class="btn btn-white text-blue me-3">View Products</a>
                 </div>
+            </div>
+            <div class="col-xl-7 col-lg-6 col-md-12 text-lg-end text-center">
+                <img src="./Images/product_banner.png" alt="Hero Image" class="img-fluid banner-image">
             </div>
             <!-- Image Column -->
             
@@ -27,7 +27,7 @@
 
 <style>
 .banner-section {
-    background-color: #0d6efd;
+    background-color: #FFA500;
     /* Your preferred blue */
     /* padding: 60px 0; */
     position: relative;
@@ -68,8 +68,8 @@
 /* Button Styling */
 .btn-white {
     background-color: #ffffff;
-    color: #0d6efd;
-    border: 2px solid #0d6efd;
+    color: #FFA500;
+    border: 2px solid #FFA500;
     padding: 12px 30px;
     font-size: 1.1rem;
     font-weight: 500;
@@ -78,14 +78,15 @@
 
 .btn-white:hover {
     background-color: #f8f9fa;
-    color: #0d6efd;
-    border-color: #0d6efd;
+    color: #FFA500;
+    border-color: #FFA500;
     transform: translateY(-3px);
     /* Hover effect to elevate the button slightly */
 }
 
 /* Image Styling */
 .banner-image {
+    align-items: left;
     width: 100%;
     height: auto;
     animation: slideInRight 2s ease-in-out;
@@ -133,12 +134,12 @@
 @keyframes slideInRight {
     0% {
         opacity: 0;
-        transform: translateX(0);
+        transform: translateX(50px);
     }
 
     100% {
         opacity: 1;
-        transform: translateX(50px);
+        transform: translateX(0);
     }
 }
 </style>

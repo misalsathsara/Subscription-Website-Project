@@ -130,7 +130,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
         .modal1 {
             display: none;
             position: fixed;
-            top: 60%;
+            top: 52%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: white;
