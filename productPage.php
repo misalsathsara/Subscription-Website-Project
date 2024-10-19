@@ -7,12 +7,14 @@
 session_start(); // Start the session
 
 // Check if the user is logged in
-// if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-//     include('header2.php');
-// } else {
-//     include('header.php');
-// }
-// ?>
+if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    // If the user is logged in, include header2.php
+    include('header2.php');
+} else {
+    // If the user is not logged in, include header.php
+    include('header.php');
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
