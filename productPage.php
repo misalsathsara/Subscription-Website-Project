@@ -121,7 +121,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
-            /* z-index: ; */
+            z-index: 1000;
             animation: fadeIn 0.4s ease-in-out;
         }
 
