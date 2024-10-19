@@ -1,15 +1,5 @@
 <?php
-// Database connection
-$host = 'localhost:3308';
-$db = 'SubscriBuy';
-$user = 'root';  // replace with your database user
-$pass = '';      // replace with your database password
-
-$conn = new mysqli($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+include 'dbase.php';
 
 // Get filter values from the query parameters
 $category = $_GET['category'] ?? '';
