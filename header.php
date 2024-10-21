@@ -312,7 +312,7 @@
 <!-- Integrated Modal for Login and Registration -->
 <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg rounded-4">
+        <div class="modal-content border-0 shadow-lg rounded-4" style="background-color: #f8f9fa;">
             <div class="modal-header border-0">
                 <h5 class="modal-title text-primary fw-bold" id="authModalLabel">Login</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -321,87 +321,84 @@
             <div class="modal-body">
                 <!-- Login Form -->
                 <div id="loginForm" class="auth-form">
-    <div class="login-container p-4 text-center">
-        <div class="illustration mb-4">
-            <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
-        </div>
-        <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
-        <form action="loginsave.php" method="POST" id="lform">
-            <div class="form-group mb-3">
-                <input type="text" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Username" name="username" id="username" required>
-            </div>
-            <div class="form-group mb-4">
-                <input type="password" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Password" name="password" id="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" id="loginBtn" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">
-                Login
-            </button>
+                    <div class="login-container p-4 text-center">
+                        <div class="illustration mb-4">
+                            <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
+                        </div>
+                        <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
+                        <form action="loginsave.php" method="POST" id="lform">
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" placeholder="Username" name="username" id="username" required>
+                            </div>
+                            <div class="form-group mb-4">
+                                <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" placeholder="Password" name="password" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-2 shadow-sm px-4 py-2" id="loginBtn" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">
+                                Login
+                            </button>
 
-            <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
-            <p class="register mt-2">
-                Don't have an account? 
-                <a href="#" class="text-primary fw-bold" id="showRegisterForm">Register Now</a>
-            </p>
-        </form>
-    </div>
-</div>
-
-<script>
-document.getElementById('lform').addEventListener('submit', function(event) {
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (username === '' || password === '') {
-        event.preventDefault();
-        alert('Both fields are required!');
-    }
-});
-</script>
-
+                            <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
+                            <p class="register mt-2">
+                                Don't have an account? 
+                                <a href="#" class="text-primary fw-bold" id="showRegisterForm">Register Now</a>
+                            </p>
+                        </form>
+                    </div>
+                </div>
 
                 <!-- Registration Form -->
                 <div id="registerForm" class="auth-form" style="display: none;">
                     <div class="registration-container p-4">
                         <h2 class="text-primary fw-bold mb-4">Create Your Account</h2>
                         <form id="regform">
-                            <div class="form-group">
-                                <label for="name">Full Name:</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required>
+                            <div class="form-group mb-3">
+                                <label for="name" class="fw-bold">Full Name:</label>
+                                <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="name" name="name" placeholder="Your full name" required>
                             </div>
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="reg-username" name="username" placeholder="Your username" required>
+                            <div class="form-group mb-3">
+                                <label for="username" class="fw-bold">Username:</label>
+                                <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="reg-username" name="username" placeholder="Your username" required>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label for="password">Password:</label>
-                                    <input type="password" class="form-control" id="reg-password" name="password" placeholder="Set a password" required>
+                                    <label for="password" class="fw-bold">Password:</label>
+                                    <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="reg-password" name="password" placeholder="Set a password" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="confirm-password">Re-enter Password:</label>
-                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+                                    <label for="confirm-password" class="fw-bold">Re-enter Password:</label>
+                                    <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
                                 </div>
                             </div>
-                            <div class="error-message" id="password-error">Passwords do not match!</div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" required>
+                            <div class="error-message text-danger mb-3" id="password-error">Passwords do not match!</div>
+                            <div class="form-group mb-3">
+                                <label for="email" class="fw-bold">Email:</label>
+                                <input type="email" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="email" name="email" placeholder="Your email address" required>
                             </div>
-                            <div class="form-row">
+                            <div class="form-row mb-3">
                                 <div class="form-group col-md-4">
-                                    <label for="country-code">Country Code:</label>
-                                    <select class="form-control" id="country-code" name="country-code" required></select>
+                                    <label for="country-code" class="fw-bold">Country Code:</label>
+                                    <select class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="country-code" name="country-code" required>
+                                        <option value="" disabled selected>Select country code</option>
+                                        <option value="+94">Sri Lanka (+94)</option>
+                                        <option value="+1">USA (+1)</option>
+                                        <option value="+44">UK (+44)</option>
+                                        <option value="+91">India (+91)</option>
+                                        <option value="+61">Australia (+61)</option>
+                                        <option value="+81">Japan (+81)</option>
+                                        <!-- Add more country codes as needed -->
+                                    </select>
                                 </div>
                                 <div class="form-group col-md-8">
-                                    <label for="tel">Phone Number:</label>
-                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Phone number" maxlength="9" required>
+                                    <label for="tel" class="fw-bold">Phone Number:</label>
+                                    <input type="tel" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="tel" name="tel" placeholder="Phone number" maxlength="9" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="address">Address:</label>
-                                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Your address" required></textarea>
+
+                            <div class="form-group mb-3">
+                                <label for="address" class="fw-bold">Address:</label>
+                                <textarea class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="address" name="address" rows="3" placeholder="Your address" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" id="submit-btn">Register</button>
+                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-2 shadow-sm px-4 py-2" id="submit-btn">Register</button>
                         </form>
                         <p class="mt-3">
                             Already have an account? 
@@ -413,6 +410,7 @@ document.getElementById('lform').addEventListener('submit', function(event) {
         </div>
     </div>
 </div>
+
 
 <!-- Bootstrap JS & jQuery (CDN) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

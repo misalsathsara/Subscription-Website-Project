@@ -11,17 +11,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fancy SubscriBuy Items</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-        }
 
         #filter-container {
             display: flex;
@@ -255,8 +245,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             }
         }
     </style>
-</head>
-<body>
+
 <?php include('product_banner.php'); ?>
 
 <!-- Filter Section -->
@@ -421,5 +410,3 @@ function closeModal() {
     overlay.style.display = 'none'; // Hide overlay
 }
 </script>
-</body>
-</html>
