@@ -26,12 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit();
         } else {
             // Failure: Invalid password
-            header('Location: login.php?error=invalid_credentials');
+            alert('Invalid password or username');
+            // header('Location: login.php?error=invalid_credentials');
             exit();
         }
     } else {
         // Failure: Username not found
-        header('Location: login.php?error=user_not_found');
+        alert('Not user found');
+        // header('Location: login.php?error=user_not_found');
         exit();
     }
 
