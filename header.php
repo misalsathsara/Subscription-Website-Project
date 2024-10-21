@@ -9,6 +9,10 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
@@ -224,7 +228,7 @@
     </style>
 
     <div class="contact-info">
-        <span><i class="fa fa-envelope"></i> info@example.com</span>
+        <span><i class="fa fa-envelope"></i> info@subscribuy.com</span>
         <span><i class="fa fa-phone"></i> +1 234 567 890</span>
     </div>
 
@@ -258,7 +262,7 @@
                 <div class="navbar-right ms-3">
                     <a class="nav-link icon-btn" href="#"><i class="fa fa-shopping-cart"></i></a>
                     <a class="nav-link icon-btn" href="#"><i class="fa fa-heart"></i></a>
-                    <a class="nav-link icon-btn" href="login.php" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <a class="nav-link icon-btn" href="#" data-bs-toggle="modal" data-bs-target="#authModal">
                         <i class="fa fa-user"></i>
                     </a>
 
@@ -282,55 +286,155 @@
     </nav>
     <!-- Navbar End -->
 
+    <style>
+        .error-message {
+            display: none;
+            color: red;
+        }
 
-    
-<!-- Login Modal Structure -->
-<style>
-    .custom-btn:hover {
-    transform: scale(1.05);
-    transition: transform 0.3s ease-in-out;
-}
+        .custom-btn:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
 
-.custom-input:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
-    transition: box-shadow 0.3s ease-in-out;
-}
+        .custom-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+            transition: box-shadow 0.3s ease-in-out;
+        }
 
-</style>
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        /* Initially hide the register form, as we want the login form to show first */
+        #registerForm {
+            display: none;
+        }
+    </style>
+
+<!-- Integrated Modal for Login and Registration -->
+<div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow-lg rounded-4">
             <div class="modal-header border-0">
-                <h5 class="modal-title text-primary fw-bold" id="loginModalLabel">Welcome Back</h5>
+                <h5 class="modal-title text-primary fw-bold" id="authModalLabel">Login</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <div class="modal-body">
-                <!-- Login form -->
-                <div class="login-container p-4 text-center">
-                    <div class="illustration mb-4">
-                        <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
+                <!-- Login Form -->
+                <div id="loginForm" class="auth-form">
+                    <div class="login-container p-4 text-center">
+                        <div class="illustration mb-4">
+                            <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
+                        </div>
+                        <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
+                        <form action="" method="POST" id="lform">
+                            <div class="form-group mb-3">
+                                <input type="text" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Username" name="username" required>
+                            </div>
+                            <div class="form-group mb-4">
+                                <input type="password" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Password" name="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">Login</button>
+
+                            <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
+                            <p class="register mt-2">
+                                Don't have an account? 
+                                <a href="#" class="text-primary fw-bold" id="showRegisterForm">Register Now</a>
+                            </p>
+                        </form>
                     </div>
-                    <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
-                    <form action="" method="POST" id="lform">
-                        <div class="form-group mb-3">
-                            <input type="text" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Username" name="username" required>
-                        </div>
-                        <div class="form-group mb-4">
-                            <input type="password" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Password" name="password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">Login</button>
+                </div>
 
-                        <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
-                        <p class="register mt-2">Don't have an account? <a href="regform.php" class="text-primary fw-bold">Register Now</a></p>
-
-                        <div class="formdata mt-4" id='formdata'></div>
-                    </form>
+                <!-- Registration Form -->
+                <div id="registerForm" class="auth-form" style="display: none;">
+                    <div class="registration-container p-4">
+                        <h2 class="text-primary fw-bold mb-4">Create Your Account</h2>
+                        <form id="regform">
+                            <div class="form-group">
+                                <label for="name">Full Name:</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="reg-username" name="username" placeholder="Your username" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="password">Password:</label>
+                                    <input type="password" class="form-control" id="reg-password" name="password" placeholder="Set a password" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="confirm-password">Re-enter Password:</label>
+                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+                                </div>
+                            </div>
+                            <div class="error-message" id="password-error">Passwords do not match!</div>
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Your email address" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="country-code">Country Code:</label>
+                                    <select class="form-control" id="country-code" name="country-code" required></select>
+                                </div>
+                                <div class="form-group col-md-8">
+                                    <label for="tel">Phone Number:</label>
+                                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Phone number" maxlength="9" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address:</label>
+                                <textarea class="form-control" id="address" name="address" rows="3" placeholder="Your address" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" id="submit-btn">Register</button>
+                        </form>
+                        <p class="mt-3">
+                            Already have an account? 
+                            <a href="#" class="text-primary fw-bold" id="showLoginForm">Login</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Bootstrap & Optional JS -->
+<!-- Bootstrap JS & jQuery (CDN) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Show Register Form
+        $('#showRegisterForm').click(function(e) {
+            e.preventDefault();
+            $('#loginForm').hide();   // Hide the login form
+            $('#registerForm').show(); // Show the registration form
+            $('#authModalLabel').text('Register');  // Change modal title to 'Register'
+        });
+
+        // Show Login Form
+        $('#showLoginForm').click(function(e) {
+            e.preventDefault();
+            $('#registerForm').hide(); // Hide the registration form
+            $('#loginForm').show();   // Show the login form
+            $('#authModalLabel').text('Login');   // Change modal title to 'Login'
+        });
+
+        // Validate registration form
+        $('#submit-btn').click(function(event) {
+            event.preventDefault();
+
+            var password = $("#reg-password").val();
+            var confirmPassword = $("#confirm-password").val();
+
+            if (password !== confirmPassword) {
+                $("#password-error").show();
+            } else {
+                $("#password-error").hide();
+                // Submit the registration form (via AJAX or traditional form submission)
+                alert('Registration form submitted successfully!');
+            }
+        });
+    });
+</script>
