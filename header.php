@@ -321,28 +321,43 @@
             <div class="modal-body">
                 <!-- Login Form -->
                 <div id="loginForm" class="auth-form">
-                    <div class="login-container p-4 text-center">
-                        <div class="illustration mb-4">
-                            <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
-                        </div>
-                        <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
-                        <form action="" method="POST" id="lform">
-                            <div class="form-group mb-3">
-                                <input type="text" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Username" name="username" required>
-                            </div>
-                            <div class="form-group mb-4">
-                                <input type="password" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Password" name="password" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">Login</button>
+    <div class="login-container p-4 text-center">
+        <div class="illustration mb-4">
+            <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
+        </div>
+        <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
+        <form action="loginsave.php" method="POST" id="lform">
+            <div class="form-group mb-3">
+                <input type="text" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Username" name="username" id="username" required>
+            </div>
+            <div class="form-group mb-4">
+                <input type="password" class="form-control custom-input rounded-pill px-4 py-2 shadow-sm" placeholder="Password" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-pill shadow-sm px-4 py-2" id="loginBtn" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">
+                Login
+            </button>
 
-                            <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
-                            <p class="register mt-2">
-                                Don't have an account? 
-                                <a href="#" class="text-primary fw-bold" id="showRegisterForm">Register Now</a>
-                            </p>
-                        </form>
-                    </div>
-                </div>
+            <p class="forgot-password mt-4 mb-1"><a href="#" class="text-secondary">Forgot Password?</a></p>
+            <p class="register mt-2">
+                Don't have an account? 
+                <a href="#" class="text-primary fw-bold" id="showRegisterForm">Register Now</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+<script>
+document.getElementById('lform').addEventListener('submit', function(event) {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if (username === '' || password === '') {
+        event.preventDefault();
+        alert('Both fields are required!');
+    }
+});
+</script>
+
 
                 <!-- Registration Form -->
                 <div id="registerForm" class="auth-form" style="display: none;">

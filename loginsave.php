@@ -1,37 +1,46 @@
 <?php
 session_start();
-include 'dbase.php';
+include 'dbase.php'; // Assuming this file contains the DB connection logic
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = $_POST['var1'];
-    $uname = $data[0];
-    $pwd = $data[1];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Collect username and password from POST request
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT c_pwd, c_id FROM customers WHERE c_uname = ?");
-    $stmt->bind_param("s", $uname);
+    // Prepare SQL query to fetch the user details
+    $stmt = $conn->prepare("SELECT c_uname, c_pwd FROM customers WHERE c_uname = ?");
+    $stmt->bind_param("s", $username);  // Bind the username parameter to the query
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($hashed_password, $c_id);
+        // Fetch the result and verify the password
+        $stmt->bind_result($db_username, $db_password);
         $stmt->fetch();
 
-        if (password_verify($pwd, $hashed_password)) {
-            $_SESSION['username'] = $uname;
-            $_SESSION['logged_in'] = true;
-            $_SESSION['c_id'] = $c_id;
-
-            // Send a JSON response instead of redirecting
-            echo json_encode(['status' => 'success', 'message' => 'Login successful!']);
+        // Verify the hashed password
+        if (password_verify($password, $db_password)) {
+            // Success: Login successful, store the username in session
+            $_SESSION['username'] = $db_username;
+            header('Location: index.php'); // Redirect to dashboard or home page
+            exit();
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
+            // Failure: Invalid password
+            header('Location: login.php?error=invalid_credentials');
+            exit();
         }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid username or password']);
+        // Failure: Username not found
+        header('Location: login.php?error=user_not_found');
+        exit();
     }
 
+    // Close the statement and connection
     $stmt->close();
     $conn->close();
+} else {
+    // If the request method is not POST, deny access
+    header('Location: login.php');
+    exit();
 }
-
 ?>
