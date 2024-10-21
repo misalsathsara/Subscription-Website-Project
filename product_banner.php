@@ -7,11 +7,12 @@
             <div class="col-xl-5 col-lg-6 col-md-12">
                 <div class="banner-content py-5 py-lg-0">
                     <h1 class="text-white display-4 fw-bold banner-heading">
-                       Grab Your First Oder and and have a <h1 style = >Great Offer<h1>
+                       Grab Your First Oder and Get a <h1 class="banner-heading" style="color: yellow; font-size: 80px; font-weight: bold;">GREAT OFFER</h1>
+
                     </h1>
-                    <p class="text-white-50 mb-4 lead banner-subtext">
+                    <!-- <p class="text-white-50 mb-4 lead banner-subtext">
                         Hand-picked clean and fresh items, packaged for rural and urban areas.
-                    </p>
+                    </p> -->
                     <!-- Call to Action Buttons -->
                     <a href="" class="btn btn-white text-blue me-3">View Products</a>
                 </div>
@@ -27,7 +28,7 @@
 
 <style>
 .banner-section {
-    background-color: #FFA500;
+    background-color:#1F51FF;
     /* Your preferred blue */
     /* padding: 60px 0; */
     position: relative;
