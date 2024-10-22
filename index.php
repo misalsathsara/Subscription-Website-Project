@@ -11,6 +11,13 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 }
 ?>
 
+<style>
+        /* Optional: Customize Toastr container position */
+        .toast {
+            margin: 5px; /* Add margin for spacing between toasts */
+        }
+    </style>
+
 
 <?php
   include 'hero.php';
@@ -55,3 +62,22 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 <?php
   include 'footer.php';
 ?>
+
+
+
+<script>
+    $(document).ready(function() {
+        // Toastr configuration
+        toastr.options.positionClass = 'toast-bottom-right'; // Set position to bottom-right
+
+        // Check if there is a logout message in the session
+        <?php if (isset($_SESSION['logout_message'])): ?>
+            toastr.success("<?php echo $_SESSION['logout_message']; ?>");
+            <?php unset($_SESSION['logout_message']); // Clear the message after displaying ?>
+        <?php endif; ?>
+
+        // Check if there is a login success message in the session
+        
+    });
+</script>
+

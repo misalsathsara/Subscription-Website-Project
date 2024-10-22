@@ -22,6 +22,9 @@
 
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="path/to/toastr.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="path/to/toastr.min.js"></script>
 </head>
 
 <body>
@@ -319,6 +322,13 @@
             </div>
 
             <div class="modal-body">
+                <!-- jQuery CDN (for AJAX functionality) -->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+                <!-- Toastr CSS and JS for notifications -->
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
                 <!-- Login Form -->
                 <div id="loginForm" class="auth-form">
                     <div class="login-container p-4 text-center">
@@ -326,12 +336,13 @@
                             <img src="Images/p2.jpg" alt="Illustration" class="img-fluid rounded-circle border border-3 border-primary shadow-lg" style="max-width: 100px;">
                         </div>
                         <h2 class="text-primary fw-bold mb-4">Login to Your Account</h2>
-                        <form action="loginsave.php" method="POST" id="lform">
+
+                        <form id="lform" method="POST">
                             <div class="form-group mb-3">
-                                <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" placeholder="Username" name="username" id="username" required>
+                                <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" placeholder="Username" name="username" id="login-username" required>
                             </div>
                             <div class="form-group mb-4">
-                                <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" placeholder="Password" name="password" id="password" required>
+                                <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" placeholder="Password" name="password" id="login-password" required>
                             </div>
                             <button type="submit" class="btn btn-primary custom-btn btn-block rounded-2 shadow-sm px-4 py-2" id="loginBtn" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">
                                 Login
@@ -346,6 +357,56 @@
                     </div>
                 </div>
 
+
+   <!-- AJAX Script for Login Submission -->
+   <script>
+    $(document).ready(function() {
+        // When the login form is submitted
+        $("#lform").on("submit", function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            // Gather the form data
+            var formData = {
+                username: $("#login-username").val(),
+                password: $("#login-password").val()
+            };
+
+            // Check for empty fields
+            if (!formData.username || !formData.password) {
+                toastr.error("Both fields are required!"); // Show error for empty fields
+                return; // Stop the submission
+            }
+
+            // Send the form data using AJAX
+            $.ajax({
+                url: 'loginsave.php', // Your backend PHP file to handle login
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // Parse the JSON response
+                    var data = JSON.parse(response);
+
+                    if (data.success) {
+                        // Show success message with timeout
+                        toastr.success("Login successful!", "Success", { timeOut: 3000 }); // Display for 3 seconds
+                        window.setTimeout(function() {
+                            window.location.href = "index.php"; // Redirect after timeout
+                        }, 3000); // Match timeout duration
+                    } else {
+                        // Show the error message
+                        toastr.error(data.message);
+                    }
+                },
+                error: function() {
+                    // Display a generic error message if the request fails
+                    toastr.error("An error occurred. Please try again.");
+                }
+            });
+        });
+    });
+</script>
+
+
                 <!-- Registration Form -->
                 <div id="registerForm" class="auth-form" style="display: none;">
                     <div class="registration-container p-4">
@@ -356,98 +417,144 @@
                                 <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="name" name="name" placeholder="Your full name" required>
                             </div>
                             <div class="form-group mb-3">
-                                <label for="username" class="fw-bold">Username:</label>
+                                <label for="reg-username" class="fw-bold">Username:</label>
                                 <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="reg-username" name="username" placeholder="Your username" required>
                             </div>
                             <div class="form-row mb-3">
                                 <div class="form-group col-md-6">
-                                    <label for="password" class="fw-bold">Password:</label>
+                                    <label for="reg-password" class="fw-bold">Password:</label>
                                     <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="reg-password" name="password" placeholder="Set a password" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="confirm-password" class="fw-bold">Re-enter Password:</label>
-                                    <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="confirm-password" name="confirm-password" placeholder="Re-enter your password" required>
+                                    <label for="confirm-password" class="fw-bold">Confirm Password:</label>
+                                    <input type="password" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="confirm-password" name="confirmPassword" placeholder="Confirm your password" required>
                                 </div>
                             </div>
-                            <div class="error-message text-danger mb-3" id="password-error">Passwords do not match!</div>
                             <div class="form-group mb-3">
                                 <label for="email" class="fw-bold">Email:</label>
                                 <input type="email" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="email" name="email" placeholder="Your email address" required>
                             </div>
-                            <div class="form-row mb-3">
-                                <div class="form-group col-md-4">
-                                    <label for="country-code" class="fw-bold">Country Code:</label>
-                                    <select class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="country-code" name="country-code" required>
-                                        <option value="" disabled selected>Select country code</option>
-                                        <option value="+94">Sri Lanka (+94)</option>
-                                        <option value="+1">USA (+1)</option>
-                                        <option value="+44">UK (+44)</option>
-                                        <option value="+91">India (+91)</option>
-                                        <option value="+61">Australia (+61)</option>
-                                        <option value="+81">Japan (+81)</option>
-                                        <!-- Add more country codes as needed -->
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-8">
-                                    <label for="tel" class="fw-bold">Phone Number:</label>
-                                    <input type="tel" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="tel" name="tel" placeholder="Phone number" maxlength="9" required>
-                                </div>
+                            <div class="form-group mb-3">
+                                <label for="tel" class="fw-bold">Telephone:</label>
+                                <input type="tel" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="tel" name="tel" placeholder="Your telephone number" required pattern="[0-9]*" title="Please enter numbers only">
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="address" class="fw-bold">Address:</label>
-                                <textarea class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="address" name="address" rows="3" placeholder="Your address" required></textarea>
+                                <input type="text" class="form-control custom-input rounded-2 px-4 py-2 shadow-sm" id="address" name="address" placeholder="Your address" required>
                             </div>
-                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-2 shadow-sm px-4 py-2" id="submit-btn">Register</button>
+                            <button type="submit" class="btn btn-primary custom-btn btn-block rounded-2 shadow-sm px-4 py-2" style="background: linear-gradient(135deg, #007bff, #00c6ff); border: none;">
+                                Register
+                            </button>
+                            <p class="mt-3">
+                                Already have an account? 
+                                <a href="#" class="text-primary fw-bold" id="showLoginForm">Login</a>
+                            </p>
                         </form>
-                        <p class="mt-3">
-                            Already have an account? 
-                            <a href="#" class="text-primary fw-bold" id="showLoginForm">Login</a>
-                        </p>
                     </div>
                 </div>
+
+                <!-- Scripts for registration form --> 
+                <script>
+                    // Function to validate the strength of the password
+                    function isStrongPassword(password) {
+                       const minLength = 8; // Minimum length for the password
+                       const hasUpperCase = /[A-Z]/.test(password); // At least one uppercase letter
+                       const hasLowerCase = /[a-z]/.test(password); // At least one lowercase letter
+                       const hasNumber = /\d/.test(password); // At least one number
+                       const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password); // At least one special character
+
+                      return password.length >= minLength && hasUpperCase && hasLowerCase && hasNumber && hasSpecialChar;
+                    }
+
+                    $(document).ready(function() {
+                        $("#regform").on("submit", function(e) {
+                            e.preventDefault(); // Prevent the default form submission
+
+                            // Gather the registration form data
+                            var regFormData = {
+                                name: $("#name").val(),
+                                username: $("#reg-username").val(),
+                                password: $("#reg-password").val(),
+                                confirmPassword: $("#confirm-password").val(),
+                                email: $("#email").val(),
+                                tel: $("#tel").val(),
+                                address: $("#address").val()
+                            };
+
+                            // Check for empty fields
+                            for (var key in regFormData) {
+                                if (!regFormData[key]) {
+                                    toastr.error("All fields are required!"); // Show error for empty fields
+                                    return; // Stop the submission
+                                }
+                            }
+
+                            // Validate email format
+                            var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                            if (!emailPattern.test(regFormData.email)) {
+                                toastr.error("Please enter a valid email address!"); // Show error for invalid email
+                                return; // Stop the submission
+                            }
+
+                            // Check if passwords match
+                            if (regFormData.password !== regFormData.confirmPassword) {
+                                toastr.error("Passwords do not match!"); // Show error for mismatched passwords
+                                return; // Stop the submission
+                            }
+
+                             // Validate password strength
+                             if (!isStrongPassword(regFormData.password)) {
+                                 toastr.error("Password must be at least 8 characters long, contain an uppercase letter, a lowercase letter, a number, and a special character."); // Show error for weak password
+                                 return; // Stop the submission
+                                }
+
+                            // Validate that username contains only letters and numbers
+                            var usernamePattern = /^[a-zA-Z0-9]+$/;
+                            if (!usernamePattern.test(regFormData.username)) {
+                                toastr.error("Username can only contain letters and numbers!"); // Show error for invalid username
+                                return; // Stop the submission
+                            }
+
+                            // Send the form data using AJAX
+                            $.ajax({
+                                url: 'regsave.php', // Your backend PHP file to handle registration
+                                type: 'POST',
+                                data: regFormData,
+                                success: function(response) {
+                                    var data = JSON.parse(response);
+
+                                    if (data.success) {
+                                        // Show success message
+                                        toastr.success("Registration successful!");
+                                        // Optionally reset the form
+                                        $("#regform")[0].reset();
+                                        // Optionally switch to login form
+                                        $("#registerForm").hide();
+                                        $("#loginForm").show();
+                                    } else {
+                                        // Show the error message
+                                        toastr.error(data.message);
+                                    }
+                                },
+                                error: function() {
+                                    // Display a generic error message if the request fails
+                                    toastr.error("An error occurred. Please try again.");
+                                }
+                            });
+                        });
+
+                        // Toggle between login and registration forms
+                        $("#showRegisterForm").on("click", function() {
+                            $("#loginForm").hide();
+                            $("#registerForm").show();
+                        });
+                        $("#showLoginForm").on("click", function() {
+                            $("#registerForm").hide();
+                            $("#loginForm").show();
+                        });
+                    });
+                </script>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- Bootstrap JS & jQuery (CDN) -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Show Register Form
-        $('#showRegisterForm').click(function(e) {
-            e.preventDefault();
-            $('#loginForm').hide();   // Hide the login form
-            $('#registerForm').show(); // Show the registration form
-            $('#authModalLabel').text('Register');  // Change modal title to 'Register'
-        });
-
-        // Show Login Form
-        $('#showLoginForm').click(function(e) {
-            e.preventDefault();
-            $('#registerForm').hide(); // Hide the registration form
-            $('#loginForm').show();   // Show the login form
-            $('#authModalLabel').text('Login');   // Change modal title to 'Login'
-        });
-
-        // Validate registration form
-        $('#submit-btn').click(function(event) {
-            event.preventDefault();
-
-            var password = $("#reg-password").val();
-            var confirmPassword = $("#confirm-password").val();
-
-            if (password !== confirmPassword) {
-                $("#password-error").show();
-            } else {
-                $("#password-error").hide();
-                // Submit the registration form (via AJAX or traditional form submission)
-                alert('Registration form submitted successfully!');
-            }
-        });
-    });
-</script>

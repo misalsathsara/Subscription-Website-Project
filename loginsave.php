@@ -1,48 +1,44 @@
 <?php
 session_start();
-include 'dbase.php'; // Assuming this file contains the DB connection logic
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Collect username and password from POST request
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+// Include your database connection file
+include 'dbase.php'; // Ensure you have a file named db.php for your database connection
 
-    // Prepare SQL query to fetch the user details
-    $stmt = $conn->prepare("SELECT c_uname, c_pwd FROM customers WHERE c_uname = ?");
-    $stmt->bind_param("s", $username);  // Bind the username parameter to the query
-    $stmt->execute();
-    $stmt->store_result();
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    if ($stmt->num_rows > 0) {
-        // Fetch the result and verify the password
-        $stmt->bind_result($db_username, $db_password);
-        $stmt->fetch();
-
-        // Verify the hashed password
-        if (password_verify($password, $db_password)) {
-            // Success: Login successful, store the username in session
-            $_SESSION['username'] = $db_username;
-            header('Location: index.php'); // Redirect to dashboard or home page
-            exit();
-        } else {
-            // Failure: Invalid password
-            alert('Invalid password or username');
-            // header('Location: login.php?error=invalid_credentials');
-            exit();
-        }
+    // Validate input fields
+    if (empty($username) || empty($password)) {
+        echo json_encode(['success' => false, 'message' => 'Both fields are required.']);
     } else {
-        // Failure: Username not found
-        alert('Not user found');
-        // header('Location: login.php?error=user_not_found');
-        exit();
-    }
+        // Prepare SQL statement to prevent SQL injection
+        $stmt = $conn->prepare("SELECT c_pwd FROM customers WHERE c_uname = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-    // Close the statement and connection
-    $stmt->close();
-    $conn->close();
+        // Check if the user exists
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $hashed_password = $row['c_pwd'];
+
+            // Verify the password
+            if (password_verify($password, $hashed_password)) {
+                // Successful login, set session variable and success message
+                $_SESSION['username'] = $username; // Store the username in session
+                $_SESSION['success_message'] = "Login successful!"; // Set success message
+                echo json_encode(['success' => true]);
+            } else {
+                // Invalid credentials
+                echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);
+            }
+        } else {
+            // User not found
+            echo json_encode(['success' => false, 'message' => 'Invalid username or password.']);
+        }
+    }
 } else {
-    // If the request method is not POST, deny access
-    header('Location: login.php');
-    exit();
+    echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }
 ?>
