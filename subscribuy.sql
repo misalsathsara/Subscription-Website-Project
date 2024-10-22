@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Oct 12, 2024 at 11:50 AM
+-- Generation Time: Oct 22, 2024 at 11:08 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -34,6 +34,21 @@ CREATE TABLE `contact` (
   `message` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`id`, `email`, `subject`, `message`) VALUES
+(1, 'ranuga@gmail.com', 'sd', 'sdsdsdsd'),
+(2, 'ranuga@gmail.com', 'Moda chamodi', 'Moda chamodi'),
+(3, 'ravi.singh@example.com', 'ds', 'as'),
+(4, 'ranuga@gmail.com', 'test local', 'sdsds'),
+(5, 'ranuga@gmail.com', 'ds', 'sdds'),
+(6, 'ranuga@gmail.com', 'sdsd', 'dsdsd'),
+(7, 'ranuga@gmail.com', 'test local', 'dsasd'),
+(8, 'ranuga@gmail.com', 'test local', 'nnnnm'),
+(9, 'ranuga@gmail.com', 'test local', 'sxsd');
+
 -- --------------------------------------------------------
 
 --
@@ -55,30 +70,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`c_id`, `c_name`, `c_email`, `c_tel`, `c_address`, `c_uname`, `c_pwd`) VALUES
-('1', '', '0', '0', '', '', ''),
-('10', '', '0', '0', '', '', ''),
-('11', '', '0', '0', '', '', ''),
-('12', '', '0', '0', '', '', ''),
-('2', '', '0', '0', '', '', ''),
-('3', '', '0', '0', '', '', ''),
-('4', '', '0', '0', '', '', ''),
-('5', '', '0', '0', '', '', ''),
-('6', '', '0', '0', '', '', ''),
-('7', '', '0', '0', '', '', ''),
-('8', '', '0', '0', '', '', ''),
-('9', '', '0', '0', '', '', ''),
-('C001', '', '0', '0', '', '', ''),
-('C002', '', '0', '0', '', '', ''),
-('C100', '', '0', '0', '', '', ''),
-('C101', '', '0', '0', '', '', ''),
-('C102', '', '0', '0', '', '', ''),
-('C103', 'sf', '0', '0', 'fdfad', '', ''),
-('C104', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'fdfad', '', ''),
-('C105', 'sf', 'ranugadeepna2002@gmail.com', '++9423144444', 'hi hi', 'ranuga', '$2y$10$xC1n5EgbEh7lRLnDtjx0uO7GZUI4.i/JsNjMPiw1T.GTPGEqBaWxO'),
-('C106', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$9RATcPFwN9iyRLY9qRy7Pu9LAvFvsif6QZMe2BCCxAJlf8TLHahKS'),
-('C107', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$S8eIVhFpG7xKhr718/3Z1ezhdYbKB8VYDJVkO3.3ZsAdjf8wSDr1a'),
-('C108', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$ByepXqjN5i58H9JtMlwUG.KvdRDNADBlrh4VvihDcYzJm6wGTTdVq'),
-('C109', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '++9447752850', 'baddegama, Galle', 'misal', '$2y$10$d/BirLrfKdIEwDpojd/zkemwlDpoIv6tN01/Bj/srSe.rC4iuo2wW');
+('C004', 'sanindu', 'ranuga@gmail.com', '28848842', 'ssasa', 'sanindu', '$2y$10$ewduKpdkjeSHaVGc1BeN9.8LlKVjo9C.kkfemx0aSqN.22Q794HV6'),
+('C005', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '0775285042', 'Baddegama', 'misal', '$2y$10$EHHiZGksr3fB328SgwHzzen4P.U1jRUIlPui32/jGlwUniJ3TRvp2');
 
 -- --------------------------------------------------------
 
@@ -138,6 +131,12 @@ INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VA
 --
 
 --
+-- Indexes for table `contact`
+--
+ALTER TABLE `contact`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
@@ -154,6 +153,16 @@ ALTER TABLE `c_reviews`
 --
 ALTER TABLE `items`
   ADD PRIMARY KEY (`n_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `contact`
+--
+ALTER TABLE `contact`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
