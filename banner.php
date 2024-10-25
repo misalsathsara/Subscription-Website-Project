@@ -13,7 +13,7 @@
                         Hand-picked clean and fresh items, packaged for rural and urban areas.
                     </p>
                     <!-- Call to Action Buttons -->
-                    <a href="" class="btn btn-white text-blue me-3">View Products</a>
+                    <a href="productPage.php" class="btn btn-white text-blue me-3">View Products</a>
                 </div>
             </div>
             <!-- Image Column -->

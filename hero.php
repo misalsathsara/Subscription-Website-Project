@@ -11,7 +11,7 @@
                         <!-- Adjusted bottom margin -->
                         Explore top-quality Subscription Packages and enjoy exclusive deals, all in one place.
                     </p>
-                    <a href="pages/shop.html" class="btn btn-primary btn-lg me-2">Shop Now</a> <!-- Adjusted margin -->
+                    <a href="productPage.php" class="btn btn-primary btn-lg me-2">Shop Now</a> <!-- Adjusted margin -->
                     <a href="pages/deals.html" class="btn btn-outline-primary btn-lg">View Deals</a>
                 </div>
             </div>
