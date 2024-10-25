@@ -268,7 +268,7 @@
         <i class="fa fa-user"></i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
+        <li><a class="dropdown-item" href="user-profile.php"><i class="fa fa-user"></i> Profile</a></li>
         <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Orders</a></li>
         <li><a class="dropdown-item" href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
         <li><a class="dropdown-item" href="#"><i class="fa fa-shopping-cart"></i> Cart</a></li>
