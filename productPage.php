@@ -100,63 +100,10 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             background-color: #0056b3;
         }
 
-        #modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 900;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .modal1 {
-            display: none;
-            position: fixed;
-            top: 52%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            border-radius: 10px;
-            padding: 2px;
-            border: 2px solid #ccc;
-            width: 70%;
-            max-width: 800px;
-            height: 90%;
-            z-index: 1000;
-        }
-
-        .modal1.active {
-            display: block;
-        }
-
-        .modal-header, .modal-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal1 img {
-            width: 100%; /* Adjusted for responsiveness */
-            height: auto;
-            border-radius: 10px;
-        }
-
         .buttons {
             display: flex;
             justify-content: space-around;
             margin-top: 20px;
-        }
-
-        .btn-buy {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .btn-buy:hover {
-            background-color: #218838;
         }
 
         .btn-wishlist {
@@ -168,82 +115,6 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             background-color: #e0a800;
         }
 
-        .modal-content1 {
-    /* overflow-y: auto; */
-    border: white;
-    max-height: 70vh; /* adjust the max height as needed */
-    padding: 20px;
-    /* border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
-}
-
-/* .modal-content::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 10px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-} */
-        .modal-content1 .row {
-            flex-grow: 1;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .modal-content1 .col-md-6 {
-            flex-basis: 50%;
-            padding: 5px 5px 20px 5px;
-        }
-
-        .modal-content1 .col-md-6 img {
-            width: 300px; /* Set the width to 30% of the viewport width */
-            height: 300px; /* Set the height to 20% of the viewport height */
-            object-fit: cover; /* Scale the image to cover the entire area */
-            border-radius: 10px;
-            border-radius: 10px;
-        }
-
-        #reviews {
-    overflow-y: auto;
-    max-height: 200px; /* adjust the max height as needed */
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-#reviews::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-}
-
-#reviews::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 10px;
-}
-
-#reviews::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
-    border-radius: 10px;
-}
-
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
     </style>
 
 <?php include('product_banner.php'); ?>
@@ -260,42 +131,13 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
     <input type="number" id="maxPrice" placeholder="Max Price">
     <button class="btn-filter" onclick="applyFilters()">Apply Filters</button>
 </div>
-<!-- Modal Overlay -->
-<div id="modal-overlay"></div>
+
 <div id="card-container"></div>
 
-<!-- Modal -->
-<div id="itemModal" class="modal1">
-    <div class="modal-header">
-        <h2>Item Details</h2>
-        <button class="btn" onclick="closeModal()"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="modal-content1">
-        <div class="row">
-            <div class="col-md-6">
-                <img id="modalImage" src="" alt="Item Image" class="img-fluid">
-                <div id="reviews" class="reviews mt-3">
-                    <h4>Customer Reviews</h4>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <h3 id="modalName"></h3>
-                <p id="modalDescription"></p>
-                <p><strong>Price: </strong>$<span id="modalPrice"></span></p>
-                <p><strong>Type: </strong><span id="modalType"></span></p>
-                <div class="buttons">
-                    <button class="btn btn-add"><i class="fas fa-cart-plus"></i> Add to Cart</button>
-                    <button class="btn btn-buy"><i class="fas fa-shopping-bag"></i> Buy Now</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <?php include('footer.php'); ?>
 
 <script>
-// Fetch all items when the page loads
 // Fetch all items when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     fetchItems(); // Fetch all items on load
@@ -339,7 +181,7 @@ function fetchItems(category = '', minPrice = '', maxPrice = '') {
                 const moreInfoBtn = document.createElement('button');
                 moreInfoBtn.classList.add('btn', 'btn-cart');
                 moreInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i>';
-                moreInfoBtn.onclick = () => openModal(item);
+                moreInfoBtn.onclick = () => window.location.href = `itemDetail.php?n_id=${item.n_id}`;
 
                 const addToCartBtn = document.createElement('button');
                 addToCartBtn.classList.add('btn', 'btn-cart');
@@ -403,10 +245,5 @@ if (item.reviews.length > 0) {
     modal.classList.add('active');
     overlay.style.display = 'block'; // Show overlay
 }
-function closeModal() {
-    const modal = document.getElementById('itemModal');
-    const overlay = document.getElementById('modal-overlay');
-    modal.classList.remove('active');
-    overlay.style.display = 'none'; // Hide overlay
-}
+
 </script>

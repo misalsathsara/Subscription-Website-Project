@@ -1,0 +1,117 @@
+.modal-content1 {
+    /* overflow-y: auto; */
+    border: white;
+    max-height: 70vh; /* adjust the max height as needed */
+    padding: 20px;
+    /* border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+/* .modal-content::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+} */
+        .modal-content1 .row {
+            flex-grow: 1;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .modal-content1 .col-md-6 {
+            flex-basis: 50%;
+            padding: 5px 5px 20px 5px;
+        }
+
+        .modal-content1 .col-md-6 img {
+            width: 300px; /* Set the width to 30% of the viewport width */
+            height: 300px; /* Set the height to 20% of the viewport height */
+            object-fit: cover; /* Scale the image to cover the entire area */
+            border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        #reviews {
+    overflow-y: auto;
+    max-height: 200px; /* adjust the max height as needed */
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#reviews::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+#reviews::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
+}
+
+#reviews::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 10px;
+}
+.btn-buy {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-buy:hover {
+    background-color: #218838;
+}
+
+
+#modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 900;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.modal1 {
+    display: none;
+    position: fixed;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border-radius: 10px;
+    padding: 2px;
+    border: 2px solid #ccc;
+    width: 70%;
+    max-width: 800px;
+    height: 90%;
+    z-index: 1000;
+}
+
+.modal1.active {
+    display: block;
+}
+
+.modal-header, .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal1 img {
+    width: 100%; /* Adjusted for responsiveness */
+    height: auto;
+    border-radius: 10px;
+}
