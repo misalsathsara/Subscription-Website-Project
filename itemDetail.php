@@ -2,12 +2,12 @@
 session_start(); // Start the session
 
 // Check if the user is logged in
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    // If the user is logged in, include header2.php
-    include('header.php');
-} else {
-    // If the user is not logged in, include header.php
+if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+    // If the user is logged in, include the logged-in header (header2.php)
     include('header2.php');
+} else {
+    // If the user is not logged in, include the default header (header.php)
+    include('header.php');
 }
 ?>
 
@@ -206,7 +206,7 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         function handleAddToCart(n_id) {
-            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <?php if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true): ?>
                 // AJAX call to add item to cart
                 fetch('add_to_cart.php', {
                     method: 'POST',
@@ -231,7 +231,7 @@ $conn->close();
         }
 
         function handleAddToWishlist(n_id) {
-            <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true): ?>
+            <?php if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true): ?>
                 // AJAX call to add item to wishlist
                 fetch('add_to_wishlist.php', {
                     method: 'POST',
