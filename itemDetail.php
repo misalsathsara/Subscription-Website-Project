@@ -205,56 +205,64 @@ $conn->close();
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        function handleAddToCart(n_id) {
-            <?php if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true): ?>
-                // AJAX call to add item to cart
-                fetch('add_to_cart.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ n_id: n_id })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire('Success', 'Item added to cart!', 'success');
-                    } else if (data.error === 'exists') {
-                        Swal.fire('Oops', 'Item already exists in your cart!', 'warning');
-                    } else {
-                        Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
-                    }
-                });
-            <?php else: ?>
-                Swal.fire('Please log in', 'You need to log in or register before adding items to your cart.', 'warning');
-            <?php endif; ?>
-        }
+    function handleAddToCart(n_id) {
+        <?php if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true): ?>
+            // AJAX call to add item to cart
+            fetch('add_to_cart.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `n_id=${encodeURIComponent(n_id)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Success', 'Item added to cart!', 'success');
+                } else if (data.error === 'exists') {
+                    Swal.fire('Oops', 'Item already exists in your cart!', 'warning');
+                } else {
+                    Swal.fire('Error', data.error || 'Something went wrong. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                Swal.fire('Error', 'Network error. Please try again.', 'error');
+                console.error('Fetch error:', error);
+            });
+        <?php else: ?>
+            Swal.fire('Please log in', 'You need to log in or register before adding items to your cart.', 'warning');
+        <?php endif; ?>
+    }
 
-        function handleAddToWishlist(n_id) {
-            <?php if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true): ?>
-                // AJAX call to add item to wishlist
-                fetch('add_to_wishlist.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ n_id: n_id })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        Swal.fire('Success', 'Item added to wishlist!', 'success');
-                    } else if (data.error === 'exists') {
-                        Swal.fire('Oops', 'Item already exists in your wishlist!', 'warning');
-                    } else {
-                        Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
-                    }
-                });
-            <?php else: ?>
-                Swal.fire('Please log in', 'You need to log in or register before adding items to your wishlist.', 'warning');
-            <?php endif; ?>
-        }
-    
-    </script>
+    function handleAddToWishlist(n_id) {
+        <?php if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true): ?>
+            // AJAX call to add item to wishlist
+            fetch('add_to_wishlist.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `n_id=${encodeURIComponent(n_id)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire('Success', 'Item added to wishlist!', 'success');
+                } else if (data.error === 'exists') {
+                    Swal.fire('Oops', 'Item already exists in your wishlist!', 'warning');
+                } else {
+                    Swal.fire('Error', data.error || 'Something went wrong. Please try again.', 'error');
+                }
+            })
+            .catch(error => {
+                Swal.fire('Error', 'Network error. Please try again.', 'error');
+                console.error('Fetch error:', error);
+            });
+        <?php else: ?>
+            Swal.fire('Please log in', 'You need to log in or register before adding items to your wishlist.', 'warning');
+        <?php endif; ?>
+    }
+</script>
+
 </body>
 </html>
