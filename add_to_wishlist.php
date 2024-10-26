@@ -1,29 +1,33 @@
 <?php
 session_start();
 include 'dbase.php';
+header('Content-Type: application/json');
 
-if (isset($_SESSION['username']) && !empty($_SESSION['username']) === true) {
-    $n_id = $_POST['n_id'] ?? '';
+if (isset($_SESSION['username']) && isset($_POST['n_id'])) {
+    $username = $_SESSION['username'];
+    $n_id = $_POST['n_id'];
 
-    // Check if the item is already in the wishlist
-    $c_id = $_SESSION['c_id']; // Assuming you store user ID in session
-    $check_sql = "SELECT * FROM wishlist WHERE n_id = '$n_id' AND c_id = '$c_id'";
-    $check_result = $conn->query($check_sql);
+    $check_sql = "SELECT * FROM wishlist WHERE username = ? AND n_id = ?";
+    $stmt = $conn->prepare($check_sql);
+    $stmt->bind_param("ss", $username, $n_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if ($check_result->num_rows > 0) {
-        echo json_encode(['success' => false, 'error' => 'exists']);
+    if ($result->num_rows > 0) {
+        echo json_encode(['error' => 'exists']);
     } else {
-        // Insert the item into the wishlist
-        $insert_sql = "INSERT INTO wishlist (c_id, n_id) VALUES ('$c_id', '$n_id')";
-        if ($conn->query($insert_sql) === TRUE) {
+        $insert_sql = "INSERT INTO wishlist (username, n_id) VALUES (?, ?)";
+        $insert_stmt = $conn->prepare($insert_sql);
+        $insert_stmt->bind_param("ss", $username, $n_id);
+        if ($insert_stmt->execute()) {
             echo json_encode(['success' => true]);
         } else {
-            echo json_encode(['success' => false]);
+            echo json_encode(['error' => 'Database error']);
         }
     }
+    $stmt->close();
 } else {
-    echo json_encode(['success' => false]);
+    echo json_encode(['error' => 'Unauthorized']);
 }
-
 $conn->close();
 ?>
