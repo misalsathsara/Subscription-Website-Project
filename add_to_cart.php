@@ -3,16 +3,16 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 session_start();
-include 'dbase.php';
+include 'dbase.php'; // Include your database connection file
 
 // Set response headers to return JSON
 header('Content-Type: application/json');
 
 // Check if n_id is provided
-if (isset($_POST['n_id']) && !empty($_POST['n_id'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['n_id']) && !empty($_POST['n_id'])) {
     $n_id = $_POST['n_id'];
     $username = $_SESSION['username'] ?? '';
-
+    
     // Check if user is logged in
     if (empty($username)) {
         echo json_encode(['error' => 'User not logged in']);
@@ -55,7 +55,7 @@ if (isset($_POST['n_id']) && !empty($_POST['n_id'])) {
             // Item already exists in cart
             echo json_encode(['error' => 'exists']);
         } else {
-            // Insert item into cart along with username
+            // Insert item into cart
             $insert_sql = "INSERT INTO cart (c_id, n_id, username) VALUES (?, ?, ?)";
             $insert_stmt = $conn->prepare($insert_sql);
 

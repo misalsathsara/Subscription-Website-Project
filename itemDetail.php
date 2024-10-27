@@ -47,14 +47,30 @@ if ($result->num_rows > 0) {
     exit;
 }
 
-// Retrieve customer reviews for the item
-$review_sql = "SELECT c_id, rating, review_description FROM c_reviews WHERE n_id = ?";
+// Pagination settings
+$reviews_per_page = 5; // Number of reviews to display per page
+$total_reviews_sql = "SELECT COUNT(*) AS total FROM c_reviews WHERE n_id = ?";
+$total_reviews_stmt = $conn->prepare($total_reviews_sql);
+$total_reviews_stmt->bind_param("s", $n_id);
+$total_reviews_stmt->execute();
+$total_result = $total_reviews_stmt->get_result();
+$total_row = $total_result->fetch_assoc();
+$total_reviews = $total_row['total'];
+$total_pages = ceil($total_reviews / $reviews_per_page);
+
+// Get current page number from URL, default is 1
+$current_page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$current_page = max(1, min($current_page, $total_pages)); // Ensure current page is within bounds
+$offset = ($current_page - 1) * $reviews_per_page;
+
+// Retrieve customer reviews for the item with pagination
+$review_sql = "SELECT c_id, rating, review_description FROM c_reviews WHERE n_id = ? LIMIT ?, ?";
 $review_stmt = $conn->prepare($review_sql);
 if (!$review_stmt) {
     die("Error preparing review query: " . $conn->error);
 }
 
-$review_stmt->bind_param("s", $n_id);
+$review_stmt->bind_param("sii", $n_id, $offset, $reviews_per_page);
 $review_stmt->execute();
 $review_result = $review_stmt->get_result();
 
@@ -69,162 +85,230 @@ $conn->close();
 ?>
 
 <style>
-    /* Custom styles for the page */
-    .star-rating {
-        color: gold;
+    /* Custom styles for product detail page */
+    .container {
+        max-width: 1100px;
     }
-    .review-item {
+    .product-page {
+        padding: 30px;
+        background-color: #f9f9f9;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+    .product-header {
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .product-header h2 {
+        font-size: 2.5rem;
+        color: #333;
+        margin-bottom: 10px;
+    }
+    .product-header .item-price {
+        font-size: 2rem;
+        color: #d9534f;
+        font-weight: bold;
+    }
+    .product-image {
         border: 1px solid #e0e0e0;
         padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 5px;
         background-color: #fff;
+        border-radius: 8px;
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .product-image:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 25px;
+    }
+    .btn-custom {
+        padding: 12px 25px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    .btn-custom:hover {
+        transform: translateY(-3px);
+    }
+    .reviews-section {
+        margin-top: 50px;
+    }
+    .reviews-section h3 {
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .review-item {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
     .review-item:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         transform: translateY(-5px);
     }
-    .button-container {
+    .star-rating {
+        color: #ffcc00;
+        font-size: 1.2rem;
+    }
+    .pagination {
+        display: flex;
+        justify-content: center;
         margin-top: 20px;
     }
-    .item-header {
-        border-bottom: 1px solid #e0e0e0;
-        padding-bottom: 15px;
-        animation: fadeIn 0.5s ease-in-out;
-    }
-    .item-price {
-        font-size: 1.75rem;
-        color: #d9534f; /* Bootstrap danger color */
-    }
-    .img-fluid {
-        border-radius: 10px;
-        border: 1px solid #e0e0e0;
-        transition: transform 0.3s ease;
-    }
-    .img-fluid:hover {
-        transform: scale(1.05);
-    }
-    .btn-custom {
-        border-radius: 20px;
-        padding: 10px 20px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-    .btn-primary {
-        background-color: #007bff;
-        border-color: #007bff;
-    }
-    .btn-primary:hover {
-        background-color: #0056b3;
-        border-color: #0056b3;
-        transform: translateY(-2px);
-    }
-    .btn-secondary {
-        background-color: #6c757d;
-        border-color: #6c757d;
-    }
-    .btn-secondary:hover {
-        background-color: #5a6268;
-        border-color: #545b62;
-        transform: translateY(-2px);
-    }
-    .btn-success {
-        background-color: #28a745;
-        border-color: #28a745;
-    }
-    .btn-success:hover {
-        background-color: #218838;
-        border-color: #1e7e34;
-        transform: translateY(-2px);
-    }
-
-    /* Footer styles */
-    footer {
-        background-color: #f8f9fa;
-        padding: 20px 0;
-        margin-top: 20px;
-    }
-    footer .footer-container {
-        text-align: center;
-    }
-    footer a {
-        margin: 0 10px;
+    .pagination a {
+        margin: 0 5px;
+        padding: 10px 15px;
+        border: 1px solid #007bff;
         color: #007bff;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
     }
-
-    /* Animation Keyframes */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .pagination a:hover {
+        background-color: #007bff;
+        color: white;
+    }
+    .pagination .active {
+        background-color: #007bff;
+        color: white;
+        border: 1px solid #007bff;
     }
 </style>
 
 <div class="container my-5">
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <img src="admin/<?php echo htmlspecialchars($item['image']); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($item['name']); ?>">
+    <div class="product-page">
+        <div class="product-header">
+            <h2><?php echo htmlspecialchars($item['name']); ?></h2>
+            <p class="item-price">$<?php echo htmlspecialchars($item['price']); ?></p>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="item-header">
-                <h2><?php echo htmlspecialchars($item['name']); ?></h2>
-                <p><strong></strong> <?php echo htmlspecialchars($item['type']); ?></p>
-                <p class="item-price"><strong></strong> $<?php echo htmlspecialchars($item['price']); ?></p>
-                <p><strong></strong> <?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
-                <p><strong></strong> <span class="star-rating"><?php echo round($item['avg_rating'], 1); ?></span> / 5 (<?php echo $item['total_reviews']; ?> reviews)</p>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <img src="admin/<?php echo htmlspecialchars($item['image']); ?>" class="img-fluid product-image" alt="<?php echo htmlspecialchars($item['name']); ?>">
             </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0 rounded">
+                    <div class="card-body">
+                        <p class="card-text"><strong>Type:</strong> <br><?php echo htmlspecialchars($item['type']); ?></p>
+                        <p class="card-text"><strong>Description:</strong> <br><?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
+                        <p class="card-text"><strong>Average Rating:</strong> <br>
+    <span class="star-rating2">
+        <?php 
+        // Get the average rating and ensure it's a float
+        $avgRating = round(floatval($item['avg_rating']), 1); 
+        $totalReviews = intval($item['total_reviews']);
+        
+        // Display the average rating
+        echo $avgRating . ' / 5 (' . $totalReviews . ' reviews)'; 
+        ?>
+    </span>
+</p>
 
-            <div class="button-container">
-                <!-- Add to Cart Button -->
-                <form action="add_to_cart.php" method="POST" style="display:inline;">
-                    <input type="hidden" name="n_id" value="<?php echo htmlspecialchars($item['n_id']); ?>">
-                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($item['name']); ?>">
-                    <input type="hidden" name="price" value="<?php echo htmlspecialchars($item['price']); ?>">
-                    <button type="submit" class="btn btn-primary btn-custom"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
-                </form>
+<div class="star-rating">
+    <?php 
+    // Loop to display stars based on average rating
+    for ($i = 1; $i <= 5; $i++): 
+        // Determine if star should be filled or not
+        $isFilled = $i <= $avgRating; 
+    ?>
+        <span class="fas fa-star <?php echo $isFilled ? 'checked' : ''; ?>"></span>
+    <?php endfor; ?>
+</div>
 
-                <!-- Add to Wishlist Button -->
-                <form action="add_to_wishlist.php" method="POST" style="display:inline;">
-                    <input type="hidden" name="n_id" value="<?php echo htmlspecialchars($item['n_id']); ?>">
-                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($item['name']); ?>">
-                    <input type="hidden" name="price" value="<?php echo htmlspecialchars($item['price']); ?>">
-                    <button type="submit" class="btn btn-secondary btn-custom"><i class="fas fa-heart"></i> Add to Wishlist</button>
-                </form>
+<style>
+    .star-rating {
+        color: #ddd; /* Default color for unfilled stars */
+    }
+    .star-rating .checked {
+        color: #ffcc00; /* Color for filled stars */
+    }
+</style>
 
-                <!-- Buy Now Button -->
-                <form action="buy_now.php" method="POST" style="display:inline;">
-                    <input type="hidden" name="n_id" value="<?php echo htmlspecialchars($item['n_id']); ?>">
-                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($item['name']); ?>">
-                    <input type="hidden" name="price" value="<?php echo htmlspecialchars($item['price']); ?>">
-                    <button type="submit" class="btn btn-success btn-custom"><i class="fas fa-dollar-sign"></i> Buy Now</button>
-                </form>
-            </div>
-        </div>
-    </div>
+                        <div class="button-container mt-3">
+                            <!-- Add to Cart Button -->
+                            <form action="add_to_cart.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="n_id" value="<?php echo htmlspecialchars($item['n_id']); ?>">
+                                <button type="submit" class="btn btn-primary btn-custom"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                            </form>
 
-    <div class="reviews-section">
-        <h3>Customer Reviews</h3>
-        <?php if (!empty($reviews)): ?>
-            <?php foreach ($reviews as $review): ?>
-                <div class="review-item">
-                    <p><strong>User ID:</strong> <?php echo htmlspecialchars($review['c_id']); ?></p>
-                    <p><strong>Rating:</strong> <span class="star-rating"><?php echo htmlspecialchars($review['rating']); ?></span> / 5</p>
-                    <p><strong>Review:</strong> <?php echo nl2br(htmlspecialchars($review['review_description'])); ?></p>
+                            <!-- Add to Wishlist Button -->
+                            <form action="add_to_wishlist.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="n_id" value="<?php echo htmlspecialchars($item['n_id']); ?>">
+                                <button type="submit" class="btn btn-secondary btn-custom"><i class="fas fa-heart"></i> Add to Wishlist</button>
+                            </form>
+
+                            <!-- Buy Now Button -->
+                            <form action="buy_now.php" method="POST" style="display:inline;">
+                                <input type="hidden" name="n_id" value="<?php echo htmlspecialchars($item['n_id']); ?>">
+                                <button type="submit" class="btn btn-success btn-custom"><i class="fas fa-dollar-sign"></i> Buy Now</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p>No reviews yet.</p>
-        <?php endif; ?>
+            </div>
+        </div>
+
+        <div class="reviews-section">
+    <h3>Customer Reviews</h3>
+
+    <?php if (empty($reviews)): ?>
+        <p>No reviews available for this item.</p>
+    <?php else: ?>
+        <?php foreach ($reviews as $review): ?>
+            <div class="review-item">
+                <div class="star-rating">
+                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                        <span class="fas fa-star <?php echo ($i <= intval($review['rating'])) ? 'checked' : ''; ?>"></span>
+                    <?php endfor; ?>
+                </div>
+                <p><?php echo nl2br(htmlspecialchars($review['review_description'])); ?></p>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+<style>
+    .star-rating {
+        color: #ddd; /* Default color for unfilled stars */
+    }
+    .star-rating .checked {
+        color: #ffcc00; /* Color for filled stars */
+    }
+</style>
+
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <?php if ($current_page > 1): ?>
+                    <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $current_page - 1; ?>">« Prev</a>
+                <?php endif; ?>
+
+                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                    <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $i; ?>" class="<?php echo ($i == $current_page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
+                <?php endfor; ?>
+
+                <?php if ($current_page < $total_pages): ?>
+                    <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $current_page + 1; ?>">Next »</a>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 </div>
 
-<!-- jQuery Script to handle form submission -->
+<?php include('footer.php'); ?>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
         // Handle form submission for adding to cart
@@ -238,16 +322,31 @@ $conn->close();
                 data: form.serialize(),
                 success: function(response) {
                     if (response.success) {
-                        alert('Item added to cart successfully!');
-                        // Update cart count or display
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Item added to cart successfully!',
+                        });
                     } else if (response.error === 'exists') {
-                        alert('Item already exists in your cart.');
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Already Exists!',
+                            text: 'Item already exists in your cart.',
+                        });
                     } else {
-                        alert('Error adding item to cart: ' + response.error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Error adding item to cart: ' + response.error,
+                        });
                     }
                 },
                 error: function() {
-                    alert('Error adding item to cart. Please try again.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred. Please try again later.',
+                    });
                 }
             });
         });
@@ -263,18 +362,69 @@ $conn->close();
                 data: form.serialize(),
                 success: function(response) {
                     if (response.success) {
-                        alert('Item added to wishlist successfully!');
-                        // Update wishlist display here
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: 'Item added to wishlist successfully!',
+                        });
+                    } else if (response.error === 'exists') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Already Exists!',
+                            text: 'Item already exists in your wishlist.',
+                        });
                     } else {
-                        alert('Error adding item to wishlist: ' + response.error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Error adding item to wishlist: ' + response.error,
+                        });
                     }
                 },
                 error: function() {
-                    alert('Error adding item to wishlist. Please try again.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred. Please try again later.',
+                    });
+                }
+            });
+        });
+
+        // Handle form submission for buy now
+        $('form[action="buy_now.php"]').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
+
+            const form = $(this);
+            $.ajax({
+                type: form.attr('method'),
+                url: form.attr('action'),
+                data: form.serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Purchase Successful!',
+                            text: 'You have successfully purchased the item!',
+                        }).then(() => {
+                            window.location.href = 'your_purchase_page.php'; // Redirect to purchase confirmation page
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: 'Error processing purchase: ' + response.error,
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred. Please try again later.',
+                    });
                 }
             });
         });
     });
 </script>
-
-<?php include('footer.php'); ?>
