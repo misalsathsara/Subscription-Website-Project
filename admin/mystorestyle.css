@@ -168,3 +168,83 @@ h2 {
         height: 80px;
     }
 }
+.table-data img {
+    border-radius: 5px;
+    object-fit: cover;
+}
+/* Modal background */
+.custom-modal {
+    display: none;               /* Initially hidden */
+    position: fixed;
+    z-index: 999;                /* Ensure it appears on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);  /* Dark transparent background */
+    display: flex;               /* Flexbox to center */
+    justify-content: center;      /* Center horizontally */
+    align-items: center;          /* Center vertically */
+}
+
+/* Modal content */
+.custom-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 50%;                  /* Set modal width to 50% of screen */
+    max-width: 600px;             /* Ensure it doesn’t get too wide */
+    max-height: 80vh;             /* Limit the height */
+    overflow-y: auto;             /* Scroll if content is too long */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);  /* Add a shadow */
+    position: relative;
+}
+
+/* Close button styling */
+.custom-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Image preview */
+.custom-image-preview img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+/* Drag-drop area styling */
+.custom-drag-drop-area {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.custom-done-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-done-button:hover {
+    background-color: #45a049;
+}
+
+/* Custom input styles */
+.custom-input, .custom-select, .custom-textarea {
+    width: 100%;                /* Full width for inputs */
+    margin-bottom: 15px;       /* Spacing between elements */
+    padding: 10px;             /* Padding for comfort */
+    border: 1px solid #ccc;    /* Border style */
+    border-radius: 5px;        /* Rounded corners */
+}
+

@@ -142,7 +142,9 @@
         <!-- ADD Iems Button -->
         <button id="addItemBtn" class="add-item-button">Add Items</button>
 
-        <div class="table-data">
+
+<!-- table section -->
+<div class="table-data">
     <div class="order">
         <div class="head">
             <i class='bx bx-search'></i>
@@ -151,6 +153,7 @@
         <table>
             <thead>
                 <tr>
+                    <th>Item Image</th>
                     <th>Item Name</th>
                     <th>Type</th>
                     <th>Description</th>
@@ -159,11 +162,13 @@
                 </tr>
             </thead>
             <tbody id="itemsTableBody">
-                <!-- Rows will be dynamically populated here -->
+                <?php include 'fetch_items.php'; ?> <!-- PHP code that fetches and displays data -->
             </tbody>
         </table>
     </div>
 </div>
+
+
     </main>
     <!-- MAIN -->
 </section>
@@ -180,7 +185,7 @@
                 <input type="file" id="itemImage" accept="image/*" style="display: none;">
             </div>
 
-            <input type="text" id="itemID" placeholder="Item ID">
+            <!-- <input type="text" id="itemID" placeholder="Item ID"> -->
             <input type="text" id="itemName" placeholder="Item Name">
             <select id="itemType">
                 <option value="electronic">Electronic</option>
@@ -199,25 +204,152 @@
 <!-- Modal Done -->
 
 <!-- Update Modal -->
-<div id="openUpdateModal" class="modal" style="display: none;">
+<!-- Update Modal -->
+<div id="updateModal" class="modal">
     <div class="modal-content">
         <span class="close-btn">&times;</span>
         <h2>Update Item</h2>
-        <input type="hidden" id="itemId" value="">
-        <input type="text" id="itemName" placeholder="Item Name">
-        <select id="itemType">
+
+        <!-- Show the item image -->
+        <!-- Drag and drop area for updating the image -->
+        <!-- <div class="drag-drop-area" id="update-drop-area">
+            <span>+</span>
+            <input type="file" id="updateItemImage" accept="image/*" style="display: none;">
+        </div> -->
+
+        <!-- Other item fields -->
+        <input type="text" id="updateItemID">
+
+        <input type="text" id="updateItemName" placeholder="Item Name">
+        <select id="updateItemType">
             <option value="electronic">Electronic</option>
             <option value="beauty">Beauty</option>
             <option value="home appliance">Home Appliance</option>
         </select>
-        <input type="text" id="itemDescription" placeholder="Description">
-        <input type="text" id="itemPrice" placeholder="Price">
-        <button id="updateDoneBtn">Done</button>
+        <textarea id="updateItemDescription" placeholder="Item Description"></textarea>
+        <input type="number" id="updateItemPrice" placeholder="Price">
+
+        <button class="done-button" id="updateBtn">Update</button>
     </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+
+function loadTableData() {
+    fetch('fetch_items.php')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('itemsTableBody').innerHTML = data;
+        });
+}
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.closest('.update-btn')) {
+        const itemId = e.target.closest('.update-btn').getAttribute('data-id');
+        
+        // Fetch the item details
+        fetch(`getItems.php?id=${itemId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Populate the modal fields with the item data
+                // document.getElementById('updateItemImage').value = data.image;
+                document.getElementById('updateItemName').value = data.name;
+                document.getElementById('updateItemType').value = data.type;
+                document.getElementById('updateItemDescription').value = data.description;
+                document.getElementById('updateItemPrice').value = data.price;
+
+                // Store the item ID in a variable
+                document.getElementById('updateItemID').value = itemId; // Add a hidden input for item ID
+                const modal = document.getElementById("updateModal");
+                modal.style.display = "flex";  // Use flex to center it
+            });
+    }
+});
+
+// Close the modal when the close button is clicked
+document.querySelectorAll('.close-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.getElementById('updateModal').style.display = 'none';
+    });
+});
+
+// Update button click event
+document.getElementById('updateBtn').addEventListener('click', function () {
+    const itemId = document.getElementById('updateItemID').value; // Get item ID from the hidden input
+    const updatedItem = {
+        id: itemId,
+        name: document.getElementById('updateItemName').value,
+        type: document.getElementById('updateItemType').value,
+        description: document.getElementById('updateItemDescription').value,
+        price: document.getElementById('updateItemPrice').value
+    };
+
+    fetch('updateItem.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedItem)
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.status === 'success') {
+            // Show SweetAlert for successful update
+            Swal.fire('Updated!', 'Item has been successfully updated.', 'success');
+
+            // Hide the modal
+            document.getElementById('updateModal').style.display = 'none';
+
+            // Reload the table
+            loadTableData();  // You'll define this function to refresh the table
+        } else {
+            Swal.fire('Error!', 'Failed to update the item.', 'error');
+        }
+    });
+});
+
+
+document.addEventListener('click', function (e) {
+    if (e.target && e.target.closest('.delete-btn')) {
+        const itemId = e.target.closest('.delete-btn').getAttribute('data-id');
+
+        // Confirmation via SweetAlert
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // AJAX request to delete the item
+                fetch(`deleteItem.php?id=${itemId}`)
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.status === 'success') {
+                            Swal.fire('Deleted!', 'Item has been deleted.', 'success');
+
+                            // Reload the table
+                            loadTableData();  // You'll define this function to refresh the table
+                        }
+                    });
+            }
+        });
+    }
+});
+
+
+// Call loadTableData on page load
+document.addEventListener('DOMContentLoaded', loadTableData);
+
+
+// Close modal functionality
+document.querySelector('.close-btn').addEventListener('click', function() {
+    document.getElementById('updateModal').style.display = 'none';
+});
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const modal = document.getElementById('itemModal');
     const addItemBtn = document.getElementById('addItemBtn');
@@ -282,14 +414,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.getElementById('doneBtn').onclick = function () {
-        const itemID = document.getElementById('itemID').value;
+        //const itemID = document.getElementById('itemID').value;
         const itemName = document.getElementById('itemName').value;
         const itemType = document.getElementById('itemType').value;
         const itemDescription = document.getElementById('itemDescription').value;
         const itemPrice = document.getElementById('itemPrice').value;
         const itemImage = itemImageInput.files[0];
 
-        if (!itemID || !itemName || !itemType || !itemDescription || !itemPrice || !itemImage) {
+        if (!itemName || !itemType || !itemDescription || !itemPrice || !itemImage) {
             Swal.fire('Error', 'Please fill all fields and upload an image.', 'error');
             return;
         }
@@ -303,7 +435,7 @@ document.addEventListener('DOMContentLoaded', () => {
 }).then((result) => {
     if (result.isConfirmed) {
         const formData = new FormData();
-        formData.append('itemID', itemID);
+        // formData.append('itemID', itemID);
         formData.append('itemName', itemName);
         formData.append('itemType', itemType);
         formData.append('itemDescription', itemDescription);
@@ -333,10 +465,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 </script>
-
-
-
-
 <script src="script.js"></script>
 
 </body>
