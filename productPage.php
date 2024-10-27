@@ -36,6 +36,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 <?php include('footer.php'); ?>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Ensure jQuery is loaded -->
+
 <script>
     // Fetch all items when the page loads
     document.addEventListener('DOMContentLoaded', () => {
@@ -118,32 +120,20 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     const moreInfoBtn = document.createElement('button');
                     moreInfoBtn.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'fancy-btn');
                     moreInfoBtn.style.margin = '0 5px'; // Add margin for spacing
-                    moreInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i> ';
+                    moreInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i>';
                     moreInfoBtn.onclick = () => window.location.href = `itemDetail.php?n_id=${item.n_id}`;
 
                     const addToCartBtn = document.createElement('button');
                     addToCartBtn.classList.add('btn', 'btn-outline-success', 'btn-sm', 'fancy-btn');
                     addToCartBtn.style.margin = '0 5px'; // Add margin for spacing
-                    addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i> ';
-                    addToCartBtn.onclick = () => {
-                        <?php if (!isset($_SESSION['username'])) { ?>
-                            showAlert('You need to log in to add items to your cart!');
-                        <?php } else { ?>
-                            alert('Added to cart');
-                        <?php } ?>
-                    };
+                    addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
+                    addToCartBtn.onclick = () => handleAddToCart(item.n_id);
 
                     const addToWishlistBtn = document.createElement('button');
                     addToWishlistBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'fancy-btn');
                     addToWishlistBtn.style.margin = '0 5px'; // Add margin for spacing
-                    addToWishlistBtn.innerHTML = '<i class="fas fa-heart"></i> ';
-                    addToWishlistBtn.onclick = () => {
-                        <?php if (!isset($_SESSION['username'])) { ?>
-                            showAlert('You need to log in to add items to your wishlist!');
-                        <?php } else { ?>
-                            alert('Added to wishlist');
-                        <?php } ?>
-                    };
+                    addToWishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
+                    addToWishlistBtn.onclick = () => handleAddToWishlist(item.n_id);
 
                     buttonGroup.appendChild(moreInfoBtn);
                     buttonGroup.appendChild(addToCartBtn);
@@ -173,11 +163,64 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
         fetchItems(category, minPrice, maxPrice);
     }
 
+    function handleAddToCart(n_id) {
+        <?php if (!isset($_SESSION['username'])) { ?>
+            showAlert('You need to log in to add items to your cart!');
+        <?php } else { ?>
+            $.ajax({
+                url: 'add_to_cart.php',
+                type: 'POST',
+                data: { n_id: n_id },
+                success: function(response) {
+                    if (response.success) {
+                        showSuccessAlert('Added to cart');
+                    } else {
+                        showAlert(response.error);
+                    }
+                },
+                error: function() {
+                    showAlert('An unexpected error occurred. Please try again later.');
+                }
+            });
+        <?php } ?>
+    }
+
+    function handleAddToWishlist(n_id) {
+        <?php if (!isset($_SESSION['username'])) { ?>
+            showAlert('You need to log in to add items to your wishlist!');
+        <?php } else { ?>
+            $.ajax({
+                url: 'add_to_wishlist.php',
+                type: 'POST',
+                data: { n_id: n_id },
+                success: function(response) {
+                    if (response.success) {
+                        showSuccessAlert('Added to wishlist');
+                    } else {
+                        showAlert(response.error);
+                    }
+                },
+                error: function() {
+                    showAlert('An unexpected error occurred. Please try again later.');
+                }
+            });
+        <?php } ?>
+    }
+
     function showAlert(message) {
         swal({
             title: "Warning",
             text: message,
             icon: "warning",
+            button: "OK",
+        });
+    }
+
+    function showSuccessAlert(message) {
+        swal({
+            title: "Success",
+            text: message,
+            icon: "success",
             button: "OK",
         });
     }
