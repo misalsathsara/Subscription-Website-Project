@@ -1,18 +1,16 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 session_start();
 include 'dbase.php'; // Include your database connection file
 
 // Set response headers to return JSON
 header('Content-Type: application/json');
 
+
 // Check if n_id is provided
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['n_id']) && !empty($_POST['n_id'])) {
     $n_id = $_POST['n_id'];
     $username = $_SESSION['username'] ?? '';
-    
+
     // Check if user is logged in
     if (empty($username)) {
         echo json_encode(['error' => 'User not logged in']);
@@ -68,7 +66,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['n_id']) && !empty($_PO
             $insert_stmt->bind_param("sss", $c_id, $n_id, $username); // Bind c_id, n_id, and username
 
             if ($insert_stmt->execute()) {
-                echo json_encode(['success' => true]);
+                // After successfully adding to cart, remove from wishlist
+                $delete_sql = "DELETE FROM wishlist WHERE n_id = ? AND username = ?";
+                $delete_stmt = $conn->prepare($delete_sql);
+
+                // Check if preparation was successful
+                if (!$delete_stmt) {
+                    echo json_encode(['error' => 'Database error: ' . $conn->error]);
+                    exit;
+                }
+
+                $delete_stmt->bind_param("ss", $n_id, $username); // Bind n_id and username for wishlist deletion
+
+                if ($delete_stmt->execute()) {
+                    echo json_encode(['success' => true, 'message' => 'Item added to cart and removed from wishlist']);
+                } else {
+                    echo json_encode(['error' => 'Failed to remove item from wishlist']);
+                }
+
+                $delete_stmt->close();
             } else {
                 echo json_encode(['error' => 'Failed to add item to cart']);
             }

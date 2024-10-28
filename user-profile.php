@@ -78,6 +78,10 @@ $conn->close();
             <p class="form-control-plaintext" id="userId"><?php echo htmlspecialchars($c_id); ?></p>
         </div>
         <div class="mb-3">
+            <label for="username" class="form-label">User Name</label>
+            <p class="form-control-plaintext" id="username"><?php echo htmlspecialchars($username); ?></p>
+        </div>
+        <div class="mb-3">
             <label for="c_name" class="form-label">Full Name</label>
             <input type="text" name="c_name" value="<?php echo htmlspecialchars($c_name); ?>" class="form-control" id="c_name" required>
         </div>

@@ -299,13 +299,135 @@
                     <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="navbar-right ms-3">
-                <a class="nav-link icon-btn" href="show_cart.php">
-    <i class="fa fa-shopping-cart"></i>
-    <?php if ($item_count > 0) : ?>
-        <span class="cart-count"><?php echo $item_count; ?></span>
-    <?php endif; ?>
-</a>
 
+                <style>
+    .icon-btn {
+        position: relative;
+        color: #333;
+        transition: color 0.3s;
+    }
+
+    .icon-btn:hover {
+        color: #0056b3; /* Change icon color on hover */
+    }
+
+    .dropdown-menu {
+        min-width: 320px; /* Set a minimum width for the dropdown */
+        border: none; /* Remove the border */
+        border-radius: 12px; /* More rounded corners */
+        background: linear-gradient(145deg, #ffffff, #e6e6e6); /* Gradient background */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Deeper shadow for depth */
+        backdrop-filter: blur(10px); /* Blur effect for modern look */
+    }
+
+    .dropdown-item {
+        padding: 15px 20px; /* Adjust padding for dropdown items */
+        color: #333; /* Item text color */
+        display: flex; /* Use flexbox for alignment */
+        align-items: center; /* Center items vertically */
+        border-radius: 8px; /* Rounded corners for items */
+        transition: background-color 0.3s, transform 0.2s; /* Smooth transition for hover */
+    }
+
+    .dropdown-item:hover {
+        background-color: rgba(0, 123, 255, 0.1); /* Light blue background on hover */
+        transform: scale(1.02); /* Slight scale effect on hover */
+        color: #0056b3; /* Change text color on hover */
+    }
+
+    .dropdown-item .item-icon {
+        width: 45px; /* Increased width for icons */
+        height: 45px; /* Increased height for icons */
+        margin-right: 15px; /* Space between icon and text */
+        border-radius: 8px; /* Rounded corners for icons */
+        background-color: #f8f9fa; /* Light background for icons */
+        padding: 5px; /* Padding for icons */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow for icons */
+    }
+
+    .cart-count {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        font-size: 0.75rem;
+    }
+
+    /* Hide the default dropdown arrow */
+    .dropdown-toggle::after {
+        display: none; /* Remove arrow */
+    }
+
+    /* Style for the Proceed to Checkout link */
+    .view-cart {
+        font-weight: bold;
+        color: #fff; /* White text color */
+        text-decoration: none; /* Remove underline */
+        background-color: #007bff; /* Button background color */
+        border-radius: 8px; /* Rounded corners */
+        padding: 12px 20px; /* Padding for spacing */
+        margin: 10px 0; /* Margin for spacing */
+        transition: background-color 0.3s; /* Transition for hover effect */
+        display: inline-block; /* Center the button */
+        box-shadow: 0 4px 15px rgba(0, 123, 255, 0.2); /* Shadow for button */
+    }
+
+    /* Additional styling for the cart item price */
+    .item-price {
+        font-weight: 600; /* Bold price */
+        margin-left: auto; /* Push price to the right */
+        color: #555; /* Subtle price color */
+    }
+    .delete-icon {
+        margin-left: auto; /* Push icon to the right */
+        color: #dc3545; /* Red color for the delete icon */
+        cursor: pointer; /* Pointer cursor on hover */
+        transition: color 0.3s; /* Smooth color transition */
+    }
+
+    .delete-icon:hover {
+        color: #c82333; /* Darker red on hover */
+    }
+</style>
+
+<!-- Shopping Cart Icon with Dropdown -->
+<div class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle icon-btn" href="#" id="cartDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-shopping-cart"></i>
+        <?php if (count($cart_items) > 0) : ?>
+            <span class="cart-count badge bg-danger"><?php echo count($cart_items); ?></span>
+        <?php endif; ?>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="cartDropdown">
+        <?php if (!empty($cart_items)) : ?>
+            <?php foreach ($cart_items as $item) : ?>
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <img src="admin/<?php echo htmlspecialchars($item['image']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="item-icon"> <!-- Add item icon -->
+                        <span><?php echo htmlspecialchars($item['name']); ?></span>
+                        <span class="item-price text-muted"><?php echo htmlspecialchars($item['price']); ?></span>
+                        <i class="fa fa-trash delete-icon" 
+                           onclick="window.location.href='remove_from_cart.php?id=<?php echo htmlspecialchars($item['id']); ?>';" 
+                           title="Remove item"></i> <!-- Delete icon -->
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+                <a class="dropdown-item text-center view-cart" href="show_cart.php">
+                    Proceed to Checkout
+                </a>
+            </li>
+        <?php else : ?>
+            <li><a class="dropdown-item text-center" href="#">Your cart is empty</a></li>
+        <?php endif; ?>
+    </ul>
+</div>
+
+
+
+
+
+<!-- Wishlist Icon with Count -->
 <a class="nav-link icon-btn" href="wishlist.php">
     <i class="fa fa-heart"></i>
     <?php if ($wish_count > 0) : ?>
@@ -313,21 +435,9 @@
     <?php endif; ?>
 </a>
 
-<style>
-    /* Existing styles... */
-
-    /* Hide the default dropdown arrow */
-    .dropdown-toggle::after {
-        display: none; /* Removes the arrow */
-    }
-
-    /* Add your other styles here if necessary */
-</style>
-
 <!-- User Profile Dropdown -->
 <div class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button"
-        data-bs-toggle="dropdown" aria-expanded="false">
+    <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa fa-user"></i>
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -340,7 +450,7 @@
 </div>
 
 
-                </div>
+
             </div>
         </div>
     </nav>
