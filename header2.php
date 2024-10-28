@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,6 +212,41 @@
         /* Pushes icons to the right */
     }
 
+    /* Add this CSS to your stylesheet */
+.icon-btn {
+    position: relative;
+}
+
+/* Updated CSS for a smaller cart count */
+.cart-count {
+    position: absolute;
+    top: -5px;
+    right: -9px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 20px; /* Minimum width to keep count consistent */
+    text-align: center;
+}
+
+.wish-count {
+    position: absolute;
+    top: -5px;
+    right: -9px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: bold;
+    min-width: 20px; /* Minimum width to keep count consistent */
+    text-align: center;
+}
+
+
     @media (max-width: 767px) {
         .navbar-nav .nav-link {
             font-size: 14px;
@@ -263,8 +299,20 @@
                     <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
                 <div class="navbar-right ms-3">
-                    <a class="nav-link icon-btn" href="#"><i class="fa fa-shopping-cart"></i></a>
-                    <a class="nav-link icon-btn" href="#"><i class="fa fa-heart"></i></a>
+                <a class="nav-link icon-btn" href="#">
+    <i class="fa fa-shopping-cart"></i>
+    <?php if ($item_count > 0) : ?>
+        <span class="cart-count"><?php echo $item_count; ?></span>
+    <?php endif; ?>
+</a>
+
+<a class="nav-link icon-btn" href="#">
+    <i class="fa fa-heart"></i>
+    <?php if ($wish_count > 0) : ?>
+        <span class="wish-count"><?php echo $wish_count; ?></span>
+    <?php endif; ?>
+</a>
+
                     <div class="nav-item dropdown">
     <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button"
         data-bs-toggle="dropdown" aria-expanded="false">
@@ -284,3 +332,86 @@
         </div>
     </nav>
     <!-- Navbar End -->
+
+    <script>
+    // Function to fetch the updated cart count
+    function updateCartCount() {
+        // Make an AJAX request to getCartCount.php
+        fetch('getCartCount.php')
+            .then(response => response.json())
+            .then(data => {
+                // Update the cart count in the UI
+                const cartCountElement = document.querySelector('.cart-count');
+                const itemCount = data.item_count;
+
+                if (itemCount > 0) {
+                    // If item count is greater than 0, update the count or show the badge
+                    if (cartCountElement) {
+                        cartCountElement.textContent = itemCount;
+                    } else {
+                        // If the count element doesn't exist, create it
+                        const cartIcon = document.querySelector('.fa-shopping-cart');
+                        if (cartIcon) {
+                            const span = document.createElement('span');
+                            span.classList.add('cart-count');
+                            span.textContent = itemCount;
+                            cartIcon.parentElement.appendChild(span);
+                        }
+                    }
+                } else {
+                    // Remove the badge if the item count is 0
+                    if (cartCountElement) {
+                        cartCountElement.remove();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error fetching cart count:', error);
+            });
+    }
+
+    setInterval(updateCartCount, 100); // Update every 10 seconds
+updateCartCount();
+
+function updateWishCount() {
+    // Make an AJAX request to get_wishlist_count.php
+    fetch('get_wishlist_count.php')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Log the response to check the structure
+
+            // Update the wishlist count in the UI
+            const wishCountElement = document.querySelector('.wish-count');
+            const wishitemCount = data.wish_count;
+
+            if (wishitemCount > 0) {
+                // If item count is greater than 0, update the count or show the badge
+                if (wishCountElement) {
+                    wishCountElement.textContent = wishitemCount;
+                } else {
+                    // If the count element doesn't exist, create it
+                    const wishIcon = document.querySelector('.fa-heart'); // Updated the selector
+                    if (wishIcon) {
+                        const span = document.createElement('span');
+                        span.classList.add('wish-count');
+                        span.textContent = wishitemCount;
+                        wishIcon.parentElement.appendChild(span);
+                    }
+                }
+            } else {
+                // Remove the badge if the item count is 0
+                if (wishCountElement) {
+                    wishCountElement.remove();
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching wishlist count:', error);
+        });
+}
+
+    setInterval(updateWishCount, 100); // Update every 10 seconds
+
+    // Initial load
+    updateWishCount();
+</script>

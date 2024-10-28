@@ -6,16 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $itemDescription = $_POST['description'];
     $itemPrice = $_POST['price'];
 
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "SubscriBuy"; // Change to your actual database name
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include '../dbase.php';
 
     $sql = "UPDATE items SET item_name = ?, type = ?, description = ?, price = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);

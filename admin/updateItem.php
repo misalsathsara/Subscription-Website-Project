@@ -1,14 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "SubscriBuy";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die(json_encode(['status' => 'error', 'message' => 'Connection failed: ' . $conn->connect_error]));
-}
+include '../dbase.php';
 
 $data = json_decode(file_get_contents("php://input"));
 
