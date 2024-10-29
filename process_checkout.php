@@ -14,7 +14,9 @@ $total_price = 0;
 
 // Calculate total price and prepare order details
 foreach ($cart_items as $item) {
-    $total_price += $item['price'];
+    // Ensure quantity is set, default to 1 if not
+    $quantity = isset($item['quantity']) ? $item['quantity'] : 1; 
+    $total_price += $item['price'] * $quantity;
 }
 
 // Get billing information from POST request
@@ -54,7 +56,13 @@ if (!$item_stmt) {
 
 // Loop through cart items to save them in the database
 foreach ($cart_items as $item) {
-    $item_stmt->bind_param("iiid", $order_id, $item['id'], $item['quantity'], $item['price']);
+    // Ensure that the `id` refers to the `n_id` in the items table
+    $item_id = $item['id']; // Assuming this is the n_id from your `items` table
+    $price = $item['price'];
+    $quantity = isset($item['quantity']) ? $item['quantity'] : 1; // Default quantity is 1 if not set
+
+    // Bind the order details and execute the insertion
+    $item_stmt->bind_param("iiid", $order_id, $item_id,$quantity, $price); // Add quantity here
     $item_stmt->execute();
 }
 

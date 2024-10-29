@@ -11,6 +11,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 }
 
 // Retrieve cart items for the logged-in user
+// Retrieve cart items for the logged-in user
 $query = "SELECT c.id, i.name, i.price, i.image
           FROM cart c
           JOIN items i ON c.n_id = i.n_id
@@ -33,8 +34,12 @@ while ($row = $result->fetch_assoc()) {
     $totalAmount += $row['price'];
 }
 
+// Store the cart items in session
+$_SESSION['cart_items'] = $cartItems;
+
 $stmt->close();
 $conn->close();
+
 ?>
 <style>
     .card {
