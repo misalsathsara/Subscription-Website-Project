@@ -108,20 +108,48 @@ $conn->close();
 
         <h4 class="mt-4">Billing Information</h4>
         <form action="process_checkout.php" method="POST" class="border p-4 rounded bg-light shadow-sm">
-            <div class="mb-3">
-                <label for="fullname" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="fullname" name="fullname" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="address" class="form-label">Shipping Address</label>
-                <textarea class="form-control" id="address" name="address" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg w-100">Proceed to Payment</button>
-        </form>
+    <div class="mb-3">
+        <label for="fullname" class="form-label">Full Name</label>
+        <input type="text" class="form-control" id="fullname" name="fullname" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email Address</label>
+        <input type="email" class="form-control" id="email" name="email" required>
+    </div>
+    <div class="mb-3">
+        <label for="address" class="form-label">Shipping Address</label>
+        <textarea class="form-control" id="address" name="address" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="package_duration" class="form-label">Package Duration</label>
+        <select class="form-select" id="package_duration" name="package_duration" required>
+            <option value="" selected disabled>Select package duration</option>
+            <option value="every week">Every Week</option>
+            <option value="every two weeks">Every Two Weeks</option>
+            <option value="every month">Every Month</option>
+            <option value="every 2 months">Every 2 Months</option>
+            <option value="every 3 months">Every 3 Months</option>
+            <option value="every 4 months">Every 4 Months</option>
+            <option value="every 5 months">Every 5 Months</option>
+            <option value="every 6 months">Every 6 Months</option>
+            <option value="every year">Every Year</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="received_time" class="form-label">Received Time</label>
+        <select class="form-select" id="received_time" name="received_time" required>
+            <option value="" selected disabled>Select received time</option>
+            <option value="start of the week">Start of the Week</option>
+            <option value="middle of the week">Middle of the Week</option>
+            <option value="end of the week">End of the Week</option>
+            <option value="start of the month">Start of the Month</option>
+            <option value="middle of the month">Middle of the Month</option>
+            <option value="end of the month">End of the Month</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg w-100">Proceed to Payment</button>
+</form>
+
     <?php else : ?>
         <div class="alert alert-info text-center" role="alert">
             <i class="fas fa-info-circle"></i> Your cart is empty.

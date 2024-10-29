@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3308
--- Generation Time: Oct 29, 2024 at 03:33 AM
--- Server version: 5.7.24
--- PHP Version: 8.0.1
+-- Host: 127.0.0.1
+-- Generation Time: Oct 29, 2024 at 04:26 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -32,14 +32,16 @@ CREATE TABLE `cart` (
   `c_id` varchar(11) DEFAULT NULL,
   `n_id` varchar(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `c_id`, `n_id`, `username`) VALUES
-(11, 'C004', '1', 'sanindu');
+(11, 'C004', '1', 'sanindu'),
+(12, 'C004', '2', 'sanindu'),
+(13, 'C004', '3', 'sanindu');
 
 -- --------------------------------------------------------
 
@@ -52,7 +54,7 @@ CREATE TABLE `contact` (
   `email` varchar(150) NOT NULL,
   `subject` varchar(100) NOT NULL,
   `message` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contact`
@@ -83,7 +85,7 @@ CREATE TABLE `customers` (
   `c_address` varchar(300) NOT NULL,
   `c_uname` varchar(100) NOT NULL,
   `c_pwd` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `customers`
@@ -103,8 +105,8 @@ CREATE TABLE `c_reviews` (
   `c_id` varchar(11) NOT NULL,
   `n_id` varchar(11) NOT NULL,
   `rating` int(11) DEFAULT NULL,
-  `review_description` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `review_description` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `c_reviews`
@@ -132,14 +134,18 @@ CREATE TABLE `items` (
   `description` text NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `image` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VALUES
-(1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', '5000.00', 'uploads/68837027_689373823503_0.19650400-1672221458.jpg');
+(1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', 5000.00, 'uploads/68837027_689373823503_0.19650400-1672221458.jpg'),
+(2, 'cream', 'beauty', 'uio', 123.00, 'uploads/images.jpg'),
+(3, 'cream', 'beauty', '[op[', 90879.00, 'uploads/images.jpg'),
+(4, 'Healthy Fruits', 'electronic', 'DSADAD', 324234.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg'),
+(5, 'Healthy Fruits', 'beauty', 'DSADADAYTDFYGF', 32423434.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg');
 
 -- --------------------------------------------------------
 
@@ -152,9 +158,39 @@ CREATE TABLE `orders` (
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `address` text NOT NULL,
+  `duration` varchar(100) NOT NULL,
+  `renieve` varchar(100) NOT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `created_at`) VALUES
+(1, 'A', 'asa@gmail.com', 's', '', '', 5000.00, '2024-10-29 06:40:15'),
+(2, 'A', 'asa@gmail.com', 's', '', '', 5000.00, '2024-10-29 06:44:23'),
+(3, 'A', 'asa@gmail.com', 's', '', '', 5000.00, '2024-10-29 06:45:14'),
+(4, 'aasas', 'asa@gmail.com', 'qwrqerq', '', '', 96002.00, '2024-10-29 08:53:08'),
+(5, 'aasas', 'asa@gmail.com', 'weqw', 'every week', 'start of the week', 96002.00, '2024-10-29 14:00:53'),
+(6, 'aasas', 'asa@gmail.com', 'weqw', 'every week', 'start of the week', 96002.00, '2024-10-29 14:06:29'),
+(7, 'aasas', 'asa@gmail.com', 'weqw', 'every week', 'start of the week', 96002.00, '2024-10-29 14:12:39'),
+(8, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:19:09'),
+(9, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:19:09'),
+(10, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:19:09'),
+(11, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:33:11'),
+(12, 'A', 'asa@gmail.com', 'sdfsdf', 'every year', 'middle of the week', 96002.00, '2024-10-29 14:37:36'),
+(13, 'aasas', 'asa@gmail.com', 'erfer', 'every 5 months', 'start of the week', 96002.00, '2024-10-29 14:40:28'),
+(14, 'aasas', 'asa@gmail.com', 'erfer', 'every 5 months', 'start of the week', 96002.00, '2024-10-29 14:43:38'),
+(15, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:44:05'),
+(16, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:49:04'),
+(17, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:52:45'),
+(18, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:53:11'),
+(19, 'DSsdf', 'asa@gmail.com', 'yt', 'every week', 'middle of the week', 96002.00, '2024-10-29 14:54:59'),
+(20, 'aasas', 'asa@gmail.com', 'wr', 'every 6 months', 'end of the month', 96002.00, '2024-10-29 15:03:08'),
+(21, 'aasas', 'asa@gmail.com', 'wr', 'every 6 months', 'end of the month', 96002.00, '2024-10-29 15:07:37'),
+(22, 'sanindu', 'asa@gmail.com', 'afsfaf', 'every 6 months', 'start of the month', 96002.00, '2024-10-29 15:25:29');
 
 -- --------------------------------------------------------
 
@@ -165,10 +201,17 @@ CREATE TABLE `orders` (
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '1',
-  `price` decimal(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `item_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `item_id`) VALUES
+(1, 22, 11),
+(2, 22, 12),
+(3, 22, 13);
 
 -- --------------------------------------------------------
 
@@ -181,7 +224,7 @@ CREATE TABLE `wishlist` (
   `c_id` varchar(11) DEFAULT NULL,
   `n_id` varchar(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -227,9 +270,7 @@ ALTER TABLE `orders`
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `order_id` (`order_id`),
-  ADD KEY `item_id` (`item_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `wishlist`
@@ -245,7 +286,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -257,36 +298,25 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `order_items`
---
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`n_id`) ON DELETE CASCADE;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
