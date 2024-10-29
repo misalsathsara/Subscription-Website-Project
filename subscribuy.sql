@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3308
--- Generation Time: Oct 26, 2024 at 06:59 PM
+-- Generation Time: Oct 29, 2024 at 03:33 AM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -39,7 +39,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `c_id`, `n_id`, `username`) VALUES
-(10, 'C004', 'AC001', 'sanindu');
+(11, 'C004', '1', 'sanindu');
 
 -- --------------------------------------------------------
 
@@ -126,25 +126,49 @@ INSERT INTO `c_reviews` (`c_id`, `n_id`, `rating`, `review_description`) VALUES
 --
 
 CREATE TABLE `items` (
-  `n_id` varchar(11) NOT NULL,
+  `n_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `image` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VALUES
-('001', 'Healthy Food', 'beauty', 'msdkmkd', '5000.00', 'uploads/healthy food pack.jpg'),
-('AC001', 'phone', 'electronic', 'iwuediu', '120000.00', 'uploads/gauge-temperature-icon-free-vector.jpg'),
-('AC003', 'phone', 'electronic', 'iwuediu', '120000.00', 'uploads/gauge-temperature-icon-free-vector.jpg'),
-('AC004', 'item 2', 'electronic', 'hello', '12000.00', 'uploads/wallpaperflare.com_wallpaper.jpg'),
-('AC005', 'item 2', 'electronic', 'hello', '12000.00', 'uploads/PXL_20240930_055809146.jpg'),
-('AC007', 'item 2', 'electronic', 'hello', '12000.00', 'uploads/PXL_20240930_055809146.jpg');
+(1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', '5000.00', 'uploads/68837027_689373823503_0.19650400-1672221458.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `fullname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `address` text NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `item_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL DEFAULT '1',
+  `price` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -158,16 +182,6 @@ CREATE TABLE `wishlist` (
   `n_id` varchar(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `wishlist`
---
-
-INSERT INTO `wishlist` (`id`, `c_id`, `n_id`, `username`) VALUES
-(1, '', '', NULL),
-(2, '', '001', NULL),
-(3, NULL, 'AC001', 'sanindu'),
-(4, 'C004', 'AC001', 'sanindu');
 
 --
 -- Indexes for dumped tables
@@ -204,6 +218,20 @@ ALTER TABLE `items`
   ADD PRIMARY KEY (`n_id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `item_id` (`item_id`);
+
+--
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
@@ -217,7 +245,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -226,10 +254,39 @@ ALTER TABLE `contact`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `items`
+--
+ALTER TABLE `items`
+  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`item_id`) REFERENCES `items` (`n_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

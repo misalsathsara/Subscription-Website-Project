@@ -18,9 +18,9 @@ if (isset($_FILES['itemImage']) && !empty($_POST['itemName'])) {
         
         // Extract the numeric part and increment
         $numericPart = (int)substr($lastID, 2); // Assuming 'ID' is the prefix
-        $newID = 'ID' . str_pad($numericPart + 1, 3, '0', STR_PAD_LEFT); // Generate ID with leading zeros (e.g., ID001)
+        $newID = '0' . str_pad($numericPart + 1, 3, '0', STR_PAD_LEFT); // Generate ID with leading zeros (e.g., ID001)
     } else {
-        $newID = 'ID001'; // If no records exist, start with ID001
+        $newID = '001'; // If no records exist, start with ID001
     }
 
     // File upload logic
