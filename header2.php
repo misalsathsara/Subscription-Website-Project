@@ -1,3 +1,10 @@
+<?php
+// Initialize variables with default values if they are not yet defined
+$item_count = $item_count ?? 0; // Set to 0 if $item_count is not defined
+$wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
+
+// Continue with the rest of your code
+?>
 
 <!DOCTYPE html>
 <html lang="en">

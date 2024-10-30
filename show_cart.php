@@ -66,7 +66,7 @@ $conn->close();
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-4">
-                <h3>Total: <span class="text-success">$<?php echo number_format($totalAmount, 2); ?></span></h3>
+                <h3>Total: <span class="text-success">LKR <?php echo number_format($totalAmount, 2); ?></span></h3>
                 <a href="checkout.php" class="btn btn-primary btn-lg">
                     <i class="fas fa-shopping-cart"></i> Proceed to Checkout
                 </a>
