@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -20,6 +21,7 @@ try {
 
     $mail->setFrom('chamodi.malshika@ecyber.com', 'Contact Request');
     $mail->addAddress('chamodi.malshika@ecyber.com', 'Recipient Name');
+    $mail->addAddress('sameera.rajapaksha@ecyber.com', 'Recipient Name');
     $mail->addAddress('misal.sathsara@ecyber.com', 'Misal');
 
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);

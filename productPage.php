@@ -112,7 +112,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 
                     const price = document.createElement('p');
                     price.classList.add('card-text', 'text-gradient', 'fw-bold');
-                    price.textContent = `Price: $${item.price}`;
+                    price.textContent = `Price: LKR ${item.price}`;
 
                     const buttonGroup = document.createElement('div');
                     buttonGroup.classList.add('d-flex', 'justify-content-around', 'mt-3');

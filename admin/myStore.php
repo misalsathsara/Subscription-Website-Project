@@ -99,7 +99,7 @@ include('admin-header.php');
         </div> -->
 
         <!-- Other item fields -->
-        <input type="text" id="updateItemID">
+        <input type="hidden" id="updateItemID">
 
         <input type="text" id="updateItemName" placeholder="Item Name">
         <select id="updateItemType">

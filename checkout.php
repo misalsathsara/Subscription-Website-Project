@@ -103,7 +103,7 @@ $conn->close();
         </div>
 
         <div class="d-flex justify-content-between align-items-center mt-4">
-            <h3>Total: <span class="text-success">$<?php echo number_format($totalAmount, 2); ?></span></h3>
+            <h3>Total: <span class="text-success">LKR <?php echo number_format($totalAmount, 2); ?></span></h3>
         </div>
 
         <h4 class="mt-4">Billing Information</h4>

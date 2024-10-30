@@ -50,7 +50,7 @@ $conn->close();
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
                                         <h5 class="card-title mb-1" style="font-size: 1rem;"><?php echo htmlspecialchars($item['name']); ?></h5> <!-- Reduced font size -->
-                                        <p class="text-muted mb-1">$<?php echo number_format($item['price'], 2); ?></p>
+                                        <p class="text-muted mb-1">LKR <?php echo number_format($item['price'], 2); ?></p>
                                     </div>
                                     <form action="remove_from_cart.php" method="POST" style="display: inline;">
                                         <input type="hidden" name="cart_id" value="<?php echo $item['id']; ?>">

@@ -58,7 +58,7 @@ if (!$item_stmt) {
 // Loop through cart items to save them in the database
 foreach ($cart_items as $item) {
     // Ensure that the `id` refers to the `n_id` in the items table
-    $item_id = $item['id']; // Assuming this is the n_id from your `cart` table
+    $item_id = $item['n_id']; // Assuming this is the n_id from your `cart` table
 
     // Bind the order details and execute the insertion
     $item_stmt->bind_param("ii", $order_id, $item_id); // Assuming item_id is varchar

@@ -46,7 +46,7 @@ $conn->close();
                         <img src="admin/<?php echo htmlspecialchars($item['image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($item['name']); ?>" style="height: 150px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title mb-1" style="font-size: 1rem;"><?php echo htmlspecialchars($item['name']); ?></h5>
-                            <p class="text-muted mb-1">$<?php echo number_format($item['price'], 2); ?></p>
+                            <p class="text-muted mb-1">LKR <?php echo number_format($item['price'], 2); ?></p>
                             <div class="d-flex justify-content-between align-items-center">
                             <form class="remove-from-wishlist-form" action="remove_from_wishlist.php" method="POST" style="display: inline;">
     <input type="hidden" name="wishlist_id" value="<?php echo $item['wishlist_id']; ?>">
