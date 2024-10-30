@@ -1,0 +1,108 @@
+/* details.css */
+
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Light background color */
+    color: #212529; /* Dark text color */
+    line-height: 1.6; /* Improved readability */
+}
+
+.details {
+    padding: 40px 20px; /* Space around content */
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: flex-start; /* Align items at the start */
+}
+
+.container {
+    width: 100%; /* Full width of the page */
+    background: white; /* White background for contrast */
+    border-radius: 8px; /* Rounded corners */
+   
+    overflow: hidden; /* Contain floated elements */
+}
+
+.item-image {
+    width: 100%; /* Full width of the container */
+    height: 400px; /* Fixed height for images */
+    object-fit: cover; /* Maintain aspect ratio */
+}
+
+.item-info {
+    padding: 20px; /* Padding around content */
+}
+
+.item-info h2 {
+    font-size: 2.2em; /* Title size */
+    margin: 0;
+    color: #343a40; /* Dark color for title */
+}
+
+.item-info h3 {
+    font-size: 1.5em; /* Price size */
+    margin: 10px 0; /* Space around price */
+    color: #28a745; /* Green color for price */
+}
+
+.description {
+    margin: 15px 0; /* Space around description */
+    font-size: 1em; /* Description size */
+    line-height: 1.6; /* Line height for readability */
+    color: #495057; /* Subtle dark color */
+}
+
+.features-grid {
+    display: grid; /* Enable grid layout */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Responsive grid */
+    gap: 15px; /* Space between grid items */
+    margin: 20px 0; /* Margin above and below */
+}
+
+.feature-item {
+    background: #e9ecef; /* Light background for features */
+    color: #212529; /* Dark text */
+    padding: 15px; /* Padding inside feature items */
+    border-radius: 5px; /* Rounded corners */
+    text-align: center; /* Center text */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.feature-item:hover {
+    background: #dee2e6; /* Darker background on hover */
+}
+
+.buttons {
+    margin-top: 20px; /* Space above buttons */
+    display: flex; /* Flex container for buttons */
+    justify-content: space-between; /* Space between buttons */
+}
+
+.buy-btn, .back-btn {
+    padding: 12px 25px; /* Button size */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    color: white; /* White text */
+    text-decoration: none; /* No underline */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s; /* Smooth transition */
+    font-size: 1em; /* Button font size */
+}
+
+.buy-btn {
+    background-color: #007bff; /* Blue for buy button */
+}
+
+.back-btn {
+    background-color: #6c757d; /* Gray for back button */
+}
+
+.buy-btn:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+.back-btn:hover {
+    background-color: #5a6268; /* Darker gray */
+}

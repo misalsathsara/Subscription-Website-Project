@@ -1,4 +1,13 @@
 <?php
+// Start the session at the beginning of the file
+
+// Check if the user is logged in and if the username is set in the session
+if (isset($_SESSION['username'])) {
+    $username = htmlspecialchars($_SESSION['username']); // Retrieve and sanitize the username
+} else {
+    $username = 'Guest'; // Default to 'Guest' if not logged in
+}
+
 // Initialize variables with default values if they are not yet defined
 $item_count = $item_count ?? 0; // Set to 0 if $item_count is not defined
 $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
@@ -252,6 +261,20 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
     min-width: 20px; /* Minimum width to keep count consistent */
     text-align: center;
 }
+.user-info {
+            font-size: 16px;
+            color: #333;
+            padding-left: 10px;
+
+            max-width: 200px;
+            margin-left: 10px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .user-info:hover {
+            text-decoration: none;
+        }
 
 
     @media (max-width: 767px) {
@@ -270,11 +293,12 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
             font-size: 18px;
             /* Adjust size for small screens */
         }
+        
     }
     </style>
 
     <div class="contact-info">
-        <span><i class="fa fa-envelope"></i> info@example.com</span>
+        <span><i class="fa fa-envelope"></i> info@SubscriBuy.com</span>
         <span><i class="fa fa-phone"></i> +1 234 567 890</span>
     </div>
 
@@ -295,7 +319,7 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
                         <a class="nav-link" href="productPage.php">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Blogs</a>
+                        <a class="nav-link" href="blog.php">Blogs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.php">Contact Us</a>
@@ -305,6 +329,9 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                 </div>
+      
+
+
                 <div class="navbar-right ms-3">
                 <a class="nav-link icon-btn" href="show_cart.php">
     <i class="fa fa-shopping-cart"></i>
@@ -331,6 +358,12 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
     /* Add your other styles here if necessary */
 </style>
 
+<a href="user-profile.php" class="user-info">
+                <div class="">
+<strong><?php echo $username; ?></strong>
+</div>
+</a>
+
 <!-- User Profile Dropdown -->
 <div class="nav-item dropdown">
     <a class="nav-link dropdown-toggle icon-btn" href="#" id="navbarDropdown" role="button"
@@ -349,7 +382,9 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
 
                 </div>
             </div>
+
         </div>
+
     </nav>
     <!-- Navbar End -->
 
@@ -435,3 +470,4 @@ function updateWishCount() {
     // Initial load
     updateWishCount();
 </script>
+

@@ -95,7 +95,7 @@ $conn->close();
                         <img src="admin/<?php echo htmlspecialchars($item['image']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($item['name']); ?>" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title"><?php echo htmlspecialchars($item['name']); ?></h5>
-                            <p class="text-muted mb-1">$<?php echo number_format($item['price'], 2); ?></p>
+                            <p class="text-muted mb-1">LKR <?php echo number_format($item['price'], 2); ?></p>
                         </div>
                     </div>
                 </div>

@@ -190,7 +190,7 @@ $conn->close();
     <div class="product-page">
         <div class="product-header">
             <h2><?php echo htmlspecialchars($item['name']); ?></h2>
-            <p class="item-price">$<?php echo htmlspecialchars($item['price']); ?></p>
+            <p class="item-price">LKR <?php echo htmlspecialchars($item['price']); ?></p>
         </div>
         <div class="row">
             <div class="col-md-6 mb-4">

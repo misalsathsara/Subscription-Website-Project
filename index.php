@@ -5,6 +5,7 @@ session_start(); // Start the session
 if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
     // If the user is logged in, include the logged-in header (header2.php)
     include('header2.php');
+    
 } else {
     // If the user is not logged in, include the default header (header.php)
     include('header.php');
