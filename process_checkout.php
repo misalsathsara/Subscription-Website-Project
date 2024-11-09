@@ -46,6 +46,7 @@ if (!$order_stmt->execute()) {
 
 // Get the last inserted order ID
 $order_id = $conn->insert_id;
+$_SESSION['order_id'] = $order_id; // Store the order ID in session
 
 // Insert each item into the order_items table
 $item_query = "INSERT INTO order_items (order_id, item_id) VALUES (?, ?)";
@@ -57,11 +58,15 @@ if (!$item_stmt) {
 
 // Loop through cart items to save them in the database
 foreach ($cart_items as $item) {
-    // Ensure that the `id` refers to the `n_id` in the items table
-    $item_id = $item['n_id']; // Assuming this is the n_id from your `cart` table
+    // Ensure you are accessing the correct key, e.g., 'n_id'
+    $item_id = $item['id']; // Ensure this key is correct based on the print_r debug
+
+    if (empty($item_id)) {
+        die("Error: Missing item ID (n_id) for item in cart.");
+    }
 
     // Bind the order details and execute the insertion
-    $item_stmt->bind_param("ii", $order_id, $item_id); // Assuming item_id is varchar
+    $item_stmt->bind_param("is", $order_id, $item_id); // Assuming 'item_id' is a string ('s')
     if (!$item_stmt->execute()) {
         die("Error executing the item statement: " . $item_stmt->error);
     }
@@ -75,7 +80,7 @@ $conn->close();
 // Clear the cart session
 unset($_SESSION['cart_items']);
 
-// Redirect to a success page
+// Redirect to the payment page
 header("Location: payment.php");
 exit;
 ?>
