@@ -26,11 +26,14 @@ if ($order_result->num_rows == 0) {
 $order = $order_result->fetch_assoc();
 
 // Get the payment method selected by the user
-$payment_method = $_POST['payment_method'] ?? '';
+$payment_method = $_POST['payment_method'] ?? ''; // Default to empty string if not set
 
 // Initialize variables for handling payment details
 $payment_status = 'failed';
 $transaction_id = null;
+
+// Debugging the payment method to ensure it's received
+var_dump($payment_method);
 
 // Process the payment based on the selected method
 if ($payment_method === 'paypal') {
@@ -58,13 +61,13 @@ if ($payment_method === 'paypal') {
     $payment_status = 'success';
     $transaction_id = 'BANKTRANSFER-' . uniqid();
 } else {
+    // Invalid payment method
     echo "Invalid payment method.";
     exit;
 }
 
 // Debugging the values of payment_status and transaction_id
-echo "Payment Status: " . $payment_status . "<br>";
-echo "Transaction ID: " . $transaction_id . "<br>";
+var_dump($payment_status, $transaction_id);
 
 // Update the order status to "paid" in the database
 $update_query = "UPDATE orders SET payment_status = ?, transaction_id = ? WHERE id = ?";
@@ -79,6 +82,7 @@ $update_stmt->bind_param("ssi", $payment_status, $transaction_id, $order_id);
 
 if ($update_stmt->execute()) {
     echo "Order updated successfully.";
+    
     // Optionally, clear the cart session after payment success
     unset($_SESSION['cart_items']);
     unset($_SESSION['order_id']);

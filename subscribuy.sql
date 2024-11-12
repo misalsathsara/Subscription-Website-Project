@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 29, 2024 at 04:26 PM
+-- Generation Time: Nov 12, 2024 at 01:38 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -158,39 +158,30 @@ CREATE TABLE `orders` (
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `address` text NOT NULL,
-  `duration` varchar(100) NOT NULL,
-  `renieve` varchar(100) NOT NULL,
+  `duration` varchar(50) DEFAULT NULL,
+  `renieve` varchar(255) DEFAULT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `payment_status` enum('pending','paid','failed') DEFAULT 'pending',
+  `transaction_id` varchar(255) DEFAULT NULL,
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `created_at`) VALUES
-(1, 'A', 'asa@gmail.com', 's', '', '', 5000.00, '2024-10-29 06:40:15'),
-(2, 'A', 'asa@gmail.com', 's', '', '', 5000.00, '2024-10-29 06:44:23'),
-(3, 'A', 'asa@gmail.com', 's', '', '', 5000.00, '2024-10-29 06:45:14'),
-(4, 'aasas', 'asa@gmail.com', 'qwrqerq', '', '', 96002.00, '2024-10-29 08:53:08'),
-(5, 'aasas', 'asa@gmail.com', 'weqw', 'every week', 'start of the week', 96002.00, '2024-10-29 14:00:53'),
-(6, 'aasas', 'asa@gmail.com', 'weqw', 'every week', 'start of the week', 96002.00, '2024-10-29 14:06:29'),
-(7, 'aasas', 'asa@gmail.com', 'weqw', 'every week', 'start of the week', 96002.00, '2024-10-29 14:12:39'),
-(8, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:19:09'),
-(9, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:19:09'),
-(10, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:19:09'),
-(11, 'ASAD', 'asa@gmail.com', 'dafsdf', 'every month', 'middle of the month', 96002.00, '2024-10-29 14:33:11'),
-(12, 'A', 'asa@gmail.com', 'sdfsdf', 'every year', 'middle of the week', 96002.00, '2024-10-29 14:37:36'),
-(13, 'aasas', 'asa@gmail.com', 'erfer', 'every 5 months', 'start of the week', 96002.00, '2024-10-29 14:40:28'),
-(14, 'aasas', 'asa@gmail.com', 'erfer', 'every 5 months', 'start of the week', 96002.00, '2024-10-29 14:43:38'),
-(15, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:44:05'),
-(16, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:49:04'),
-(17, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:52:45'),
-(18, 'DSsdf', 'asa@gmail.com', 'sdfg', 'every 6 months', 'middle of the month', 96002.00, '2024-10-29 14:53:11'),
-(19, 'DSsdf', 'asa@gmail.com', 'yt', 'every week', 'middle of the week', 96002.00, '2024-10-29 14:54:59'),
-(20, 'aasas', 'asa@gmail.com', 'wr', 'every 6 months', 'end of the month', 96002.00, '2024-10-29 15:03:08'),
-(21, 'aasas', 'asa@gmail.com', 'wr', 'every 6 months', 'end of the month', 96002.00, '2024-10-29 15:07:37'),
-(22, 'sanindu', 'asa@gmail.com', 'afsfaf', 'every 6 months', 'start of the month', 96002.00, '2024-10-29 15:25:29');
+INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`) VALUES
+(1, 'sanindu', 'asa@gmail.com', 'ese', 'every 6 months', 'start of the month', 96002.00, '', 'PAYPAL-672f99d89d2cb', '2024-11-09 17:19:24'),
+(2, 'sanindu', 'asa@gmail.com', 'ssss', 'every week', 'start of the week', 96002.00, '', 'BANKTRANSFER-672f9a600a2ed', '2024-11-09 17:22:32'),
+(3, 'qe', 'asa@gmail.com', 'ddd', 'every two weeks', 'middle of the week', 96002.00, '', 'CREDITCARD-672f9aaee8464', '2024-11-09 17:23:41'),
+(4, 'ASAD', 'asa@gmail.com', 'qwrq', 'every year', 'end of the week', 96002.00, 'pending', NULL, '2024-11-09 17:29:14'),
+(5, 'ASAD', 'asa@gmail.com', 'qwrq', 'every year', 'end of the week', 96002.00, '', 'BANKTRANSFER-672f9db923813', '2024-11-09 17:34:35'),
+(6, 'DSsdf', 'asa@gmail.com', 'asf', 'every two weeks', 'start of the week', 96002.00, '', 'PAYPAL-672f9e5a3c078', '2024-11-09 17:38:13'),
+(7, 'DSsdf', 'asa@gmail.com', '12e', 'every month', 'end of the week', 96002.00, '', 'PAYPAL-672f9f556aea8', '2024-11-09 17:43:47'),
+(8, 'DSsdf', 'asa@gmail.com', 'adf', 'every two weeks', 'middle of the week', 96002.00, '', 'PAYPAL-672fa0f01664b', '2024-11-09 17:50:31'),
+(9, 'A', 'asa@gmail.com', '123', 'every week', 'start of the week', 96002.00, '', 'PAYPAL-67334a316787e', '2024-11-12 12:29:04'),
+(10, 'ASAD', 'asa@gmail.com', '34123', 'every 5 months', 'start of the week', 96002.00, '', 'BANKTRANSFER-67334b8ea848f', '2024-11-12 12:34:03'),
+(11, 'DSsdf', 'asa@gmail.com', 'try', 'every 5 months', 'middle of the week', 96002.00, '', 'BANKTRANSFER-67334bf141a52', '2024-11-12 12:36:23');
 
 -- --------------------------------------------------------
 
@@ -211,7 +202,65 @@ CREATE TABLE `order_items` (
 INSERT INTO `order_items` (`id`, `order_id`, `item_id`) VALUES
 (1, 22, 11),
 (2, 22, 12),
-(3, 22, 13);
+(3, 22, 13),
+(4, 32, 11),
+(5, 32, 12),
+(6, 32, 13),
+(7, 33, 11),
+(8, 33, 12),
+(9, 33, 13),
+(10, 34, 11),
+(11, 34, 12),
+(12, 34, 13),
+(13, 1, 11),
+(14, 1, 12),
+(15, 1, 13),
+(16, 2, 11),
+(17, 2, 12),
+(18, 2, 13),
+(19, 3, 11),
+(20, 3, 12),
+(21, 3, 13),
+(22, 4, 11),
+(23, 4, 12),
+(24, 4, 13),
+(25, 5, 11),
+(26, 5, 12),
+(27, 5, 13),
+(28, 6, 11),
+(29, 6, 12),
+(30, 6, 13),
+(31, 7, 11),
+(32, 7, 12),
+(33, 7, 13),
+(34, 8, 11),
+(35, 8, 12),
+(36, 8, 13),
+(37, 9, 11),
+(38, 9, 12),
+(39, 9, 13),
+(40, 10, 11),
+(41, 10, 12),
+(42, 10, 13),
+(43, 11, 11),
+(44, 11, 12),
+(45, 11, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `payment_id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `bank_name` varchar(255) NOT NULL,
+  `account_number` varchar(255) NOT NULL,
+  `payment_amount` decimal(10,2) NOT NULL,
+  `payment_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -273,6 +322,12 @@ ALTER TABLE `order_items`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`payment_id`);
+
+--
 -- Indexes for table `wishlist`
 --
 ALTER TABLE `wishlist`
@@ -304,13 +359,19 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `wishlist`
