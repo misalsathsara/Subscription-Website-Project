@@ -32,9 +32,6 @@ $payment_method = $_POST['payment_method'] ?? ''; // Default to empty string if 
 $payment_status = 'pending'; // Set default status as 'pending'
 $transaction_id = null;
 
-// Debugging the payment method to ensure it's received
-var_dump($payment_method);
-
 // Process the payment based on the selected method
 if ($payment_method === 'paypal') {
     // Simulate PayPal payment processing
@@ -46,7 +43,7 @@ if ($payment_method === 'paypal') {
     $expiration_date = $_POST['expiration_date'] ?? '';
     $cvv = $_POST['cvv'] ?? '';
 
-    // Perform basic validation for credit card (this should be more secure in a real-world scenario)
+    // Perform basic validation for credit card
     if (empty($card_number) || empty($expiration_date) || empty($cvv)) {
         $payment_status = 'failed'; // If validation fails
         echo "Invalid Credit Card details.";
@@ -67,9 +64,6 @@ if ($payment_method === 'paypal') {
     exit;
 }
 
-// Debugging the values of payment_status and transaction_id
-var_dump($payment_status, $transaction_id);
-
 // Update the order status to the selected payment status in the database
 $update_query = "UPDATE orders SET payment_status = ?, transaction_id = ? WHERE id = ?";
 $update_stmt = $conn->prepare($update_query);
@@ -84,11 +78,51 @@ $update_stmt->bind_param("ssi", $payment_status, $transaction_id, $order_id);
 if ($update_stmt->execute()) {
     echo "Order updated successfully.";
     
-    // Optionally, clear the cart session after payment success
+    // Fetch the relevant n_id values from the order_items table
+    $n_id_query = "SELECT n_id FROM order_items WHERE order_id = ?";
+    $n_id_stmt = $conn->prepare($n_id_query);
+
+    if (!$n_id_stmt) {
+        echo "Error preparing the n_id fetch statement: " . $conn->error;
+        exit;
+    }
+
+    $n_id_stmt->bind_param("i", $order_id);
+    $n_id_stmt->execute();
+    $n_id_result = $n_id_stmt->get_result();
+
+    $n_ids = [];
+    while ($row = $n_id_result->fetch_assoc()) {
+        $n_ids[] = $row['n_id'];
+    }
+
+    if (!empty($n_ids)) {
+        $n_id_placeholders = implode(',', array_fill(0, count($n_ids), '?'));
+        $delete_cart_query = "DELETE FROM cart WHERE n_id IN ($n_id_placeholders)";
+        $delete_cart_stmt = $conn->prepare($delete_cart_query);
+
+        if (!$delete_cart_stmt) {
+            echo "Error preparing the delete statement: " . $conn->error;
+            exit;
+        }
+
+        $delete_cart_stmt->bind_param(str_repeat('s', count($n_ids)), ...$n_ids);
+
+        if ($delete_cart_stmt->execute()) {
+            echo "Cart items deleted successfully.";
+        } else {
+            echo "Error deleting cart items: " . $delete_cart_stmt->error;
+            exit;
+        }
+
+        $delete_cart_stmt->close();
+    } else {
+        echo "No matching n_id found in order_items for deletion.";
+    }
+
+    // Clear the session and redirect
     unset($_SESSION['cart_items']);
     unset($_SESSION['order_id']);
-
-    // Redirect to a success page
     header("Location: payment_success.php?transaction_id=$transaction_id");
     exit;
 } else {

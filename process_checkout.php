@@ -49,7 +49,7 @@ $order_id = $conn->insert_id;
 $_SESSION['order_id'] = $order_id; // Store the order ID in session
 
 // Insert each item into the order_items table
-$item_query = "INSERT INTO order_items (order_id, item_id) VALUES (?, ?)";
+$item_query = "INSERT INTO order_items (order_id, item_id, n_id) VALUES (?, ?, ?)";
 $item_stmt = $conn->prepare($item_query);
 
 if (!$item_stmt) {
@@ -58,19 +58,21 @@ if (!$item_stmt) {
 
 // Loop through cart items to save them in the database
 foreach ($cart_items as $item) {
-    // Ensure you are accessing the correct key, e.g., 'n_id'
-    $item_id = $item['id']; // Ensure this key is correct based on the print_r debug
+    // Validate the keys
+    $item_id = $item['id'] ?? null;
+    $n_id = $item['n_id'] ?? null;
 
-    if (empty($item_id)) {
-        die("Error: Missing item ID (n_id) for item in cart.");
+    if (empty($item_id) || empty($n_id)) {
+        die("Error: Missing item_id or n_id for cart item.");
     }
 
-    // Bind the order details and execute the insertion
-    $item_stmt->bind_param("is", $order_id, $item_id); // Assuming 'item_id' is a string ('s')
+    // Bind the parameters and execute
+    $item_stmt->bind_param("iss", $order_id, $item_id, $n_id);
     if (!$item_stmt->execute()) {
         die("Error executing the item statement: " . $item_stmt->error);
     }
 }
+
 
 // Clean up
 $item_stmt->close();

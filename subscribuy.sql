@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2024 at 01:38 PM
+-- Generation Time: Dec 06, 2024 at 06:24 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,9 +39,10 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `c_id`, `n_id`, `username`) VALUES
-(11, 'C004', '1', 'sanindu'),
-(12, 'C004', '2', 'sanindu'),
-(13, 'C004', '3', 'sanindu');
+(16, 'C004', '2', 'sanindu'),
+(17, 'C004', '3', 'sanindu'),
+(18, 'C004', '1', 'sanindu'),
+(19, 'C004', '4', 'sanindu');
 
 -- --------------------------------------------------------
 
@@ -171,17 +172,8 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`) VALUES
-(1, 'sanindu', 'asa@gmail.com', 'ese', 'every 6 months', 'start of the month', 96002.00, '', 'PAYPAL-672f99d89d2cb', '2024-11-09 17:19:24'),
-(2, 'sanindu', 'asa@gmail.com', 'ssss', 'every week', 'start of the week', 96002.00, '', 'BANKTRANSFER-672f9a600a2ed', '2024-11-09 17:22:32'),
-(3, 'qe', 'asa@gmail.com', 'ddd', 'every two weeks', 'middle of the week', 96002.00, '', 'CREDITCARD-672f9aaee8464', '2024-11-09 17:23:41'),
-(4, 'ASAD', 'asa@gmail.com', 'qwrq', 'every year', 'end of the week', 96002.00, 'pending', NULL, '2024-11-09 17:29:14'),
-(5, 'ASAD', 'asa@gmail.com', 'qwrq', 'every year', 'end of the week', 96002.00, '', 'BANKTRANSFER-672f9db923813', '2024-11-09 17:34:35'),
-(6, 'DSsdf', 'asa@gmail.com', 'asf', 'every two weeks', 'start of the week', 96002.00, '', 'PAYPAL-672f9e5a3c078', '2024-11-09 17:38:13'),
-(7, 'DSsdf', 'asa@gmail.com', '12e', 'every month', 'end of the week', 96002.00, '', 'PAYPAL-672f9f556aea8', '2024-11-09 17:43:47'),
-(8, 'DSsdf', 'asa@gmail.com', 'adf', 'every two weeks', 'middle of the week', 96002.00, '', 'PAYPAL-672fa0f01664b', '2024-11-09 17:50:31'),
-(9, 'A', 'asa@gmail.com', '123', 'every week', 'start of the week', 96002.00, '', 'PAYPAL-67334a316787e', '2024-11-12 12:29:04'),
-(10, 'ASAD', 'asa@gmail.com', '34123', 'every 5 months', 'start of the week', 96002.00, '', 'BANKTRANSFER-67334b8ea848f', '2024-11-12 12:34:03'),
-(11, 'DSsdf', 'asa@gmail.com', 'try', 'every 5 months', 'middle of the week', 96002.00, '', 'BANKTRANSFER-67334bf141a52', '2024-11-12 12:36:23');
+(22, 'wwqd', 'sdewsithwithanachchi@gmail.com', 'wew', 'every 4 months', 'middle of the week', 5123.00, 'paid', 'PAYPAL-6753321db243f', '2024-12-06 17:15:19'),
+(23, 'qe', 'sdewsithwithanachchi@gmail.com', 'dd', 'every 5 months', 'middle of the week', 96002.00, 'pending', NULL, '2024-12-06 17:20:57');
 
 -- --------------------------------------------------------
 
@@ -192,59 +184,20 @@ INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
   `order_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL
+  `item_id` int(11) NOT NULL,
+  `n_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `item_id`) VALUES
-(1, 22, 11),
-(2, 22, 12),
-(3, 22, 13),
-(4, 32, 11),
-(5, 32, 12),
-(6, 32, 13),
-(7, 33, 11),
-(8, 33, 12),
-(9, 33, 13),
-(10, 34, 11),
-(11, 34, 12),
-(12, 34, 13),
-(13, 1, 11),
-(14, 1, 12),
-(15, 1, 13),
-(16, 2, 11),
-(17, 2, 12),
-(18, 2, 13),
-(19, 3, 11),
-(20, 3, 12),
-(21, 3, 13),
-(22, 4, 11),
-(23, 4, 12),
-(24, 4, 13),
-(25, 5, 11),
-(26, 5, 12),
-(27, 5, 13),
-(28, 6, 11),
-(29, 6, 12),
-(30, 6, 13),
-(31, 7, 11),
-(32, 7, 12),
-(33, 7, 13),
-(34, 8, 11),
-(35, 8, 12),
-(36, 8, 13),
-(37, 9, 11),
-(38, 9, 12),
-(39, 9, 13),
-(40, 10, 11),
-(41, 10, 12),
-(42, 10, 13),
-(43, 11, 11),
-(44, 11, 12),
-(45, 11, 13);
+INSERT INTO `order_items` (`id`, `order_id`, `item_id`, `n_id`) VALUES
+(64, 22, 14, 1),
+(65, 22, 15, 2),
+(66, 23, 16, 2),
+(67, 23, 17, 3),
+(68, 23, 18, 1);
 
 -- --------------------------------------------------------
 
@@ -274,6 +227,13 @@ CREATE TABLE `wishlist` (
   `n_id` varchar(11) DEFAULT NULL,
   `username` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wishlist`
+--
+
+INSERT INTO `wishlist` (`id`, `c_id`, `n_id`, `username`) VALUES
+(11, 'C004', '3', 'sanindu');
 
 --
 -- Indexes for dumped tables
@@ -341,7 +301,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -359,13 +319,13 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -377,7 +337,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

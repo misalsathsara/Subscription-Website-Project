@@ -12,7 +12,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 
 // Retrieve cart items for the logged-in user
 // Retrieve cart items for the logged-in user
-$query = "SELECT c.id, i.name, i.price, i.image
+$query = "SELECT c.id,c.n_id, i.name, i.price, i.image
           FROM cart c
           JOIN items i ON c.n_id = i.n_id
           WHERE c.username = ?";

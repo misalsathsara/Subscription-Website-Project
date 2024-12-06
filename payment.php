@@ -35,8 +35,8 @@ if ($order_result->num_rows == 0) {
 $order = $order_result->fetch_assoc();
 
 // Fetch the items in the order
-$item_query = "SELECT oi.*, i.name, i.price FROM order_items oi 
-               JOIN items i ON oi.item_id = i.n_id WHERE oi.order_id = ?";
+$item_query = "SELECT oi.*, o.total_price FROM order_items oi 
+               JOIN orders o ON oi.order_id = o.id WHERE oi.order_id = ?";
 $item_stmt = $conn->prepare($item_query);
 $item_stmt->bind_param("i", $order_id);
 $item_stmt->execute();
@@ -47,14 +47,22 @@ $total_price = 0;
 $items = [];
 
 while ($item = $item_result->fetch_assoc()) {
-    $total_price += $item['price'];
-    $items[] = $item;
+    $total_price = $item['total_price']; // Add the price of each item to total
+    $items[] = $item; // Add item to array
 }
 
 $item_stmt->close();
 $order_stmt->close();
 $conn->close();
 ?> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="style.css"> <!-- Make sure to include your stylesheet -->
     <style>
         .container {
             margin-top: 30px;
@@ -99,11 +107,11 @@ $conn->close();
             <p><strong>Address:</strong> <?php echo htmlspecialchars($order['address']); ?></p>
             <p><strong>Duration:</strong> <?php echo htmlspecialchars($order['duration']); ?></p>
             <p><strong>Received Time:</strong> <?php echo htmlspecialchars($order['renieve']); ?></p>
-            <p><strong>Total Price:</strong> $<?php echo number_format($total_price, 2); ?></p>
+            <p><strong>Total Price:</strong> LKR <?php echo number_format($total_price, 2); ?></p>
         </div>
 
         <!-- Items List -->
-        <h4>Items in your Order</h4>
+        <!-- <h4>Items in your Order</h4>
         <ul class="order-items">
             <?php foreach ($items as $item) { ?>
                 <li>
@@ -111,7 +119,7 @@ $conn->close();
                     - $<?php echo number_format($item['price'], 2); ?>
                 </li>
             <?php } ?>
-        </ul>
+        </ul> -->
 
         <!-- Payment Method Form -->
         <h4 class="mt-4">Payment Details</h4>
@@ -175,7 +183,9 @@ $conn->close();
     <?php } ?>
 </script>
 
-    
-    <?php
-  include 'footer.php';
+<?php
+include 'footer.php';
 ?>
+
+</body>
+</html>
