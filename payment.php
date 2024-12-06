@@ -1,11 +1,20 @@
 <?php
-session_start();
+session_start(); // Start the session
 include 'dbase.php'; // Include your database connection
 
 // Check if the order ID is set in the session
 if (!isset($_SESSION['order_id'])) {
     header("Location: index.php"); // Redirect if no order is found in session
     exit;
+}
+
+// Check if the user is logged in
+if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
+    // If the user is logged in, include the logged-in header (header2.php)
+    include('header2.php');
+} else {
+    // If the user is not logged in, include the default header (header.php)
+    include('header.php');
 }
 
 $order_id = $_SESSION['order_id'];
@@ -45,25 +54,8 @@ while ($item = $item_result->fetch_assoc()) {
 $item_stmt->close();
 $order_stmt->close();
 $conn->close();
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Summary - Payment</title>
-
-    <!-- Bootstrap CSS CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ+Qf13wJSdDAy7Y0Y4wO6ROF1SZIqfJ7nq3+jJlYZfqdYO7t+o6hctVv23xk" crossorigin="anonymous">
-    
-    <!-- SweetAlert2 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
-    
+?> 
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
         .container {
             margin-top: 30px;
         }
@@ -157,27 +149,33 @@ $conn->close();
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
-        // Show credit card fields when selected
-        document.getElementById('payment_method').addEventListener('change', function() {
-            var paymentMethod = this.value;
-            var creditCardFields = document.getElementById('credit_card_fields');
-            if (paymentMethod === 'credit_card') {
-                creditCardFields.style.display = 'block';
-            } else {
-                creditCardFields.style.display = 'none';
+    // Show credit card fields when selected
+    document.getElementById('payment_method').addEventListener('change', function() {
+        var paymentMethod = this.value;
+        var creditCardFields = document.getElementById('credit_card_fields');
+        if (paymentMethod === 'credit_card') {
+            creditCardFields.style.display = 'block';
+        } else {
+            creditCardFields.style.display = 'none';
+        }
+    });
+
+    // Check if payment is successful, if so show SweetAlert and redirect
+    <?php if (isset($_GET['payment_status']) && $_GET['payment_status'] == 'success') { ?>
+        Swal.fire({
+            title: 'Payment Successful!',
+            text: 'Your payment has been processed successfully.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'user-profile.php';
             }
         });
+    <?php } ?>
+</script>
 
-        // Check if payment is successful, if so show SweetAlert
-        <?php if (isset($_GET['payment_status']) && $_GET['payment_status'] == 'success') { ?>
-            Swal.fire({
-                title: 'Payment Successful!',
-                text: 'Your payment has been processed successfully.',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-        <?php } ?>
-    </script>
     
-</body>
-</html>
+    <?php
+  include 'footer.php';
+?>
