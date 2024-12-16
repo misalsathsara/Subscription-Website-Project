@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 06:24 PM
+-- Generation Time: Dec 16, 2024 at 05:57 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -143,10 +143,10 @@ CREATE TABLE `items` (
 
 INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VALUES
 (1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', 5000.00, 'uploads/68837027_689373823503_0.19650400-1672221458.jpg'),
-(2, 'cream', 'beauty', 'uio', 123.00, 'uploads/images.jpg'),
 (3, 'cream', 'beauty', '[op[', 90879.00, 'uploads/images.jpg'),
 (4, 'Healthy Fruits', 'electronic', 'DSADAD', 324234.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg'),
-(5, 'Healthy Fruits', 'beauty', 'DSADADAYTDFYGF', 32423434.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg');
+(6, 'groceries ', 'home appliance', 'this apply\r\n 1) oil\r\n)chili powder', 2399.00, 'uploads/download.jpg'),
+(7, 'short eats package ', 'home appliance', 'this include\r\n1) savory nuts\r\n2) tip tip', 1560.00, 'uploads/istockphoto-458990173-612x612.jpg');
 
 -- --------------------------------------------------------
 
@@ -164,16 +164,17 @@ CREATE TABLE `orders` (
   `total_price` decimal(10,2) NOT NULL,
   `payment_status` enum('pending','paid','failed') DEFAULT 'pending',
   `transaction_id` varchar(255) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `order_status` varchar(20) DEFAULT 'pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`) VALUES
-(22, 'wwqd', 'sdewsithwithanachchi@gmail.com', 'wew', 'every 4 months', 'middle of the week', 5123.00, 'paid', 'PAYPAL-6753321db243f', '2024-12-06 17:15:19'),
-(23, 'qe', 'sdewsithwithanachchi@gmail.com', 'dd', 'every 5 months', 'middle of the week', 96002.00, 'pending', NULL, '2024-12-06 17:20:57');
+INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`, `order_status`) VALUES
+(22, 'wwqd', 'sdewsithwithanachchi@gmail.com', 'wew', 'every 4 months', 'middle of the week', 5123.00, 'paid', 'PAYPAL-6753321db243f', '2024-12-06 17:15:19', 'pending'),
+(23, 'qe', 'sdewsithwithanachchi@gmail.com', 'dd', 'every 5 months', 'middle of the week', 96002.00, 'pending', NULL, '2024-12-06 17:20:57', 'pending');
 
 -- --------------------------------------------------------
 
@@ -313,7 +314,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `orders`
