@@ -1,5 +1,3 @@
-
-
 <!-- product_card.php -->
 <div class="col-lg-3 col-md-4 col-sm-6 mb-5 d-flex justify-content-center">
     <div class="card fancy-card border-0 rounded overflow-hidden shadow-sm text-center" style="transition: transform 0.5s ease, box-shadow 0.5s ease;">

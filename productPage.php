@@ -237,6 +237,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 
     .fancy-card-img {
         height: 250px;
+        width: 350px;
         transition: transform 0.5s ease-in-out;
         filter: brightness(95%);
     }
