@@ -4,26 +4,16 @@
     <div class="divider mb-4"></div>
 
     <!-- See More Button -->
-    <div class="see-more-button position-absolute top-0 end-0 mt-3 me-3">
-        <a href="#" class="btn btn-outline-primary btn-hover-effect">See More</a>
-    </div>
-
-    <div id="trendingCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row" id="card-container"></div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#trendingCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#trendingCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+    <div class="see-more-button1 position-absolute top-0 end-0 mt-3 me-3">
+        <a href="productPage.php" class="btn btn-outline-primary btn-hover-effect">See More</a>
     </div>
 </div>
+
+<div class="container my-5">
+    <div class="row" id="card-container-2"></div>
+</div>
+
+
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -35,10 +25,10 @@
     });
 
     function fetchItems(category = '', minPrice = '', maxPrice = '') {
-        fetch(`fetch_items.php?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
+        fetch(`productSectionFetch.php?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
             .then(response => response.json())
             .then(data => {
-                const cardContainer = document.getElementById('card-container');
+                const cardContainer = document.getElementById('card-container-2');
                 cardContainer.innerHTML = ''; // Clear existing cards
 
                 if (data.length === 0) {
@@ -146,14 +136,6 @@
             .catch(error => {
                 console.error('Error fetching items:', error);
             });
-    }
-
-    function applyFilters() {
-        const category = document.getElementById('categoryFilter').value;
-        const minPrice = document.getElementById('minPrice').value;
-        const maxPrice = document.getElementById('maxPrice').value;
-
-        fetchItems(category, minPrice, maxPrice);
     }
 
     function handleAddToCart(n_id) {
@@ -279,7 +261,7 @@
 </style>
 
 <style>
-    .see-more-button {
+    .see-more-button1 {
         position: absolute;
         top: 0;
         right: 0;
