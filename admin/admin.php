@@ -1,5 +1,5 @@
 <?php include('admin-header.php');
-include 'dbase.php'; ?>
+include '../dbase.php'; ?>
 <div id="content">
   
     <main>

@@ -1,5 +1,5 @@
 <?php
-include 'dbase.php';
+include '../dbase.php';
 header('Content-Type: application/json');
 
 // Enable debugging

@@ -1,5 +1,5 @@
 <?php
-include 'dbase.php'; // Database connection file
+include '../dbase.php'; // Database connection file
 
 header('Content-Type: application/json');
 
