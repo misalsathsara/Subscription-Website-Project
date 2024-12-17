@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 16, 2024 at 05:57 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Dec 17, 2024 at 07:19 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,12 +27,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `cart`
 --
 
-CREATE TABLE `cart` (
-  `id` int(11) NOT NULL,
-  `c_id` varchar(11) DEFAULT NULL,
-  `n_id` varchar(11) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `cart`;
+CREATE TABLE IF NOT EXISTS `cart` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `c_id` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `n_id` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `cart`
@@ -50,27 +52,26 @@ INSERT INTO `cart` (`id`, `c_id`, `n_id`, `username`) VALUES
 -- Table structure for table `contact`
 --
 
-CREATE TABLE `contact` (
-  `id` int(11) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `subject` varchar(100) NOT NULL,
-  `message` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `contact`;
+CREATE TABLE IF NOT EXISTS `contact` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(150) COLLATE utf8mb4_general_ci NOT NULL,
+  `subject` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `message` varchar(250) COLLATE utf8mb4_general_ci NOT NULL,
+  `seen` tinyint(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contact`
 --
 
-INSERT INTO `contact` (`id`, `email`, `subject`, `message`) VALUES
-(1, 'ranuga@gmail.com', 'sd', 'sdsdsdsd'),
-(2, 'ranuga@gmail.com', 'Moda chamodi', 'Moda chamodi'),
-(3, 'ravi.singh@example.com', 'ds', 'as'),
-(4, 'ranuga@gmail.com', 'test local', 'sdsds'),
-(5, 'ranuga@gmail.com', 'ds', 'sdds'),
-(6, 'ranuga@gmail.com', 'sdsd', 'dsdsd'),
-(7, 'ranuga@gmail.com', 'test local', 'dsasd'),
-(8, 'ranuga@gmail.com', 'test local', 'nnnnm'),
-(9, 'ranuga@gmail.com', 'test local', 'sxsd');
+INSERT INTO `contact` (`id`, `email`, `subject`, `message`, `seen`) VALUES
+(2, 'ranuga@gmail.com', 'Moda chamodi', 'Moda chamodi', 1),
+(12, 'misal.sathsara@ecyber.com', 'test2', '12/17', 1),
+(13, 'sanidu.devsith@ecyber.com', 'test', '12/17', 1),
+(14, 'ranuga.deepna@ecyber.com', 'test', '12/17', 1),
+(15, 'malshika8chamodi@gmail.com', 'test', '12/17', 0);
 
 -- --------------------------------------------------------
 
@@ -78,14 +79,16 @@ INSERT INTO `contact` (`id`, `email`, `subject`, `message`) VALUES
 -- Table structure for table `customers`
 --
 
-CREATE TABLE `customers` (
-  `c_id` varchar(20) NOT NULL,
-  `c_name` varchar(500) NOT NULL,
-  `c_email` varchar(200) NOT NULL,
-  `c_tel` varchar(12) NOT NULL,
-  `c_address` varchar(300) NOT NULL,
-  `c_uname` varchar(100) NOT NULL,
-  `c_pwd` varchar(500) NOT NULL
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE IF NOT EXISTS `customers` (
+  `c_id` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_name` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_email` varchar(200) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_tel` varchar(12) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_address` varchar(300) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_uname` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
+  `c_pwd` varchar(500) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`c_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -102,11 +105,13 @@ INSERT INTO `customers` (`c_id`, `c_name`, `c_email`, `c_tel`, `c_address`, `c_u
 -- Table structure for table `c_reviews`
 --
 
-CREATE TABLE `c_reviews` (
-  `c_id` varchar(11) NOT NULL,
-  `n_id` varchar(11) NOT NULL,
-  `rating` int(11) DEFAULT NULL,
-  `review_description` text DEFAULT NULL
+DROP TABLE IF EXISTS `c_reviews`;
+CREATE TABLE IF NOT EXISTS `c_reviews` (
+  `c_id` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `n_id` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
+  `rating` int DEFAULT NULL,
+  `review_description` text COLLATE utf8mb4_general_ci,
+  PRIMARY KEY (`c_id`,`n_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -128,25 +133,27 @@ INSERT INTO `c_reviews` (`c_id`, `n_id`, `rating`, `review_description`) VALUES
 -- Table structure for table `items`
 --
 
-CREATE TABLE `items` (
-  `n_id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `items`;
+CREATE TABLE IF NOT EXISTS `items` (
+  `n_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `image` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `image` varchar(255) NOT NULL,
+  PRIMARY KEY (`n_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `items`
 --
 
 INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VALUES
-(1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', 5000.00, 'uploads/68837027_689373823503_0.19650400-1672221458.jpg'),
-(3, 'cream', 'beauty', '[op[', 90879.00, 'uploads/images.jpg'),
-(4, 'Healthy Fruits', 'electronic', 'DSADAD', 324234.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg'),
-(6, 'groceries ', 'home appliance', 'this apply\r\n 1) oil\r\n)chili powder', 2399.00, 'uploads/download.jpg'),
-(7, 'short eats package ', 'home appliance', 'this include\r\n1) savory nuts\r\n2) tip tip', 1560.00, 'uploads/istockphoto-458990173-612x612.jpg');
+(1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', '5000.00', 'uploads/68837027_689373823503_0.19650400-1672221458.jpg'),
+(2, 'cream', 'beauty', 'uio', '123.00', 'uploads/images.jpg'),
+(3, 'cream', 'beauty', '[op[', '90879.00', 'uploads/images.jpg'),
+(4, 'Healthy Fruits', 'electronic', 'DSADAD', '324234.00', 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg'),
+(5, 'Healthy Fruits', 'beauty', 'DSADADAYTDFYGF', '32423434.00', 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg');
 
 -- --------------------------------------------------------
 
@@ -154,27 +161,28 @@ INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VA
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `fullname` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `address` text NOT NULL,
-  `duration` varchar(50) DEFAULT NULL,
-  `renieve` varchar(255) DEFAULT NULL,
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `fullname` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` text COLLATE utf8mb4_general_ci NOT NULL,
+  `duration` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `renieve` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `total_price` decimal(10,2) NOT NULL,
-  `payment_status` enum('pending','paid','failed') DEFAULT 'pending',
-  `transaction_id` varchar(255) DEFAULT NULL,
-  `order_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `order_status` varchar(20) DEFAULT 'pending'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `payment_status` enum('pending','paid','failed') COLLATE utf8mb4_general_ci DEFAULT 'pending',
+  `transaction_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`, `order_status`) VALUES
-(22, 'wwqd', 'sdewsithwithanachchi@gmail.com', 'wew', 'every 4 months', 'middle of the week', 5123.00, 'paid', 'PAYPAL-6753321db243f', '2024-12-06 17:15:19', 'pending'),
-(23, 'qe', 'sdewsithwithanachchi@gmail.com', 'dd', 'every 5 months', 'middle of the week', 96002.00, 'pending', NULL, '2024-12-06 17:20:57', 'pending');
+INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`) VALUES
+(22, 'wwqd', 'sdewsithwithanachchi@gmail.com', 'wew', 'every 4 months', 'middle of the week', '5123.00', 'paid', 'PAYPAL-6753321db243f', '2024-12-06 17:15:19'),
+(23, 'qe', 'sdewsithwithanachchi@gmail.com', 'dd', 'every 5 months', 'middle of the week', '96002.00', 'pending', NULL, '2024-12-06 17:20:57');
 
 -- --------------------------------------------------------
 
@@ -182,12 +190,14 @@ INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve
 -- Table structure for table `order_items`
 --
 
-CREATE TABLE `order_items` (
-  `id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
-  `n_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `order_items`;
+CREATE TABLE IF NOT EXISTS `order_items` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `item_id` int NOT NULL,
+  `n_id` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `order_items`
@@ -206,14 +216,16 @@ INSERT INTO `order_items` (`id`, `order_id`, `item_id`, `n_id`) VALUES
 -- Table structure for table `payments`
 --
 
-CREATE TABLE `payments` (
-  `payment_id` int(11) NOT NULL,
-  `order_id` int(11) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  `bank_name` varchar(255) NOT NULL,
-  `account_number` varchar(255) NOT NULL,
+DROP TABLE IF EXISTS `payments`;
+CREATE TABLE IF NOT EXISTS `payments` (
+  `payment_id` int NOT NULL AUTO_INCREMENT,
+  `order_id` int NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `bank_name` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `account_number` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
   `payment_amount` decimal(10,2) NOT NULL,
-  `payment_date` timestamp NOT NULL DEFAULT current_timestamp()
+  `payment_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`payment_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -222,12 +234,14 @@ CREATE TABLE `payments` (
 -- Table structure for table `wishlist`
 --
 
-CREATE TABLE `wishlist` (
-  `id` int(11) NOT NULL,
-  `c_id` varchar(11) DEFAULT NULL,
-  `n_id` varchar(11) DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `wishlist`;
+CREATE TABLE IF NOT EXISTS `wishlist` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `c_id` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `n_id` varchar(11) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `wishlist`
@@ -235,110 +249,6 @@ CREATE TABLE `wishlist` (
 
 INSERT INTO `wishlist` (`id`, `c_id`, `n_id`, `username`) VALUES
 (11, 'C004', '3', 'sanindu');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `cart`
---
-ALTER TABLE `cart`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `contact`
---
-ALTER TABLE `contact`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `customers`
---
-ALTER TABLE `customers`
-  ADD PRIMARY KEY (`c_id`);
-
---
--- Indexes for table `c_reviews`
---
-ALTER TABLE `c_reviews`
-  ADD PRIMARY KEY (`c_id`,`n_id`);
-
---
--- Indexes for table `items`
---
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`n_id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `order_items`
---
-ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `payments`
---
-ALTER TABLE `payments`
-  ADD PRIMARY KEY (`payment_id`);
-
---
--- Indexes for table `wishlist`
---
-ALTER TABLE `wishlist`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cart`
---
-ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `contact`
---
-ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT for table `items`
---
-ALTER TABLE `items`
-  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `order_items`
---
-ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
-
---
--- AUTO_INCREMENT for table `payments`
---
-ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `wishlist`
---
-ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
