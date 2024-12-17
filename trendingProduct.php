@@ -1,344 +1,80 @@
+<?php
+// Database connection
+include 'dbase.php'; // Make sure this contains your database connection
+
+// Step 1: Get the top 4 trending product IDs from order_items
+$trendingQuery = "
+    SELECT n_id, COUNT(n_id) as total_count 
+    FROM order_items 
+    GROUP BY n_id 
+    ORDER BY total_count DESC 
+    LIMIT 4
+";
+$trendingResult = mysqli_query($conn, $trendingQuery);
+
+// Step 2: Create an array to store trending product IDs
+$trendingProductIds = [];
+while ($row = mysqli_fetch_assoc($trendingResult)) {
+    $trendingProductIds[] = $row['n_id'];
+}
+
+// Step 3: Fetch product details for the top 4 trending products
+if (!empty($trendingProductIds)) {
+    $productIdsString = implode(',', $trendingProductIds);
+    $productQuery = "SELECT n_id, name, image, price FROM items WHERE n_id IN ($productIdsString)";
+    $productResult = mysqli_query($conn, $productQuery);
+} else {
+    $productResult = [];
+}
+
+?>
+
 <!-- Trending Products Section Start -->
 <div class="container mt-5">
-    <h2 class="text-center display-4 fw-bold text-primary section-heading" style="font-weight: 900;">Trending Products
-    </h2>
-
-    <div class="row" id="card-container"></div>
-
-</div>   
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Ensure jQuery is loaded -->
-
-<script>
-    // Fetch all items when the page loads
-    document.addEventListener('DOMContentLoaded', () => {
-        fetchItems(); // Fetch all items on load
-    });
-
-    function fetchItems(category = '', minPrice = '', maxPrice = '') {
-        fetch(`fetch_items.php?category=${category}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
-            .then(response => response.json())
-            .then(data => {
-                const cardContainer = document.getElementById('card-container');
-                cardContainer.innerHTML = ''; // Clear existing cards
-
-                if (data.length === 0) {
-                    cardContainer.innerHTML = '<p class="text-center">No items found.</p>';
-                    return;
-                }
-
-                data.forEach(item => {
-                    const cardCol = document.createElement('div');
-                    cardCol.classList.add('col-lg-3', 'col-md-4', 'col-sm-6', 'mb-5', 'd-flex', 'justify-content-center');
-
-                    const card = document.createElement('div');
-                    card.classList.add('card', 'fancy-card', 'border-0', 'rounded', 'overflow-hidden', 'shadow-sm', 'text-center');
-
-                    card.addEventListener('mouseover', () => {
-                        card.style.transform = 'translateY(-8px)';
-                        card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.2)';
-                    });
-
-                    card.addEventListener('mouseout', () => {
-                        card.style.transform = 'translateY(0)';
-                        card.style.boxShadow = '0 10px 20px rgba(0, 0, 0, 0.1)';
-                    });
-
-                    const imgWrapper = document.createElement('div');
-                    imgWrapper.classList.add('card-img-wrapper', 'position-relative');
-
-                    const img = document.createElement('img');
-                    img.src = 'admin/' + item.image;
-                    img.alt = item.name;
-                    img.classList.add('card-img-top', 'fancy-card-img');
-                    img.style.objectFit = 'cover';
-
-                    const overlay = document.createElement('div');
-                    overlay.classList.add('card-img-overlay', 'd-flex', 'justify-content-center', 'align-items-center', 'overlay-effect');
-                    overlay.innerHTML = '<i class="fas fa-search fa-2x text-white"></i>';
-                    overlay.style.opacity = '0';
-                    overlay.style.transition = 'opacity 0.4s ease';
-
-                    imgWrapper.addEventListener('mouseover', () => {
-                        overlay.style.opacity = '1';
-                    });
-
-                    imgWrapper.addEventListener('mouseout', () => {
-                        overlay.style.opacity = '0';
-                    });
-
-                    imgWrapper.appendChild(img);
-                    imgWrapper.appendChild(overlay);
-
-                    const cardBody = document.createElement('div');
-                    cardBody.classList.add('card-body', 'px-4', 'py-3');
-
-                    const name = document.createElement('h5');
-                    name.classList.add('card-title', 'mb-2', 'text-truncate', 'fancy-title');
-                    name.textContent = item.name;
-
-                    const stars = document.createElement('div');
-                    stars.classList.add('star-rating', 'mb-3');
-                    stars.innerHTML = '★'.repeat(Math.round(item.avg_rating)) + '☆'.repeat(5 - Math.round(item.avg_rating));
-
-                    const price = document.createElement('p');
-                    price.classList.add('card-text', 'text-gradient', 'fw-bold');
-                    price.textContent = `Price: LKR ${item.price}`;
-
-                    const buttonGroup = document.createElement('div');
-                    buttonGroup.classList.add('d-flex', 'justify-content-around', 'mt-3');
-
-                    const moreInfoBtn = document.createElement('button');
-                    moreInfoBtn.classList.add('btn', 'btn-outline-primary', 'btn-sm', 'fancy-btn');
-                    moreInfoBtn.style.margin = '0 5px'; // Add margin for spacing
-                    moreInfoBtn.innerHTML = '<i class="fas fa-info-circle"></i>';
-                    moreInfoBtn.onclick = () => window.location.href = `itemDetail.php?n_id=${item.n_id}`;
-
-                    const addToCartBtn = document.createElement('button');
-                    addToCartBtn.classList.add('btn', 'btn-outline-success', 'btn-sm', 'fancy-btn');
-                    addToCartBtn.style.margin = '0 5px'; // Add margin for spacing
-                    addToCartBtn.innerHTML = '<i class="fas fa-cart-plus"></i>';
-                    addToCartBtn.onclick = () => handleAddToCart(item.n_id);
-
-                    const addToWishlistBtn = document.createElement('button');
-                    addToWishlistBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'fancy-btn');
-                    addToWishlistBtn.style.margin = '0 5px'; // Add margin for spacing
-                    addToWishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
-                    addToWishlistBtn.onclick = () => handleAddToWishlist(item.n_id);
-
-                    buttonGroup.appendChild(moreInfoBtn);
-                    buttonGroup.appendChild(addToCartBtn);
-                    buttonGroup.appendChild(addToWishlistBtn);
-
-                    cardBody.appendChild(name);
-                    cardBody.appendChild(stars);
-                    cardBody.appendChild(price);
-                    cardBody.appendChild(buttonGroup);
-                    card.appendChild(imgWrapper);
-                    card.appendChild(cardBody);
-
-                    cardCol.appendChild(card);
-                    cardContainer.appendChild(cardCol);
-                });
-            })
-            .catch(error => {
-                console.error('Error fetching items:', error);
-            });
-    }
-
-    function applyFilters() {
-        const category = document.getElementById('categoryFilter').value;
-        const minPrice = document.getElementById('minPrice').value;
-        const maxPrice = document.getElementById('maxPrice').value;
-
-        fetchItems(category, minPrice, maxPrice);
-    }
-
-    function handleAddToCart(n_id) {
-        <?php if (!isset($_SESSION['username'])) { ?>
-            showAlert('You need to log in to add items to your cart!');
-        <?php } else { ?>
-            $.ajax({
-                url: 'add_to_cart.php',
-                type: 'POST',
-                data: { n_id: n_id },
-                success: function(response) {
-                    if (response.success) {
-                        showSuccessAlert('Added to cart');
-                    } else {
-                        showAlert(response.error);
-                    }
-                },
-                error: function() {
-                    showAlert('An unexpected error occurred. Please try again later.');
-                }
-            });
-        <?php } ?>
-    }
-
-    function handleAddToWishlist(n_id) {
-        <?php if (!isset($_SESSION['username'])) { ?>
-            showAlert('You need to log in to add items to your wishlist!');
-        <?php } else { ?>
-            $.ajax({
-                url: 'add_to_wishlist.php',
-                type: 'POST',
-                data: { n_id: n_id },
-                success: function(response) {
-                    if (response.success) {
-                        showSuccessAlert('Added to wishlist');
-                    } else {
-                        showAlert(response.error);
-                    }
-                },
-                error: function() {
-                    showAlert('An unexpected error occurred. Please try again later.');
-                }
-            });
-        <?php } ?>
-    }
-
-    function showAlert(message) {
-        swal({
-            title: "Warning",
-            text: message,
-            icon: "warning",
-            button: "OK",
-        });
-    }
-
-    function showSuccessAlert(message) {
-        swal({
-            title: "Success",
-            text: message,
-            icon: "success",
-            button: "OK",
-        });
-    }
-</script>
-
-<style>
-    /* Modern Fancy Card Styles */
-    .fancy-card {
-        transition: transform 0.5s ease, box-shadow 0.5s ease;
-        border-radius: 15px;
-        overflow: hidden;
-        background: #ffffff;
-    }
-
-    .fancy-card-img {
-        height: 250px;
-        width: 350px;
-        transition: transform 0.5s ease-in-out;
-        filter: brightness(95%);
-    }
-
-    .card-img-wrapper:hover .fancy-card-img {
-        transform: scale(1.08);
-        filter: brightness(100%);
-    }
-
-    .overlay-effect {
-        background-color: rgba(0, 0, 0, 0.4);
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: opacity 0.5s ease;
-    }
-
-    .fancy-title {
-        font-size: 1.2rem;
-        font-weight: 600;
-    }
-
-    .star-rating {
-        color: gold;
-        font-size: 1.2rem;
-    }
-
-    .fancy-btn {
-        width: 100%;
-        border-radius: 25px;
-    }
-
-    .fancy-select, .fancy-input {
-        border-radius: 25px;
-    }
-
-    .filter-container {
-        background-color: #f8f9fa;
-        border-radius: 15px;
-    }
-</style>
-
-<style>
-.card-hover {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    border-radius: 20px;
-    /* Increased roundness for elegance */
-}
-
-.card-hover:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-    /* Softer shadow for a floating effect */
-}
-
-.img-hover-effect {
-    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-    border-radius: 20px 20px 0 0;
-    /* Rounded corners for the image */
-}
-
-.img-hover-effect:hover {
-    transform: scale(1.1);
-    filter: brightness(0.85);
-    /* Darken image slightly on hover */
-}
-
-.btn-hover-effect {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-.btn-hover-effect:hover {
-    background-color: #0056b3;
-    /* Darker shade for the button hover */
-    color: #fff;
-    /* Change text color on hover */
-}
-
-.divider {
-    border-top: 3px solid #007bff;
-    /* Thicker line for a more sophisticated look */
-    width: 100px;
-    /* Width of the divider */
-    margin: 0 auto;
-    /* Center the divider */
-}
-
-.rating .fas {
-    margin-right: 2px;
-}
-
-.text-primary {
-    color: #007bff;
-    /* Primary blue color for headings */
-}
-
-/* Global Styles */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    /* Light background for contrast */
-}
-
-h2 {
-    font-weight: bold;
-    /* Bold for headings */
-}
-
-.text-muted {
-    font-size: 0.9em;
-    /* Slightly smaller text for muted content */
-}
-
-.card-footer {
-    background-color: #ffffff;
-    /* White footer for a clean look */
-    transition: background-color 0.3s ease-in-out;
-    /* Smooth transition for hover */
-}
-
-.card-footer:hover {
-    background-color: #f1f1f1;
-    /* Light gray background on hover */
-}
-</style>
-<!-- Trending Products Section End -->
+    <h2 class="text-center display-4 fw-bold text-primary section-heading" style="font-weight: 900;">Trending Products</h2>
+    <div class="row">
+        <?php
+        // Step 4: Loop through the results and display product cards
+        if ($productResult && mysqli_num_rows($productResult) > 0):
+            while ($item = mysqli_fetch_assoc($productResult)):
+        ?>
+        <!-- Product Card -->
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-5 d-flex justify-content-center">
+            <div class="card fancy-card border-0 rounded overflow-hidden shadow-sm text-center" style="transition: transform 0.5s ease, box-shadow 0.5s ease;">
+                <div class="card-img-wrapper position-relative">
+                    <img src="admin/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="card-img-top fancy-card-img" style="object-fit: cover; height: 250px;">
+                    <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-effect" style="opacity: 0; transition: opacity 0.4s ease;">
+                        <i class="fas fa-search fa-2x text-white"></i>
+                    </div>
+                </div>
+                <div class="card-body px-4 py-3">
+                    <h5 class="card-title mb-2 text-truncate fancy-title"><?php echo htmlspecialchars($item['name']); ?></h5>
+                    <div class="star-rating mb-3">
+                        <?php
+                        $rating = round($item['avg_rating']);
+                        echo str_repeat('★', $rating) . str_repeat('☆', 5 - $rating);
+                        ?>
+                    </div>
+                    <p class="card-text text-gradient fw-bold">Price: $<?php echo number_format($item['price'], 2); ?></p>
+                    <div class="d-flex justify-content-around mt-3">
+                        <button class="btn btn-outline-primary btn-sm fancy-btn" onclick="window.location.href='itemDetail.php?n_id=<?php echo $item['n_id']; ?>'">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                        <button class="btn btn-outline-success btn-sm fancy-btn" onclick="addToCart('<?php echo $item['n_id']; ?>')">
+                            <i class="fas fa-cart-plus"></i>
+                        </button>
+                        <button class="btn btn-outline-danger btn-sm fancy-btn" onclick="addToWishlist('<?php echo $item['n_id']; ?>')">
+                            <i class="fas fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+            endwhile;
+        else:
+        ?>
+        <p class="text-center fw-bold">No trending products available right now.</p>
+        <?php endif; ?>
+    </div>
+</div>
