@@ -32,6 +32,7 @@ if (!empty($trendingProductIds)) {
 <!-- Trending Products Section Start -->
 <div class="container mt-5">
     <h2 class="text-center display-4 fw-bold text-primary section-heading" style="font-weight: 900;">Trending Products</h2>
+    <br>
     <div class="row">
         <?php
         // Step 4: Loop through the results and display product cards
