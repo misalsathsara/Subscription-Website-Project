@@ -65,7 +65,7 @@ if ($payment_method === 'paypal') {
 }
 
 // Update the order status to the selected payment status in the database
-$update_query = "UPDATE orders SET payment_status = ?, transaction_id = ? WHERE id = ?";
+$update_query = "UPDATE orders SET payment_status = ?, order_status = 'pending', transaction_id = ? WHERE id = ?";
 $update_stmt = $conn->prepare($update_query);
 
 if (!$update_stmt) {
