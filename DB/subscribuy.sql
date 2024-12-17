@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 17, 2024 at 01:06 PM
+-- Generation Time: Dec 17, 2024 at 01:34 PM
 -- Server version: 5.7.24
 -- PHP Version: 8.0.1
 
@@ -78,23 +78,20 @@ CREATE TABLE `contact` (
   `id` int(11) NOT NULL,
   `email` varchar(150) NOT NULL,
   `subject` varchar(100) NOT NULL,
-  `message` varchar(250) NOT NULL
+  `message` varchar(250) NOT NULL,
+  `seen` tinyint(1) DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `contact`
 --
 
-INSERT INTO `contact` (`id`, `email`, `subject`, `message`) VALUES
-(1, 'ranuga@gmail.com', 'sd', 'sdsdsdsd'),
-(2, 'ranuga@gmail.com', 'Moda chamodi', 'Moda chamodi'),
-(3, 'ravi.singh@example.com', 'ds', 'as'),
-(4, 'ranuga@gmail.com', 'test local', 'sdsds'),
-(5, 'ranuga@gmail.com', 'ds', 'sdds'),
-(6, 'ranuga@gmail.com', 'sdsd', 'dsdsd'),
-(7, 'ranuga@gmail.com', 'test local', 'dsasd'),
-(8, 'ranuga@gmail.com', 'test local', 'nnnnm'),
-(9, 'ranuga@gmail.com', 'test local', 'sxsd');
+INSERT INTO `contact` (`id`, `email`, `subject`, `message`, `seen`) VALUES
+(2, 'ranuga@gmail.com', 'Moda chamodi', 'Moda chamodi', 0),
+(12, 'misal.sathsara@ecyber.com', 'test2', '12/17', 1),
+(13, 'sanidu.devsith@ecyber.com', 'test', '12/17', 1),
+(14, 'ranuga.deepna@ecyber.com', 'test', '12/17', 1),
+(15, 'malshika8chamodi@gmail.com', 'test', '12/17', 0);
 
 -- --------------------------------------------------------
 
@@ -346,7 +343,7 @@ ALTER TABLE `cart`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `items`
