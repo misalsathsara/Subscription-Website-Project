@@ -40,8 +40,8 @@ $activePage = isset($activePage) ? $activePage : '';
 				<span class="text">Analytics</span>
 			</a>
 		</li>
-		<li>
-			<a href="#">
+		<li class="<?= $activePage === 'message' ? 'active' : '' ?>">
+			<a href="admin-messages.php">
 				<i class='bx bxs-message-dots'></i>
 				<span class="text">Message</span>
 			</a>
