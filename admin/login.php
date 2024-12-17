@@ -2,23 +2,31 @@
 session_start();
 $errorMessage = '';
 
+// Include the database connection file
 require_once '../dbase.php';
 
+// Check if the request method is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    try {
-        $query = "SELECT * FROM admin WHERE name = :username";
-        $stmt = $conn->prepare($query);
-        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-        $stmt->execute();
+    // Use prepared statements with mysqli to prevent SQL injection
+    $query = "SELECT * FROM admin WHERE name = ?";
+    $stmt = $conn->prepare($query);
 
-        if ($stmt->rowCount() === 1) {
-            $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($stmt) {
+        $stmt->bind_param("s", $username); // Bind the username parameter
+        $stmt->execute(); // Execute the query
+        $result = $stmt->get_result(); // Get the result set
+
+        if ($result->num_rows === 1) {
+            $admin = $result->fetch_assoc();
+            // Verify the password using password_verify
             if (password_verify($password, $admin['password'])) {
+                // Set session variables
                 $_SESSION['loggedin'] = true;
                 $_SESSION['username'] = $admin['name'];
+                // Redirect to the index page
                 header('Location: index.php');
                 exit;
             } else {
@@ -27,11 +35,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $errorMessage = 'Invalid username!';
         }
-    } catch (PDOException $e) {
-        $errorMessage = 'Error: ' . $e->getMessage();
+
+        $stmt->close(); // Close the statement
+    } else {
+        $errorMessage = 'Query preparation failed: ' . $conn->error;
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
