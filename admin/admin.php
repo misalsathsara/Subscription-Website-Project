@@ -133,3 +133,98 @@ fetchAdmins();
 </script>
 
 <?php include('admin-footer.php'); ?>
+
+<style>
+    /* Admin Table Section */
+.admin-table {
+    background: var(--light);
+    border-radius: 20px;
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.admin-table .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.admin-table .head h3 {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.btn-download {
+    height: 36px;
+    padding: 0 20px;
+    border-radius: 36px;
+    background: var(--blue);
+    color: var(--light);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-download:hover {
+    background: var(--dark-grey);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+.modal.show {
+    display: flex;
+}
+.modal-content {
+    background: var(--light);
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.close-btn {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+}
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+}
+.modal-content form input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+}
+.btn-download {
+    padding: 10px;
+    background: var(--blue);
+    color: var(--light);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+.btn-download:hover {
+    background: var(--dark-grey);
+}
+</style>
