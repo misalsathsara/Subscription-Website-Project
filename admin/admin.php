@@ -26,6 +26,7 @@ include '../dbase.php'; ?>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="adminTableBody">
@@ -54,26 +55,7 @@ include '../dbase.php'; ?>
 </div>
 
 <script>
-// Fetch Admins
-function fetchAdmins() {
-    fetch('get-admins.php')
-        .then(response => response.json())
-        .then(data => {
-            const adminTableBody = document.getElementById('adminTableBody');
-            if (data.length === 0) {
-                adminTableBody.innerHTML = `<tr><td colspan="3">No Admins Found</td></tr>`;
-            } else {
-                adminTableBody.innerHTML = data.map(admin => `
-                    <tr>
-                        <td>${admin.name}</td>
-                        <td>${admin.email}</td>
-                        <td>${admin.role}</td>
-                    </tr>
-                `).join('');
-            }
-        })
-        .catch(error => console.error('Error fetching admins:', error));
-}
+
 
 // Modal Controls
 document.addEventListener('DOMContentLoaded', () => {
@@ -128,9 +110,67 @@ document.getElementById('addAdminForm').addEventListener('submit', function (e) 
 });
 
 
+
+</script>
+<script>
+// Fetch Admins
+function fetchAdmins() {
+    fetch('get-admins.php')
+        .then(response => response.json())
+        .then(data => {
+            const adminTableBody = document.getElementById('adminTableBody');
+            if (data.length === 0) {
+                adminTableBody.innerHTML = `<tr><td colspan="4">No Admins Found</td></tr>`;
+            } else {
+                adminTableBody.innerHTML = data.map(admin => `
+                    <tr>
+                        <td>${admin.name}</td>
+                        <td>${admin.email}</td>
+                        <td>${admin.role}</td>
+                        <td>
+                            <button class="delete-btn" data-id="${admin.id}">Delete</button>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+        })
+        .catch(error => console.error('Error fetching admins:', error));
+}
+
+// Handle Delete Admin
+document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('delete-btn')) {
+        const adminId = e.target.getAttribute('data-id');
+        console.log('Attempting to delete Admin ID:', adminId);
+
+        if (confirm('Are you sure you want to delete this admin?')) {
+            fetch('delete-admin.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: adminId }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Server Response:', data);
+                if (data.success) {
+                    alert(data.message);
+                    fetchAdmins(); // Refresh admin table
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch Error:', error);
+                alert('An error occurred. Please try again.');
+            });
+        }
+    }
+});
+
 // Initial Load
 fetchAdmins();
 </script>
+
 
 <?php include('admin-footer.php'); ?>
 
@@ -227,4 +267,19 @@ fetchAdmins();
 .btn-download:hover {
     background: var(--dark-grey);
 }
+
+.delete-btn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 6px 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.delete-btn:hover {
+    background: #e60000;
+}
+
 </style>

@@ -1,27 +1,21 @@
 <?php
-include '../dbase.php'; // Include the mysqli database connection
+include '../dbase.php';
 
+// Set content type to JSON
 header('Content-Type: application/json');
 
-try {
-    // Execute the query
-    $stmt = $conn->query("SELECT name, email, role FROM admin");
+// Fetch all admins
+$result = $conn->query("SELECT id, name, email, role FROM admin");
 
-    if (!$stmt) {
-        throw new Exception("Query error: " . $conn->error);
-    }
-
-    // Fetch results into an array
+if ($result && $result->num_rows > 0) {
     $admins = [];
-    while ($row = $stmt->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         $admins[] = $row;
     }
-
-    // Return the results in JSON format
     echo json_encode($admins);
-
-} catch (Exception $e) {
-    // Handle query errors
-    echo json_encode(['error' => $e->getMessage()]);
+} else {
+    echo json_encode([]);
 }
+
+$conn->close();
 ?>

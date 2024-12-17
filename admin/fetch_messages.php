@@ -25,9 +25,9 @@ $conn->query($updateSeenQuery);
             <th style="padding: 10px; border: 1px solid #ddd;">Email</th>
             <th style="padding: 10px; border: 1px solid #ddd;">Subject</th>
 
-            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
-            
             <th style="padding: 10px; border: 1px solid #ddd;">Message</th>
+            
+            <th style="padding: 10px; border: 1px solid #ddd;">Status</th>
             <th style="padding: 10px; border: 1px solid #ddd;">Actions</th>
         </tr>
     </thead>
