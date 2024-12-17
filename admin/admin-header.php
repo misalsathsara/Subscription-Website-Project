@@ -1,3 +1,5 @@
+<!-- Admin header -->
+
 <?php
 $activePage = isset($activePage) ? $activePage : '';
 ?>
