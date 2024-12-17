@@ -1,6 +1,6 @@
 <!-- Bank Section Start -->
 <section class="scrolling-logos light">
-    <div class="container">
+    <div class="container-fluid">
         <div class="text-center mb-5">
             <h2 class="text-center display-4 fw-bold text-primary section-heading" style="font-weight: 900;">
                 Meet Our Partners</h2>
@@ -34,6 +34,7 @@
     </div>
 </section>
 
+
 <!-- Additional Styles -->
 <style>
 .scrolling-logos {
@@ -61,9 +62,10 @@
 }
 
 .logos-wrapper {
+    width: 100%; /* Ensures the wrapper spans the full width */
     overflow: hidden;
-    /* Ensure logos stay within the container */
 }
+
 
 .logos {
     display: flex;
