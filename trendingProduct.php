@@ -79,3 +79,63 @@ if (!empty($trendingProductIds)) {
         <?php endif; ?>
     </div>
 </div>
+
+
+<style>
+    /* Modern Fancy Card Styles */
+    .fancy-card {
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+        border-radius: 15px;
+        overflow: hidden;
+        background: #ffffff;
+    }
+
+    .fancy-card-img {
+        height: 250px;
+        width: 350px;
+        transition: transform 0.5s ease-in-out;
+        filter: brightness(95%);
+    }
+
+    .card-img-wrapper:hover .fancy-card-img {
+        transform: scale(1.08);
+        filter: brightness(100%);
+    }
+
+    .overlay-effect {
+        background-color: rgba(0, 0, 0, 0.4);
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: opacity 0.5s ease;
+    }
+
+    .fancy-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .star-rating {
+        color: gold;
+        font-size: 1.2rem;
+    }
+
+    .fancy-btn {
+        width: 10%;
+        border-radius: 25px;
+    }
+
+    .fancy-select, .fancy-input {
+        border-radius: 25px;
+    }
+
+    .filter-container {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+    }
+</style>
