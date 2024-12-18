@@ -72,7 +72,33 @@ include('admin-header.php');
                 <option value="electronic">Electronic</option>
                 <option value="beauty">Beauty</option>
                 <option value="home appliance">Home Appliance</option>
+                <option value="health-and-wellness">Health & Wellness</option>
+                <option value="fashion">Fashion</option>
+                <option value="food-and-beverages">Food & Beverages</option>
+                <option value="fitness">Fitness</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="books-and-magazines">Books & Magazines</option>
+                <option value="gaming">Gaming</option>
+                <option value="pets">Pets</option>
+                <option value="kids-and-toys">Kids & Toys</option>
+                <option value="travel-and-adventure">Travel & Adventure</option>
+                <option value="home-decor">Home Decor</option>
+                <option value="automobile">Automobile</option>
+                <option value="software">Software</option>
+                <option value="education">Education</option>
+                <option value="music">Music</option>
+                <option value="groceries">Groceries</option>
+                <option value="fruits-and-vegetables">Fruits & Vegetables</option>
+                <option value="short-eats">Short Eats</option>
+                <option value="snacks-and-beverages">Snacks & Beverages</option>
+                <option value="daily-essentials">Daily Essentials</option>
+                <option value="bakery-items">Bakery Items</option>
+                <option value="dairy-products">Dairy Products</option>
+                <option value="meat-and-seafood">Meat & Seafood</option>
+                <option value="frozen-foods">Frozen Foods</option>
+                <option value="prepared-meals">Prepared Meals</option>
             </select>
+
             <textarea id="itemDescription" placeholder="Item Description"></textarea>
             <input type="number" id="itemPrice" placeholder="Price">
 
