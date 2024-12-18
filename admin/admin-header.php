@@ -1,5 +1,5 @@
-<!-- Admin header -->
 
+<!-- Admin header -->
 <?php
 $activePage = isset($activePage) ? $activePage : '';
 ?>
@@ -48,10 +48,10 @@ $activePage = isset($activePage) ? $activePage : '';
 				<span class="text">Message</span>
 			</a>
 		</li>
-		<li>
-			<a href="#">
+		<li class="<?= $activePage === 'activeStatus' ? 'active' : '' ?>">
+			<a href="activeUsers.php">
 				<i class='bx bxs-group'></i>
-				<span class="text">Team</span>
+				<span class="text">Active Users</span>
 			</a>
 		</li>
 	</ul>

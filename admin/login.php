@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if (password_verify($password, $admin['password'])) {
                 // Set session variables
                 $_SESSION['loggedin'] = true;
-                $_SESSION['username'] = $admin['name'];
+                $_SESSION['adminname'] = $admin['name'];
                 // Redirect to the index page
                 header('Location: index.php');
                 exit;

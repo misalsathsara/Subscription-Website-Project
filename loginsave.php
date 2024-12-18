@@ -28,6 +28,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Successful login, set session variable and success message
                 $_SESSION['username'] = $username; // Store the username in session
                 $_SESSION['success_message'] = "Login successful!"; // Set success message
+
+                // Update the active_status in the database
+                $update_stmt = $conn->prepare("UPDATE customers SET active_status = 1 WHERE c_uname = ?");
+                $update_stmt->bind_param("s", $username);
+                $update_stmt->execute();
+
                 echo json_encode(['success' => true]);
             } else {
                 // Invalid credentials
