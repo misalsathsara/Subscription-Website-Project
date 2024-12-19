@@ -93,33 +93,28 @@ include '../dbase.php'; ?>
     ?>
 </div>
 <!-- Row end -->
-
-
 <?php
+// Fetch total sales for the current month
+$salesQueryCurrent = "SELECT COUNT(id) AS total_sales FROM orders WHERE MONTH(order_date) = MONTH(CURDATE()) AND YEAR(order_date) = YEAR(CURDATE())";
+$salesResultCurrent = $conn->query($salesQueryCurrent);
+$salesDataCurrent = $salesResultCurrent->fetch_assoc();
 
+// Fetch total sales for the previous month
+$salesQueryPrevious = "SELECT COUNT(id) AS total_sales FROM orders WHERE MONTH(order_date) = MONTH(CURDATE()) - 1 AND YEAR(order_date) = YEAR(CURDATE())";
+$salesResultPrevious = $conn->query($salesQueryPrevious);
+$salesDataPrevious = $salesResultPrevious->fetch_assoc();
 
-// Fetch total sales
-$salesQuery = "SELECT COUNT(id) AS total_sales FROM orders";
-$salesResult = $conn->query($salesQuery);
-$salesData = $salesResult->fetch_assoc();
+// Default to 0 if no data is found
+$salesCurrent = $salesDataCurrent['total_sales'] ?? 0;
+$salesPrevious = $salesDataPrevious['total_sales'] ?? 0;
 
-// Fetch total earnings
-$earningsQuery = "SELECT SUM(payment_amount) AS total_earnings FROM payments";
-$earningsResult = $conn->query($earningsQuery);
-$earningsData = $earningsResult->fetch_assoc();
-
-// Fetch total revenue
-// $revenueQuery = "SELECT SUM(revenue) AS total_revenue FROM financials";
-// $revenueResult = $conn->query($revenueQuery);
-// $revenueData = $revenueResult->fetch_assoc();
-
-// Fetch new customers
-$customersQuery = "SELECT COUNT(c_id) AS new_customers FROM customers WHERE date_registered >= DATE(NOW()) - INTERVAL 30 DAY";
-$customersResult = $conn->query($customersQuery);
-$customersData = $customersResult->fetch_assoc();
+// Calculate the gap between current month and previous month
+$salesGap = $salesCurrent - $salesPrevious;
 
 $conn->close();
 ?>
+
+
 
 
 						<!-- Row start -->
@@ -192,19 +187,28 @@ $conn->close();
 
 							</div>
 							<div class="col-xxl-3  col-sm-12 col-12">
+							<div class="card">
+    <div class="card-header">
+        <div class="card-title">Sales</div>
+    </div>
+    <div class="card-body">
+        <div id="salesGraph2" class="auto-align-graph"></div>
 
-								<div class="card">
-									<div class="card-header">
-										<div class="card-title">Sales</div>
-									</div>
-									<div class="card-body">
-										<div id="salesGraph2" class="auto-align-graph"></div>
-										<div class="num-stats">
-											<h2>2100</h2>
-											<h6 class="text-truncate">12% higher than last month.</h6>
-										</div>
-									</div>
-								</div>
+        <!-- Display the gap -->
+        <div class="num-stats">
+            <h2><?= number_format($salesGap); ?> LKR</h2> <!-- Display the gap (difference) -->
+            <h6 class="text-truncate">
+                <?php if ($salesGap > 0) { ?>
+                    <?= number_format($salesGap); ?> LKR higher than last month.
+                <?php } elseif ($salesGap < 0) { ?>
+                    <?= number_format(abs($salesGap)); ?> LKR lower than last month.
+                <?php } else { ?>
+                    No change in sales compared to last month.
+                <?php } ?>
+            </h6> <!-- Display the gap message -->
+        </div>
+    </div>
+</div>
 
 							</div>
 						</div>
