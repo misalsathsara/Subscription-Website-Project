@@ -3,37 +3,75 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 header('Content-Type: application/json');
 
-// Include the database connection file
-include '../dbase.php';  // Adjust the path if necessary
+// Include the database connection
+include '../dbase.php'; // Adjust the path if necessary
 
-// Fetch monthly sales from orders
-$salesQuery = "SELECT MONTHNAME(order_date) AS month, SUM(total_price) AS total_sales FROM orders WHERE YEAR(order_date) = YEAR(CURDATE()) GROUP BY MONTH(order_date) ORDER BY MONTH(order_date)";
+if (!$conn) {
+    die(json_encode(['error' => 'Database connection failed: ' . mysqli_connect_error()]));
+}
+
+// Determine the date range based on the selected range
+$range = $_GET['range'] ?? 'today';
+$startDate = $endDate = date('Y-m-d'); // Default to today
+
+switch ($range) {
+    case 'yesterday':
+        $startDate = $endDate = date('Y-m-d', strtotime('-1 day'));
+        break;
+    case '7 days':
+        $startDate = date('Y-m-d', strtotime('-6 days')); // Include today
+        break;
+    case '15 days':
+        $startDate = date('Y-m-d', strtotime('-14 days')); // Include today
+        break;
+    case '30 days':
+        $startDate = date('Y-m-d', strtotime('-29 days')); // Include today
+        break;
+}
+
+// Fetch sales and revenue data for the selected date range
+$salesQuery = "
+    SELECT DATE(order_date) AS date, SUM(total_price) AS total_sales 
+    FROM orders 
+    WHERE DATE(order_date) BETWEEN '$startDate' AND '$endDate' 
+    GROUP BY DATE(order_date)
+    ORDER BY DATE(order_date)";
 $salesResult = $conn->query($salesQuery);
+
 $salesData = [];
-while ($row = $salesResult->fetch_assoc()) {
-    $salesData[$row['month']] = (float) $row['total_sales'];
+if ($salesResult) {
+    while ($row = $salesResult->fetch_assoc()) {
+        $salesData[$row['date']] = (float)$row['total_sales'];
+    }
 }
 
-// Fetch monthly revenue from payments
-$revenueQuery = "SELECT MONTHNAME(payment_date) AS month, SUM(payment_amount) AS total_revenue FROM payments WHERE YEAR(payment_date) = YEAR(CURDATE()) GROUP BY MONTH(payment_date) ORDER BY MONTH(payment_date)";
+$revenueQuery = "
+    SELECT DATE(payment_date) AS date, SUM(payment_amount) AS total_revenue 
+    FROM payments 
+    WHERE DATE(payment_date) BETWEEN '$startDate' AND '$endDate' 
+    GROUP BY DATE(payment_date)
+    ORDER BY DATE(payment_date)";
 $revenueResult = $conn->query($revenueQuery);
-$revenueData = [];
-while ($row = $revenueResult->fetch_assoc()) {
-    $revenueData[$row['month']] = (float) $row['total_revenue'];
-}
 
+$revenueData = [];
+if ($revenueResult) {
+    while ($row = $revenueResult->fetch_assoc()) {
+        $revenueData[$row['date']] = (float)$row['total_revenue'];
+    }
+}
 
 $conn->close();
 
-// Combine sales and revenue into months, ensuring all months are represented
-$months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-$result = array_map(function($month) use ($salesData, $revenueData) {
-    return [
-        'month' => $month,
-        'sales' => $salesData[$month] ?? 0,
-        'revenue' => $revenueData[$month] ?? 0
+// Combine sales and revenue data
+$result = [];
+foreach (range(0, (strtotime($endDate) - strtotime($startDate)) / 86400) as $offset) {
+    $date = date('Y-m-d', strtotime($startDate . " +$offset days"));
+    $result[] = [
+        'month' => $date,
+        'sales' => $salesData[$date] ?? 0,
+        'revenue' => $revenueData[$date] ?? 0,
     ];
-}, $months);
+}
 
 echo json_encode($result);
 ?>

@@ -1,6 +1,11 @@
 <?php
+<<<<<<< Updated upstream
 // $host = 'localhost:3308'; 
 $host ='localhost:3306';
+=======
+$host = 'localhost'; 
+// $host ='localhost:3306';
+>>>>>>> Stashed changes
 $db = 'SubscriBuy';
 $user = 'root';
 $pass = '';

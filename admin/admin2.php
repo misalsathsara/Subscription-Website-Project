@@ -63,7 +63,7 @@ include '../dbase.php'; ?>
 
     // Array to hold the SQL queries and their respective style classes and icons
     $queries = [
-        'payments' => ["SELECT COUNT(payment_id) AS total FROM payments", 'red', 'bi-pie-chart', 'Sales'],
+        'sales' => ["SELECT COUNT(id) AS total FROM orders", 'red', 'bi-pie-chart', 'Sales'],
         'customers' => ["SELECT COUNT(c_id) AS total FROM customers", 'blue', 'bi-emoji-smile', 'Customers'],
         'items' => ["SELECT COUNT(n_id) AS total FROM items", 'yellow', 'bi-box-seam', 'Products'],
         'revenue' => ["SELECT SUM(payment_amount) AS total FROM payments", 'green', 'bi-handbag', 'Revenue']
@@ -137,14 +137,14 @@ $conn->close();
                                                     <i class="bi bi-circle-fill text-primary me-2"></i>
                                                     <div class="d-flex flex-column">
                                                         <h6>Overall Sales</h6>
-                                                        <h5><?= $salesData['total_sales'] ?? '0'; ?> </h5>
+                                                        <h5><?= $salesData['total_sales'] ?? '0'; ?> LKR</h5>
                                                     </div>
                                                 </div>
                                                 <div class="reports-summary-block">
                                                     <i class="bi bi-circle-fill text-success me-2"></i>
                                                     <div class="d-flex flex-column">
                                                         <h6>Overall Earnings</h6>
-                                                        <h5><?= $earningsData['total_earnings'] ?? '0'; ?> Millions</h5>
+                                                        <h5><?= $earningsData['total_earnings'] ?? '0'; ?> </h5>
                                                     </div>
                                                 </div>
                                                 <!-- <div class="reports-summary-block">
@@ -158,7 +158,7 @@ $conn->close();
                                                     <i class="bi bi-circle-fill text-warning me-2"></i>
                                                     <div class="d-flex flex-column">
                                                         <h6>New Customers</h6>
-                                                        <h5><?= $customersData['new_customers'] ?? '0'; ?>k</h5>
+                                                        <h5><?= $customersData['new_customers'] ?? '0'; ?></h5>
                                                     </div>
                                                 </div>
 
@@ -168,16 +168,19 @@ $conn->close();
 											<div class="col-xxl-9 col-sm-8 col-12">
 												<div class="row">
 													<div class="col-12">
-														<div class="graph-day-selection mt-2" role="group">
-															<button type="button" class="btn active">Today</button>
-															<button type="button" class="btn">Yesterday</button>
-															<button type="button" class="btn">7 days</button>
-															<button type="button" class="btn">15 days</button>
-															<button type="button" class="btn">30 days</button>
-														</div>
+													<div class="graph-day-selection mt-2" role="group">
+														<button type="button" class="btn active">Today</button>
+														<button type="button" class="btn">Yesterday</button>
+														<button type="button" class="btn">7 days</button>
+														<button type="button" class="btn">15 days</button>
+														<button type="button" class="btn">30 days</button>
+														<button type="button" class="btn">Monthly Sales</button>
+													</div>
+
 													</div>
 													<div class="col-12">
 														<div id="revenueGraph2"></div>
+														<div id="revenueGraph3"></div>
 													</div>
 												</div>
 											</div>
@@ -240,7 +243,7 @@ $conn->close();
 
 						<!-- Row start -->
 						<div class="row">
-							<div class="col-sm-6 col-12">
+							<!-- <div class="col-sm-6 col-12">
 								<div class="card">
 									<div class="card-header">
 										<div class="card-title">Transactions</div>
@@ -352,134 +355,102 @@ $conn->close();
 										</ul>
 									</div>
 								</div>
-							</div>
-							<div class="col-sm-6 col-12">
-								<div class="card">
-									<div class="card-header">
-										<div class="card-title">Notifications</div>
-									</div>
-									<div class="card-body">
-										<div class="scroll370">
-											<ul class="user-messages">
-												<li>
-													<div class="customer shade-blue">MK</div>
-													<div class="delivery-details">
-														<span class="badge shade-blue">Sales</span>
-														<h5>Marie Kieffer</h5>
-														<p>Thanks for choosing Apple product, further if you have any questions please contact sales
-															team.</p>
-													</div>
-												</li>
-												<li>
-													<div class="customer shade-blue">ES</div>
-													<div class="delivery-details">
-														<span class="badge shade-blue">Marketing</span>
-														<h5>Ewelina Sikora</h5>
-														<p>Boost your sales by 50% with the easiest and proven marketing tool for customer enggement
-															&amp; motivation.</p>
-													</div>
-												</li>
-												<li>
-													<div class="customer shade-blue">TN</div>
-													<div class="delivery-details">
-														<span class="badge shade-blue">Business</span>
-														<h5>Teboho Ncube</h5>
-														<p>Use an exclusive promo code HKYMM50 and get 50% off on your first order in the new year.
-														</p>
-													</div>
-												</li>
-												<li>
-													<div class="customer shade-blue">CJ</div>
-													<div class="delivery-details">
-														<span class="badge shade-blue">Admin</span>
-														<h5>Carla Jackson</h5>
-														<p>Befor inviting the administrator, you must create a role that can be assigned to them.
-														</p>
-													</div>
-												</li>
-												<li>
-													<div class="customer shade-red">JK</div>
-													<div class="delivery-details">
-														<span class="badge shade-red">Security</span>
-														<h5>Julie Kemp</h5>
-														<p>Your security subscription has expired. Please renew the subscription.</p>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-12">
-								<div class="card">
-									<div class="card-header">
-										<div class="card-title">Activity</div>
-									</div>
-									<div class="card-body">
+							</div> -->
+							<?php
+// Include your database connection file
+include '../dbase.php';
 
-										<div class="scroll370">
-											<div class="activity-container">
-												<div class="activity-block">
-													<div class="activity-user">
-														<img src="assets/images/user.png" alt="Activity User">
-													</div>
-													<div class="activity-details">
-														<h4>Lilly Desmet</h4>
-														<h5>3 hours ago</h5>
-														<p>Sent invoice ref. #23457</p>
-														<span class="badge shade-green">Sent</span>
-													</div>
-												</div>
-												<div class="activity-block">
-													<div class="activity-user">
-														<img src="assets/images/user3.png" alt="Activity User">
-													</div>
-													<div class="activity-details">
-														<h4>Jennifer Wilson</h4>
-														<h5>7 hours ago</h5>
-														<p>Paid invoice ref. #23459</p>
-														<span class="badge shade-red">Payments</span>
-													</div>
-												</div>
-												<div class="activity-block">
-													<div class="activity-user">
-														<img src="assets/images/user4.png" alt="Activity User">
-													</div>
-													<div class="activity-details">
-														<h4>Elliott Hermans</h4>
-														<h5>1 day ago</h5>
-														<p>Paid invoice ref. #23473</p>
-														<span class="badge shade-green">Paid</span>
-													</div>
-												</div>
-												<div class="activity-block">
-													<div class="activity-user">
-														<img src="assets/images/user5.png" alt="Activity User">
-													</div>
-													<div class="activity-details">
-														<h4>Sophie Michiels</h4>
-														<h5>3 day ago</h5>
-														<p>Paid invoice ref. #26788</p>
-														<span class="badge shade-green">Sent</span>
-													</div>
-												</div>
-												<div class="activity-block">
-													<div class="activity-user">
-														<img src="assets/images/user2.png" alt="Activity User">
-													</div>
-													<div class="activity-details">
-														<h4>Ilyana Maes</h4>
-														<h5>One week ago</h5>
-														<p>Paid invoice ref. #34546</p>
-														<span class="badge shade-red">Invoice</span>
-													</div>
-												</div>
-											</div>
-										</div>
+// Fetch recent order details
+$queryOrders = "
+SELECT 
+    o.id AS order_id,
+    c.c_name AS customer_name,
+    o.total_price,
+    o.payment_status,
+    o.transaction_id,
+    o.order_date,
+    n.name AS item_name,
+    n.type AS item_type,
+    n.description AS item_description
+FROM 
+    orders o
+JOIN 
+    order_items oi ON o.id = oi.order_id
+JOIN 
+    items n ON oi.n_id = n.n_id
+JOIN 
+    customers c ON oi.c_id = c.c_id
+ORDER BY 
+    o.order_date DESC
+LIMIT 5;
 
-									</div>
-								</div>
-							</div>
+";
+
+$resultOrders = $conn->query($queryOrders);
+
+// Fetch recent activity details
+$queryActivity = "SELECT * FROM c_reviews ORDER BY c_id DESC LIMIT 5";
+$resultActivity = $conn->query($queryActivity);
+?>
+
+<div class="col-sm-6 col-12">
+    <div class="card1">
+        <div class="card-header">
+            <div class="card1-title">Activity</div>
+        </div>
+        <div class="card-body">
+            <div class="scroll370">
+                <?php if ($resultOrders && $resultOrders->num_rows > 0) { ?>
+                    <ul>
+                        <?php while ($order = $resultOrders->fetch_assoc()) { ?>
+                            <li>
+                                <strong>Order ID:</strong> <?php echo htmlspecialchars($order['order_id']); ?><br>
+                                Customer: <?php echo htmlspecialchars($order['customer_name']); ?><br>
+                                Order Date: <?php echo htmlspecialchars($order['order_date']); ?><br>
+                                Total Amount: $<?php echo number_format($order['total_price'], 2); ?><br>
+                            </li>
+                            <hr>
+                        <?php } ?>
+                    </ul>
+                <?php } else { ?>
+                    <p>No recent orders available.</p>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-6 col-12">
+    <div class="card1">
+        <div class="card-header">
+            <div class="card1-title">Notifications</div>
+        </div>
+        <div class="card-body">
+            <div class="scroll370">
+                <?php if ($resultActivity && $resultActivity->num_rows > 0) { ?>
+                    <ul>
+                        <?php while ($activity = $resultActivity->fetch_assoc()) { ?>
+                            <li>
+                                <strong>Review ID:</strong> <?php echo htmlspecialchars($activity['c_id']); ?><br>
+                                Rating: <?php echo htmlspecialchars($activity['rating']); ?><br>
+                                Review: <?php echo htmlspecialchars($activity['review_description']); ?><br>
+                            </li>
+                            <hr>
+                        <?php } ?>
+                    </ul>
+                <?php } else { ?>
+                    <p>No recent activity available.</p>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php
+// Close the database connection
+$conn->close();
+?>
+
 						</div>
 						<!-- Row end -->
 
@@ -549,99 +520,228 @@ $conn->close();
 
     </script>
     <!-- revenueGraph -->
-    <script>
-    $(document).ready(function() {
-    fetchSalesRevenueData();
 
-    function fetchSalesRevenueData() {
+<script>
+$(document).ready(function () {
+    let chart = null; // Declare chart globally
+    let isLoading = false; // Prevent concurrent AJAX calls
+
+    // Initial fetch for "Today"
+    fetchSalesRevenueData('today');
+
+    // Handle button clicks for day selection
+    $('.graph-day-selection button').on('click', function () {
+        $('.graph-day-selection button').removeClass('active');
+        $(this).addClass('active');
+        const range = $(this).text().toLowerCase();
+
+        if (range === 'monthly sales') {
+            fetchMonthlySalesData();
+        } else {
+            fetchSalesRevenueData(range);
+        }
+    });
+
+    function fetchSalesRevenueData(range) {
+        if (isLoading) return;
+        isLoading = true;
+
         $.ajax({
-            url: 'fetch_sales_revenue_data.php', // Ensure this path is correct
+            url: 'fetch_sales_revenue_data.php',
             type: 'GET',
+            data: { range: range },
             dataType: 'json',
-            success: function(data) {
-                console.log('Data fetched successfully:', data);
-                var months = data.map(item => item.month);
-                var salesData = data.map(item => item.sales);
-                var revenueData = data.map(item => item.revenue);
+            success: function (data) {
+                isLoading = false;
+                console.log('Fetched data:', data);
+                const months = data.map(item => item.month);
+                const salesData = data.map(item => item.sales);
+                const revenueData = data.map(item => item.revenue);
                 renderChart(months, salesData, revenueData);
             },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.error('Error fetching data: ' + textStatus, errorThrown);
-            }
+            error: function (jqXHR, textStatus, errorThrown) {
+                isLoading = false;
+                console.error('Error fetching data:', textStatus, errorThrown);
+            },
+        });
+    }
+
+    function fetchMonthlySalesData() {
+        if (isLoading) return;
+        isLoading = true;
+
+        $.ajax({
+            url: 'fetch_monthly_sales_data.php', // New endpoint for monthly sales
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                isLoading = false;
+                console.log('Monthly sales data:', data);
+                const months = data.map(item => item.month);
+                const salesData = data.map(item => item.sales);
+                renderChart(months, salesData, []);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                isLoading = false;
+                console.error('Error fetching monthly sales data:', textStatus, errorThrown);
+            },
         });
     }
 
     function renderChart(months, salesData, revenueData) {
-        var options = {
+        if (chart) {
+            chart.destroy();
+        }
+
+        if (!document.querySelector("#revenueGraph2")) {
+            console.error("Chart container not found!");
+            return;
+        }
+
+        const options = {
             chart: {
                 height: 317,
                 type: 'area',
-                toolbar: {
-                    show: false,
-                },
+                toolbar: { show: false },
             },
-            dataLabels: {
-                enabled: false
-            },
+            dataLabels: { enabled: false },
             stroke: {
                 curve: 'smooth',
-                width: 3
+                width: 3,
             },
-            series: [{
-                name: 'Sales',
-                data: salesData
-            }, {
-                name: 'Revenue',
-                data: revenueData
-            }],
+            series: [
+                { name: 'Sales', data: salesData },
+                { name: 'Revenue', data: revenueData.length ? revenueData : null },
+            ],
             grid: {
                 borderColor: '#e0e6ed',
                 strokeDashArray: 5,
-                xaxis: {
-                    lines: {
-                        show: true
-                    }
-                },   
-                yaxis: {
-                    lines: {
-                        show: false,
-                    } 
-                },
-                padding: {
-                    top: 0,
-                    right: 0,
-                    bottom: 10,
-                    left: 0
-                }, 
+                xaxis: { lines: { show: true } },
+                yaxis: { lines: { show: false } },
+                padding: { top: 0, right: 0, bottom: 10, left: 0 },
             },
-            xaxis: {
-                categories: months,
-            },
-            yaxis: {
-                labels: {
-                    show: false,
-                }
-            },
+            xaxis: { categories: months },
+            yaxis: { labels: { show: true } },
             colors: ['#4267cd', '#32b2fa'],
             markers: {
                 size: 0,
                 opacity: 0.1,
                 colors: ['#4267cd', '#32b2fa'],
-                strokeColor: "#ffffff",
+                strokeColor: '#ffffff',
                 strokeWidth: 2,
-                hover: {
-                    size: 7,
-                }
+                hover: { size: 7 },
             },
         };
 
-        var chart = new ApexCharts(document.querySelector("#revenueGraph2"), options);
+        chart = new ApexCharts(document.querySelector("#revenueGraph2"), options);
+        chart.render();
+    }
+});
+
+</script>
+
+<!-- monthly sales -->
+ <script>
+	$(document).ready(function () {
+    let chart = null; // Declare chart globally
+    let isLoading = false; // Prevent concurrent requests
+
+    // Handle button clicks for day selection (Today, Yesterday, etc.)
+    $('.graph-day-selection button').on('click', function () {
+        $('.graph-day-selection button').removeClass('active');
+        $(this).addClass('active');
+        const range = $(this).text().toLowerCase();
+
+        if (range === 'monthly sales') {
+            fetchMonthlySalesData(); // Fetch and render monthly sales
+        } else {
+            fetchSalesRevenueData(range); // Fetch data for other date ranges (today, yesterday, etc.)
+        }
+    });
+
+    // Fetch monthly sales data
+    function fetchMonthlySalesData() {
+        if (isLoading) return; // Prevent multiple AJAX requests
+        isLoading = true;
+
+        $.ajax({
+            url: 'fetch_monthly_sales_data.php', // PHP script to fetch monthly sales data
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                isLoading = false;
+                console.log('Fetched monthly sales data:', data); // Log data
+
+                // If no data is available, return early
+                if (!Array.isArray(data) || data.length === 0) {
+                    console.error('Invalid or empty data received for monthly sales');
+                    return;
+                }
+
+                const months = data.map(item => item.month); // X-axis months
+                const salesData = data.map(item => item.sales); // Sales data
+                const revenueData = data.map(item => item.revenue); // Revenue data
+
+                renderMonthlyChart(months, salesData, revenueData); // Render chart for monthly sales
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                isLoading = false;
+                console.error('Error fetching monthly sales data:', textStatus, errorThrown);
+            },
+        });
+    }
+
+    // Render the monthly sales chart
+    function renderMonthlyChart(months, salesData, revenueData) {
+        if (chart) {
+            chart.destroy(); // Destroy the previous chart if it exists
+        }
+
+        const options = {
+            chart: {
+                height: 317,
+                type: 'area',
+                toolbar: { show: false },
+            },
+            dataLabels: { enabled: false },
+            stroke: {
+                curve: 'smooth',
+                width: 3,
+            },
+            series: [
+                { name: 'Sales', data: salesData },
+                { name: 'Revenue', data: revenueData },
+            ],
+            grid: {
+                borderColor: '#e0e6ed',
+                strokeDashArray: 5,
+                xaxis: { lines: { show: true } },
+                yaxis: { lines: { show: false } },
+                padding: { top: 0, right: 0, bottom: 10, left: 0 },
+            },
+            xaxis: { categories: months }, // Display months as x-axis labels
+            yaxis: { labels: { show: true } },
+            colors: ['#4267cd', '#32b2fa'],
+            markers: {
+                size: 0,
+                opacity: 0.1,
+                colors: ['#4267cd', '#32b2fa'],
+                strokeColor: '#ffffff',
+                strokeWidth: 2,
+                hover: { size: 7 },
+            },
+        };
+
+        chart = new ApexCharts(document.querySelector("#revenueGraph2"), options);
         chart.render();
     }
 });
 
 
-    </script>
+ </script>
+
+
+
 
     <!-- salesgraph -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -758,6 +858,88 @@ $conn->close();
         background-color: #fff; /* Optional: Change to match your design */
         z-index: 10;
     }
+
+	.card1 {
+	margin-left: 10px;
+    border: none; /* Remove border */
+    border-radius: 15px; /* Smooth rounded corners */
+    background: linear-gradient(145deg, #ffffff, #f8f9fa); /* Subtle gradient for modern look */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.05); /* Depth with layered shadows */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect animations */
+}
+
+.card1:hover {
+   
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15), 0 6px 12px rgba(0, 0, 0, 0.1); /* Enhanced hover shadow */
+}
+
+.card1 .card-header {
+    padding: 15px; /* Padding for header */
+    border-bottom: 1px solid #dcdcdc; /* Subtle separator */
+    background: #f8f9fa; /* Light background for header */
+    border-radius: 15px 15px 0 0; /* Round top corners */
+}
+
+.card1 .card1-title {
+    font-size: 22px; /* Larger font for title */
+    font-weight: 700; /* Bold for emphasis */
+    color: #34495e; /* Rich modern text color */
+    text-transform: uppercase; /* Uppercase for modern feel */
+    letter-spacing: 1px; /* Elegance through spacing */
+    margin: 0;
+}
+
+.card1 .card-body {
+    padding: 20px; /* Inner padding */
+}
+
+.scroll370 {
+    max-height: 400px; /* Limit height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 15px; /* Inner padding */
+    border-radius: 10px; /* Smooth rounded corners */
+    background: #ffffff; /* Clean white background */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Inset shadow for depth */
+}
+
+.scroll370 ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0;
+    margin: 0;
+}
+
+.scroll370 ul li {
+    margin-bottom: 18px; /* Space between list items */
+    line-height: 1.8; /* Readable line height */
+    padding: 12px 18px; /* Inner padding for each item */
+    background: #f9f9f9; /* Subtle background color */
+    border-radius: 8px; /* Rounded corners for items */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Light shadow */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+.scroll370 ul li:hover {
+    background-color: #e6f7ff; /* Soft blue highlight on hover */
+    transform: scale(1.02); /* Slight zoom effect */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Enhanced shadow on hover */
+}
+
+.scroll370 ul li strong {
+    font-weight: 600; /* Strong emphasis for labels */
+    color: #2c3e50; /* Modern text color */
+}
+
+.scroll370 ul li:last-child {
+    border-bottom: none; /* Remove border from last item */
+}
+
+.scroll370 p {
+    font-size: 16px; /* Text size for no data message */
+    color: #7f8c8d; /* Muted text color */
+    text-align: center; /* Center align the text */
+    margin: 20px 0; /* Add space around */
+}
+
 </style>
 
 </html>
