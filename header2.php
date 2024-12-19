@@ -372,7 +372,7 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
     </a>
     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
         <li><a class="dropdown-item" href="user-profile.php"><i class="fa fa-user"></i> Profile</a></li>
-        <li><a class="dropdown-item" href="#"><i class="fa fa-list"></i> Orders</a></li>
+        <li><a class="dropdown-item" href="order.php"><i class="fa fa-list"></i> Orders</a></li>
         <li><a class="dropdown-item" href="wishlist.php"><i class="fa fa-heart"></i> Wishlist</a></li>
         <li><a class="dropdown-item" href="show_cart.php"><i class="fa fa-shopping-cart"></i> Cart</a></li>
         <li><a class="dropdown-item" href="logout.php"><i class="fa fa-sign-out"></i> Logout</a></li>
