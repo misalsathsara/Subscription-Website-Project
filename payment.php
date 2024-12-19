@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session
+session_start();
 include 'dbase.php'; // Include your database connection
 
 // Check if the order ID is set in the session
@@ -10,11 +10,9 @@ if (!isset($_SESSION['order_id'])) {
 
 // Check if the user is logged in
 if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
-    // If the user is logged in, include the logged-in header (header2.php)
-    include('header2.php');
+    include('header2.php'); // Include logged-in header
 } else {
-    // If the user is not logged in, include the default header (header.php)
-    include('header.php');
+    include('header.php'); // Include default header
 }
 
 $order_id = $_SESSION['order_id'];
@@ -42,13 +40,11 @@ $item_stmt->bind_param("i", $order_id);
 $item_stmt->execute();
 $item_result = $item_stmt->get_result();
 
-// Initialize total price
 $total_price = 0;
 $items = [];
-
 while ($item = $item_result->fetch_assoc()) {
-    $total_price = $item['total_price']; // Add the price of each item to total
-    $items[] = $item; // Add item to array
+    $total_price = $item['total_price'];
+    $items[] = $item;
 }
 
 $item_stmt->close();
@@ -73,17 +69,6 @@ $conn->close();
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .order-items {
-            list-style-type: none;
-            padding: 0;
-        }
-        .order-items li {
-            background-color: #fff;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-        }
         .btn-custom {
             background-color: #007bff;
             color: white;
@@ -95,11 +80,9 @@ $conn->close();
     </style>
 </head>
 <body>
-
     <div class="container">
         <h1 class="text-center mb-5">Order Summary</h1>
         
-        <!-- Order Details Section -->
         <div class="order-details mb-4">
             <h3>Order ID: <?php echo $order['id']; ?></h3>
             <p><strong>Full Name:</strong> <?php echo htmlspecialchars($order['fullname']); ?></p>
@@ -110,20 +93,8 @@ $conn->close();
             <p><strong>Total Price:</strong> LKR <?php echo number_format($total_price, 2); ?></p>
         </div>
 
-        <!-- Items List -->
-        <!-- <h4>Items in your Order</h4>
-        <ul class="order-items">
-            <?php foreach ($items as $item) { ?>
-                <li>
-                    <strong><?php echo htmlspecialchars($item['item_name']); ?></strong>
-                    - $<?php echo number_format($item['price'], 2); ?>
-                </li>
-            <?php } ?>
-        </ul> -->
-
-        <!-- Payment Method Form -->
         <h4 class="mt-4">Payment Details</h4>
-        <form action="payment_process.php" method="POST">
+        <form id="paymentForm" method="POST">
             <div class="mb-3">
                 <label for="payment_method" class="form-label">Select Payment Method:</label>
                 <select name="payment_method" id="payment_method" class="form-select" required>
@@ -133,7 +104,6 @@ $conn->close();
                 </select>
             </div>
 
-            <!-- Credit Card Details (hidden by default) -->
             <div id="credit_card_fields" style="display: none;">
                 <div class="mb-3">
                     <label for="card_number" class="form-label">Card Number:</label>
@@ -149,43 +119,62 @@ $conn->close();
                 </div>
             </div>
 
-            <button type="submit" name="pay_now" class="btn btn-custom w-100 mt-3">Pay Now</button>
+            <button type="button" id="submitBtn" class="btn btn-custom w-100 mt-3">Pay Now</button>
         </form>
     </div>
 
-    <!-- SweetAlert2 Script -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
     <script>
-    // Show credit card fields when selected
-    document.getElementById('payment_method').addEventListener('change', function() {
-        var paymentMethod = this.value;
-        var creditCardFields = document.getElementById('credit_card_fields');
-        if (paymentMethod === 'credit_card') {
-            creditCardFields.style.display = 'block';
-        } else {
-            creditCardFields.style.display = 'none';
+        document.getElementById('payment_method').addEventListener('change', function() {
+            var paymentMethod = this.value;
+            var creditCardFields = document.getElementById('credit_card_fields');
+            creditCardFields.style.display = paymentMethod === 'credit_card' ? 'block' : 'none';
+        });
+
+        $('#submitBtn').on('click', function () {
+    var formData = $('#paymentForm').serialize();
+
+    $.ajax({
+        url: 'payment_process.php',
+        method: 'POST',
+        data: formData,
+        success: function (response) {
+            if (response.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Payment Successful',
+                    text: response.message,
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                .then(() => {
+                 window.location.reload ();
+                });
+
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Payment Failed',
+                    text: response.message,
+                    confirmButtonText: 'Try Again'
+                });
+            }
+        },
+        error: function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'An unexpected error occurred. Please try again.',
+                confirmButtonText: 'OK'
+            });
         }
     });
+});
 
-    // Check if payment is successful, if so show SweetAlert and redirect
-    <?php if (isset($_GET['payment_status']) && $_GET['payment_status'] == 'success') { ?>
-        Swal.fire({
-            title: 'Payment Successful!',
-            text: 'Your payment has been processed successfully.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'user-profile.php';
-            }
-        });
-    <?php } ?>
-</script>
+    </script>
 
-<?php
-include 'footer.php';
-?>
-
+    <?php include 'footer.php'; ?>
 </body>
 </html>
