@@ -23,7 +23,7 @@ if ($row = $result->fetch_assoc()) {
 }
 
 // Query to count pending orders
-$query = "SELECT COUNT(*) AS processing_count FROM orders WHERE order_status = 'processing'";
+$query = "SELECT COUNT(*) AS processing_count FROM orders WHERE order_status = 'recived'";
 $result = $conn->query($query);
 
 // Check for query errors
@@ -38,7 +38,7 @@ if ($row = $result->fetch_assoc()) {
 }
 
 // Query to count pending orders
-$query = "SELECT COUNT(*) AS shipped_count FROM orders WHERE order_status = 'shipped'";
+$query = "SELECT COUNT(*) AS shipped_count FROM orders WHERE order_status = 'processed'";
 $result = $conn->query($query);
 
 // Check for query errors
@@ -53,7 +53,7 @@ if ($row = $result->fetch_assoc()) {
 }
 
 // Query to count pending orders
-$query = "SELECT COUNT(*) AS delivered_count FROM orders WHERE order_status = 'delivered'";
+$query = "SELECT COUNT(*) AS delivered_count FROM orders WHERE order_status = 'shipped'";
 $result = $conn->query($query);
 
 // Check for query errors
