@@ -1,7 +1,11 @@
 <?php
 // Database connection details
 // $host = 'localhost:3308'; 
+<<<<<<< Updated upstream
 $host ='localhost:3306';
+=======
+$host ='localhost';
+>>>>>>> Stashed changes
 $db = 'SubscriBuy';
 $user = 'root';
 $pass = 'root';
