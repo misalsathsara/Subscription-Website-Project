@@ -1,7 +1,6 @@
 <?php
-// Database connection details
-// $host = 'localhost:3308'; 
-$host ='localhost';
+$host = 'localhost:3308'; 
+// $host ='localhost:3306';
 $db = 'SubscriBuy';
 $user = 'root';
 $pass = '';

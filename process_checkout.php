@@ -17,6 +17,36 @@ foreach ($cart_items as $item) {
     $total_price += $item['price']; // Total price calculation
 }
 
+// Check if username is set in the session
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php?error=1"); // Redirect to login if no username is set
+    exit;
+}
+
+// Check if username exists
+$username = $_SESSION['username']; // Assuming the username is stored in session
+
+if (empty($username)) {
+    die("Error: Username is empty or not set.");
+}
+
+// Use the username to fetch the c_id from the customers table
+$c_id_query = "SELECT c_id FROM customers WHERE c_uname = '$username'"; // Directly using the username in the query
+$c_id_result = $conn->query($c_id_query); // Use query method here, no need for prepared statements in this case
+
+if (!$c_id_result) {
+    die("Error executing the query: " . $conn->error); // Debug the query execution
+}
+
+if ($c_id_result->num_rows === 0) {
+    die("Error: No customer found with the provided username.");
+}
+
+// Fetch the c_id
+$c_id = $c_id_result->fetch_assoc()['c_id'];
+
+
+
 // Get billing information from POST request
 $fullname = trim($_POST['fullname'] ?? '');
 $email = trim($_POST['email'] ?? '');
@@ -31,7 +61,7 @@ if (empty($fullname) || empty($email) || empty($address) || empty($duration) || 
 }
 
 // Prepare the order data to insert into the database
-$order_query = "INSERT INTO orders (fullname, email, address, duration, renieve, total_price) VALUES (?, ?, ?, ?, ?, ?)";
+$order_query = "INSERT INTO orders (c_id, fullname, email, address, duration, renieve, total_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
 $order_stmt = $conn->prepare($order_query);
 
 if (!$order_stmt) {
@@ -39,7 +69,7 @@ if (!$order_stmt) {
 }
 
 // Bind parameters
-$order_stmt->bind_param("sssssd", $fullname, $email, $address, $duration, $renieve, $total_price);
+$order_stmt->bind_param("ssssssd", $c_id, $fullname, $email, $address, $duration, $renieve, $total_price);
 if (!$order_stmt->execute()) {
     die("Error executing the order statement: " . $order_stmt->error);
 }
@@ -72,7 +102,6 @@ foreach ($cart_items as $item) {
         die("Error executing the item statement: " . $item_stmt->error);
     }
 }
-
 
 // Clean up
 $item_stmt->close();
