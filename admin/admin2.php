@@ -129,33 +129,28 @@ $conn->close();
 											<div class="col-xxl-3 col-sm-4 col-12">
 												<div class="reports-summary">
                                                 <div class="reports-summary-block">
-                                                    <i class="bi bi-circle-fill text-primary me-2"></i>
-                                                    <div class="d-flex flex-column">
-                                                        <h6>Overall Sales</h6>
-                                                        <h5><?= $salesData['total_sales'] ?? '0'; ?> LKR</h5>
-                                                    </div>
-                                                </div>
-                                                <div class="reports-summary-block">
-                                                    <i class="bi bi-circle-fill text-success me-2"></i>
-                                                    <div class="d-flex flex-column">
-                                                        <h6>Overall Earnings</h6>
-                                                        <h5><?= $earningsData['total_earnings'] ?? '0'; ?> </h5>
-                                                    </div>
-                                                </div>
-                                                <!-- <div class="reports-summary-block">
-                                                    <i class="bi bi-circle-fill text-danger me-2"></i>
-                                                    <div class="d-flex flex-column">
-                                                        <h6>Overall Revenue</h6>
-                                                        <h5><?= $revenueData['total_revenue'] ?? '0'; ?> Millions</h5>
-                                                    </div>
-                                                </div> -->
-                                                <div class="reports-summary-block">
-                                                    <i class="bi bi-circle-fill text-warning me-2"></i>
-                                                    <div class="d-flex flex-column">
-                                                        <h6>New Customers</h6>
-                                                        <h5><?= $customersData['new_customers'] ?? '0'; ?></h5>
-                                                    </div>
-                                                </div>
+                <i class="bi bi-circle-fill text-primary me-2"></i>
+                <div class="d-flex flex-column">
+                    <h6>Current Month Sales</h6>
+                    <h5><?= $salesCurrent ?> LKR</h5>
+                </div>
+            </div>
+            <!-- Display total sales for the previous month -->
+            <div class="reports-summary-block">
+                <i class="bi bi-circle-fill text-success me-2"></i>
+                <div class="d-flex flex-column">
+                    <h6>Previous Month Sales</h6>
+                    <h5><?= $salesPrevious ?> LKR</h5>
+                </div>
+            </div>
+            <!-- Display the gap between current and previous month sales -->
+            <div class="reports-summary-block">
+                <i class="bi bi-circle-fill text-warning me-2"></i>
+                <div class="d-flex flex-column">
+                    <h6>Sales Difference</h6>
+                    <h5><?= $salesGap ?> LKR</h5>
+                </div>
+            </div>
 
 													<button class="btn btn-info download-reports">View Reports</button>
 												</div>
@@ -185,33 +180,34 @@ $conn->close();
 									</div>
 								</div>
 
-							</div>
-							<div class="col-xxl-3  col-sm-12 col-12">
-							<div class="card">
-    <div class="card-header">
-        <div class="card-title">Sales</div>
-    </div>
-    <div class="card-body">
-        <div id="salesGraph2" class="auto-align-graph"></div>
+                                    </div>
+                                    <div class="col-xxl-3  col-sm-12 col-12">
+                                    <div class="card">
+                                <div class="card-header">
+                                    <div class="card-title">Sales</div>
+                                </div>
 
-        <!-- Display the gap -->
-        <div class="num-stats">
-            <h2><?= number_format($salesGap); ?> LKR</h2> <!-- Display the gap (difference) -->
-            <h6 class="text-truncate">
-                <?php if ($salesGap > 0) { ?>
-                    <?= number_format($salesGap); ?> LKR higher than last month.
-                <?php } elseif ($salesGap < 0) { ?>
-                    <?= number_format(abs($salesGap)); ?> LKR lower than last month.
-                <?php } else { ?>
-                    No change in sales compared to last month.
-                <?php } ?>
-            </h6> <!-- Display the gap message -->
-        </div>
-    </div>
-</div>
+                                <div class="card-body">
+                                <div id="salesGraph2" class="auto-align-graph"></div>
+
+                                    <!-- Display the gap -->
+                                    <div class="num-stats">
+                                        <h2><?= number_format($salesGap); ?> LKR</h2> <!-- Display the gap (difference) -->
+                                        <h6 class="text-truncate">
+                                            <?php if ($salesGap > 0) { ?>
+                                                <?= number_format($salesGap); ?> LKR higher than last month.
+                                            <?php } elseif ($salesGap < 0) { ?>
+                                                <?= number_format(abs($salesGap)); ?> LKR lower than last month.
+                                            <?php } else { ?>
+                                                No change in sales compared to last month.
+                                            <?php } ?>
+                                        </h6> <!-- Display the gap message -->
+                                    </div>
+                                </div>
+                            </div>
 
 							</div>
-						</div>
+					    </div>
 						<!-- Row end -->
 
 					<!-- Row start -->
@@ -367,26 +363,25 @@ include '../dbase.php';
 // Fetch recent order details
 $queryOrders = "
 SELECT 
-    o.id AS order_id,
-    c.c_name AS customer_name,
-    o.total_price,
-    o.payment_status,
-    o.transaction_id,
-    o.order_date,
-    n.name AS item_name,
-    n.type AS item_type,
-    n.description AS item_description
+    o.id AS order_id, 
+    o.fullname AS customer_name, 
+    o.total_price, 
+    o.payment_status, 
+    o.transaction_id, 
+    o.order_date, 
+    i.name AS item_name, 
+    i.type AS item_type, 
+    i.description AS item_description
 FROM 
-    orders o
+    orders o 
 JOIN 
     order_items oi ON o.id = oi.order_id
 JOIN 
-    items n ON oi.n_id = n.n_id
-JOIN 
-    customers c ON oi.c_id = c.c_id
+    items i ON oi.item_id = i.n_id
 ORDER BY 
     o.order_date DESC
 LIMIT 5;
+
 
 ";
 

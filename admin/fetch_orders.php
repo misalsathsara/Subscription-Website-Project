@@ -3,7 +3,7 @@
 include '../dbase.php';  // Adjust the path to your actual database connection file
 
 // SQL query to fetch all orders
-$query = "SELECT id, fullname, total_price, payment_status, order_date FROM orders ORDER BY order_date DESC";
+$query = "SELECT id, fullname, total_price, payment_status, order_date,order_status FROM orders ORDER BY order_date DESC";
 $result = $conn->query($query);
 
 // Check if the query returned any rows
