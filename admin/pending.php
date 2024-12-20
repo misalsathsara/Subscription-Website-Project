@@ -148,7 +148,8 @@
                 include '../dbase.php';
 
                 // Query to get the IDs where order_status is 'process'
-                $query = "SELECT id FROM orders WHERE order_status = 'pending'";
+                $query = "SELECT id FROM orders WHERE LOWER(order_status) = 'pending' ORDER BY id DESC;
+";
                 $result = mysqli_query($conn, $query);
 
                 if (!$result) {
@@ -176,6 +177,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="nIdModalLabel">Item Details</h5>
+                <br>
+                <h6 class="modal-title" id="nIdModalLabel">If item has ricieved click on Received Button</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -185,7 +188,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+                <button type="button" id="submitBtn" class="btn btn-primary">Received</button>
             </div>
         </div>
     </div>
@@ -199,7 +202,8 @@ $(document).ready(function () {
         processing: true,  // Show a processing indicator
         autoWidth: false,  // Disable automatic column width adjustment
         pageLength: 10,    // Number of rows per page
-        responsive: true   // Enable responsive behavior for small screens
+        responsive: true,
+        order: [[0, 'desc']]   // Enable responsive behavior for small screens
     });
 
         let currentOrderId;
