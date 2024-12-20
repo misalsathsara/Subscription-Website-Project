@@ -1,9 +1,10 @@
 <?php
 session_start();
-include 'dbase.php'; 
+include 'dbase.php';
 
 header('Content-Type: application/json'); // Ensure JSON response for AJAX
 
+// Check if the order ID is available in the session
 if (!isset($_SESSION['order_id'])) {
     echo json_encode(['status' => 'error', 'message' => 'No order found in session.']);
     exit;
@@ -13,11 +14,13 @@ $order_id = $_SESSION['order_id'];
 $payment_method = $_POST['payment_method'] ?? '';
 $allowed_methods = ['paypal', 'credit_card', 'bank_transfer'];
 
+// Validate payment method
 if (!in_array($payment_method, $allowed_methods)) {
     echo json_encode(['status' => 'error', 'message' => 'Invalid payment method.']);
     exit;
 }
 
+// Begin transaction
 $conn->begin_transaction();
 
 try {
@@ -28,11 +31,11 @@ try {
     $order_stmt->execute();
     $order_result = $order_stmt->get_result();
 
-    if ($order_result->num_rows == 0) {
-        echo json_encode(['status' => 'error', 'message' => 'Order not found.']);
-        exit;
+    if ($order_result->num_rows === 0) {
+        throw new Exception('Order not found.');
     }
 
+    // Payment processing logic
     $payment_status = 'pending';
     $transaction_id = null;
 
@@ -44,9 +47,9 @@ try {
         $expiration_date = $_POST['expiration_date'] ?? '';
         $cvv = $_POST['cvv'] ?? '';
 
+        // Validate credit card details
         if (empty($card_number) || empty($expiration_date) || empty($cvv)) {
-            echo json_encode(['status' => 'error', 'message' => 'Invalid Credit Card details.']);
-            exit;
+            throw new Exception('Invalid Credit Card details.');
         }
         $payment_status = 'paid';
         $transaction_id = 'CREDITCARD-' . uniqid();
@@ -55,6 +58,7 @@ try {
         $transaction_id = 'BANKTRANSFER-' . uniqid();
     }
 
+    // Update the order with payment status and transaction ID
     $update_query = "UPDATE orders SET payment_status = ?, order_status = 'pending', transaction_id = ? WHERE id = ?";
     $update_stmt = $conn->prepare($update_query);
     $update_stmt->bind_param("ssi", $payment_status, $transaction_id, $order_id);
@@ -63,6 +67,7 @@ try {
         throw new Exception("Failed to update order: " . $update_stmt->error);
     }
 
+    // Delete items from the cart based on the order
     $n_id_query = "SELECT n_id FROM order_items WHERE order_id = ?";
     $n_id_stmt = $conn->prepare($n_id_query);
     $n_id_stmt->bind_param("i", $order_id);
@@ -85,19 +90,21 @@ try {
         }
     }
 
+    // Commit the transaction
     $conn->commit();
 
+    // Clean up session
     unset($_SESSION['cart_items']);
     unset($_SESSION['order_id']);
-    session_destroy();
 
     echo json_encode(['status' => 'success', 'message' => 'Payment successful!', 'transaction_id' => $transaction_id]);
     exit;
 
 } catch (Exception $e) {
+    // Rollback transaction on error
     $conn->rollback();
     error_log("Error: " . $e->getMessage());
-    echo json_encode(['status' => 'error', 'message' => 'An error occurred. Please try again.']);
+    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
     exit;
 }
 ?>

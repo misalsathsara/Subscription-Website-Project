@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+// print_r($_SESSION);
+
 include 'dbase.php'; // Include your database connection
 
 // Check if the order ID is set in the session
@@ -150,7 +153,8 @@ $conn->close();
                     timer: 3000
                 })
                 .then(() => {
-                 window.location.reload ();
+                    // Redirect to order.php after payment success
+                    window.location.href = 'order.php';
                 });
 
             } else {

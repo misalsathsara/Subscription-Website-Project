@@ -1,9 +1,5 @@
 <?php
-
-
-$host = 'localhost'; 
-
-
+$host = 'localhost:3308'; 
 $db = 'SubscriBuy';
 $user = 'root';
 $pass = '';
