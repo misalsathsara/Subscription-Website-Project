@@ -37,7 +37,7 @@ $activePage = isset($activePage) ? $activePage : '';
 			</a>
 		</li>
 		<li>
-			<a href="#">
+			<a href="analytic.php">
 				<i class='bx bxs-doughnut-chart'></i>
 				<span class="text">Analytics</span>
 			</a>

@@ -1,12 +1,12 @@
 <?php
-// Start the session at the beginning of the file
-
 // Check if the user is logged in and if the username is set in the session
 if (isset($_SESSION['username'])) {
     $username = htmlspecialchars($_SESSION['username']); // Retrieve and sanitize the username
 } else {
     $username = 'Guest'; // Default to 'Guest' if not logged in
 }
+
+include 'santa.php';
 
 // Initialize variables with default values if they are not yet defined
 $item_count = $item_count ?? 0; // Set to 0 if $item_count is not defined

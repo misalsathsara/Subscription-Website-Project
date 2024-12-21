@@ -10,6 +10,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
     // If the user is not logged in, include the default header (header.php)
     include('header.php');
 }
+
+
 ?>
 
 
