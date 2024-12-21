@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 20, 2024 at 09:05 PM
+-- Host: 127.0.0.1:3308
+-- Generation Time: Dec 21, 2024 at 12:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -192,7 +192,8 @@ INSERT INTO `orders` (`id`, `c_id`, `fullname`, `email`, `address`, `duration`, 
 (45, 'C004', 'sanindu', 'sdewsithwithanachchi@gmail.com', 'galle', 'every 4 months', 'start of the month', 2450.00, 'paid', 'PAYPAL-6765ba7cc220e', '2024-12-20 18:41:20', 'reviewed'),
 (47, 'C004', 'dewsith', 'sdewsithwithanachchi@gmail.com', 'galle', 'every two weeks', 'middle of the week', 2399.00, 'paid', 'PAYPAL-6765c46112769', '2024-12-20 19:24:15', 'DeliveredConfirmed'),
 (48, 'C004', 'nushadi', 'asa@gmail.com', 'kandy', 'every 6 months', 'start of the month', 999.00, 'paid', 'PAYPAL-6765c4c9b888b', '2024-12-20 19:26:00', 'reviewed'),
-(49, 'C004', 'Deepani', 'asa@gmail.com', 'galle', 'every 4 months', 'middle of the month', 1250.00, 'paid', 'PAYPAL-6765c9fa2a462', '2024-12-20 19:48:07', 'DeliveredConfirmed');
+(49, 'C004', 'Deepani', 'asa@gmail.com', 'galle', 'every 4 months', 'middle of the month', 1250.00, 'paid', 'PAYPAL-6765c9fa2a462', '2024-12-20 19:48:07', 'DeliveredConfirmed'),
+(50, 'C004', 'sanindu', 'ranuga@gmail.com', 'jndsjan ns', 'every 2 months', 'middle of the week', 2399.00, 'paid', 'PAYPAL-6766a2f4e9e60', '2024-12-21 11:13:54', 'delivered');
 
 -- --------------------------------------------------------
 
@@ -216,7 +217,8 @@ INSERT INTO `order_items` (`id`, `order_id`, `item_id`, `n_id`) VALUES
 (98, 46, 49, 7),
 (99, 47, 50, 7),
 (100, 48, 51, 8),
-(101, 49, 52, 9);
+(101, 49, 52, 9),
+(102, 50, 53, 7);
 
 -- --------------------------------------------------------
 
@@ -307,7 +309,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -325,13 +327,13 @@ ALTER TABLE `items`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `payments`
