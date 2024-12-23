@@ -134,7 +134,7 @@
 <body>
     <div class="container">
         <a href="index.php" class="btn-dashboard"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
-        <h2>Pending Orders</h2>
+        <h2>Delivering Orders</h2>
         <table id="pendingOrders" class="display table table-striped table-bordered">
             <thead>
                 <tr>
@@ -176,6 +176,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="nIdModalLabel">Item Details</h5>
+                <br>
+                <h6 class="modal-title" id="nIdModalLabel">If item has delivered click on Delivered Button</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -185,7 +187,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
+                <button type="button" id="submitBtn" class="btn btn-primary">Delivered</button>
             </div>
         </div>
     </div>
@@ -199,7 +201,8 @@ $(document).ready(function () {
         processing: true,  // Show a processing indicator
         autoWidth: false,  // Disable automatic column width adjustment
         pageLength: 10,    // Number of rows per page
-        responsive: true   // Enable responsive behavior for small screens
+        responsive: true,
+        order: [[0, 'desc']]   // Enable responsive behavior for small screens
     });
 
         let currentOrderId;

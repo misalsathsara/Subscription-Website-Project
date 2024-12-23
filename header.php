@@ -1,3 +1,7 @@
+<?php
+include 'santa.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

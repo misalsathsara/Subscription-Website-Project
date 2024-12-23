@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Dec 18, 2024 at 10:03 AM
+-- Generation Time: Dec 21, 2024 at 12:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -105,7 +105,8 @@ CREATE TABLE `customers` (
 
 INSERT INTO `customers` (`c_id`, `c_name`, `c_email`, `c_tel`, `c_address`, `c_uname`, `c_pwd`, `active_status`) VALUES
 ('C004', 'sanindu', 'ranuga@gmail.com', '28848842', 'ssasa', 'sanindu', '$2y$10$ewduKpdkjeSHaVGc1BeN9.8LlKVjo9C.kkfemx0aSqN.22Q794HV6', 1),
-('C005', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '0775285042', 'Baddegama', 'misal', '$2y$10$EHHiZGksr3fB328SgwHzzen4P.U1jRUIlPui32/jGlwUniJ3TRvp2', 0);
+('C005', 'Misal Sathsara', 'misal.sathsara@ecyber.com', '0775285042', 'Baddegama', 'misal', '$2y$10$EHHiZGksr3fB328SgwHzzen4P.U1jRUIlPui32/jGlwUniJ3TRvp2', 0),
+('C006', 'dewsith', 'sdewsithwithanachchi@gmail.com', '0778694566', 'galle', 'dewsith', '$2y$10$W.5tI/xw6kYb.sU.8iEMx.sHZHrVFEogX4mcXDFLj1XpdA0IQyGjW', 1);
 
 -- --------------------------------------------------------
 
@@ -125,13 +126,17 @@ CREATE TABLE `c_reviews` (
 --
 
 INSERT INTO `c_reviews` (`c_id`, `n_id`, `rating`, `review_description`) VALUES
-('c001', 'AC001', 4, 'qerewr'),
-('c002', 'AC003', 3, 'qweqwe'),
-('c003', 'AC001', 5, 'kaejfkje'),
-('c004', 'AC001', 3, 'kajdaod'),
-('c005', 'AC001', 5, 'ladnlaknc'),
-('c007', 'AC001', 4, 'akjdkcjakdnfak'),
-('c009', 'AC001', 2, 'hsdjhsd shbdjsd sbdshdb jbnsdj');
+('C004', '6', 4, 'good'),
+('C004', '6', 3, 'hello'),
+('C004', '6', 4, 'dd'),
+('C004', '6', 4, 'ff'),
+('C004', '6', 4, 'ee'),
+('C004', '7', 4, 'er'),
+('C004', '7', 2, 'gg'),
+('C004', '7', 1, 'dd'),
+('C004', '7', 4, 'hri'),
+('C004', '6', 3, 'hri nathoo'),
+('C004', '8', 4, 'good');
 
 -- --------------------------------------------------------
 
@@ -153,11 +158,10 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VALUES
-(1, 'Grocery Daily Items', 'home appliance', 'The Grocery Item Daily Items section serves as a practical guide for consumers, helping them make informed choices while shopping for their everyday needs. It can be particularly useful for meal planning, budgeting, and ensuring a balanced diet.', 5000.00, 'uploads/68837027_689373823503_0.19650400-1672221458.jpg'),
-(2, 'cream', 'beauty', 'uio', 123.00, 'uploads/images.jpg'),
-(3, 'cream', 'beauty', '[op[', 90879.00, 'uploads/images.jpg'),
-(4, 'Healthy Fruits', 'electronic', 'DSADAD', 324234.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg'),
-(5, 'Healthy Fruits', 'beauty', 'DSADADAYTDFYGF', 32423434.00, 'uploads/360_F_65706597_uNm2SwlPIuNUDuMwo6stBd81e25Y8K8s.jpg');
+(6, 'westen food package', 'food-and-beverages', 'pizza\r\nburger', 2450.00, 'uploads/pizza-western-food-italian-food-catering-materials-food-map-pizza-food-cuisine-cuisine-cuisine-cuisine-background-celebrity-chef-312227390.webp'),
+(7, 'fresh vegi package', 'fruits-and-vegetables', 'Carrots\r\nleeks\r\nOnions', 2399.00, 'uploads/360_F_908958251_uWGohK7sEPuNnCXGrzm6XXK9xkOZbq1x.jpg'),
+(8, 'burger package', 'food-and-beverages', 'burger', 999.00, 'uploads/596235_sld.jpg'),
+(9, 'Strawberry Cake', 'bakery-items', 'Cake', 1250.00, 'uploads/images (3).jpg');
 
 -- --------------------------------------------------------
 
@@ -167,6 +171,7 @@ INSERT INTO `items` (`n_id`, `name`, `type`, `description`, `price`, `image`) VA
 
 CREATE TABLE `orders` (
   `id` int(11) NOT NULL,
+  `c_id` varchar(11) NOT NULL,
   `fullname` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `address` text NOT NULL,
@@ -183,12 +188,12 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`, `order_status`) VALUES
-(22, 'wwqd', 'sdewsithwithanachchi@gmail.com', 'wew', 'every 4 months', 'middle of the week', 5123.00, 'paid', 'PAYPAL-6753321db243f', '2024-12-06 17:15:19', 'pending'),
-(23, 'qe', 'sdewsithwithanachchi@gmail.com', 'dd', 'every 5 months', 'middle of the week', 96002.00, 'pending', NULL, '2024-12-06 17:20:57', 'pending'),
-(24, 'aasas', 'asa@gmail.com', 'fsdfsd', 'every 3 months', 'middle of the week', 420236.00, 'paid', 'PAYPAL-67618967b04d8', '2024-12-17 14:00:56', 'pending'),
-(25, 'aasas', 'asa@gmail.com', 'dwdw', 'every 5 months', 'end of the week', 96002.00, 'paid', 'PAYPAL-6761c254737f7', '2024-12-17 18:26:22', 'pending'),
-(26, 'ASAD', 'sdewsithwithanachchi@gmail.com', 'af', 'every 5 months', 'middle of the month', 5000.00, 'paid', 'BANKTRANSFER-6761c3da297f1', '2024-12-17 18:31:57', 'pending');
+INSERT INTO `orders` (`id`, `c_id`, `fullname`, `email`, `address`, `duration`, `renieve`, `total_price`, `payment_status`, `transaction_id`, `order_date`, `order_status`) VALUES
+(45, 'C004', 'sanindu', 'sdewsithwithanachchi@gmail.com', 'galle', 'every 4 months', 'start of the month', 2450.00, 'paid', 'PAYPAL-6765ba7cc220e', '2024-12-20 18:41:20', 'reviewed'),
+(47, 'C004', 'dewsith', 'sdewsithwithanachchi@gmail.com', 'galle', 'every two weeks', 'middle of the week', 2399.00, 'paid', 'PAYPAL-6765c46112769', '2024-12-20 19:24:15', 'DeliveredConfirmed'),
+(48, 'C004', 'nushadi', 'asa@gmail.com', 'kandy', 'every 6 months', 'start of the month', 999.00, 'paid', 'PAYPAL-6765c4c9b888b', '2024-12-20 19:26:00', 'reviewed'),
+(49, 'C004', 'Deepani', 'asa@gmail.com', 'galle', 'every 4 months', 'middle of the month', 1250.00, 'paid', 'PAYPAL-6765c9fa2a462', '2024-12-20 19:48:07', 'DeliveredConfirmed'),
+(50, 'C004', 'sanindu', 'ranuga@gmail.com', 'jndsjan ns', 'every 2 months', 'middle of the week', 2399.00, 'paid', 'PAYPAL-6766a2f4e9e60', '2024-12-21 11:13:54', 'delivered');
 
 -- --------------------------------------------------------
 
@@ -208,19 +213,12 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `item_id`, `n_id`) VALUES
-(64, 22, 14, 1),
-(65, 22, 15, 2),
-(66, 23, 16, 2),
-(67, 23, 17, 3),
-(68, 23, 18, 1),
-(69, 24, 16, 2),
-(70, 24, 17, 3),
-(71, 24, 18, 1),
-(72, 24, 19, 4),
-(73, 25, 20, 2),
-(74, 25, 21, 1),
-(75, 25, 22, 3),
-(76, 26, 23, 1);
+(97, 45, 48, 6),
+(98, 46, 49, 7),
+(99, 47, 50, 7),
+(100, 48, 51, 8),
+(101, 49, 52, 9),
+(102, 50, 53, 7);
 
 -- --------------------------------------------------------
 
@@ -274,12 +272,6 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`c_id`);
 
 --
--- Indexes for table `c_reviews`
---
-ALTER TABLE `c_reviews`
-  ADD PRIMARY KEY (`c_id`,`n_id`);
-
---
 -- Indexes for table `items`
 --
 ALTER TABLE `items`
@@ -317,7 +309,7 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -329,19 +321,19 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `n_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT for table `payments`
@@ -353,7 +345,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
