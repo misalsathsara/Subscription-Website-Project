@@ -147,6 +147,14 @@ $conn->close();
             <option value="end of the month">End of the Month</option>
         </select>
     </div>
+    <div class="mb-3">
+        <label for="email" class="form-label"></label>
+        <input type="date" class="form-control" id="start_date" name="strt_date" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">End Date</label>
+        <input type="date" class="form-control" id="end_date" name="end_date" required>
+    </div>
     <button type="submit" class="btn btn-primary btn-lg w-100">Proceed to Payment</button>
 </form>
 

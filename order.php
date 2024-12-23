@@ -309,7 +309,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
     include('dbase.php');
 
     $queryOrders = "
-        SELECT id, payment_status, order_status, order_date 
+        SELECT id, payment_status, order_status, order_date, tracking_id 
         FROM orders 
         WHERE c_id = (SELECT c_id FROM customers WHERE c_uname = ?) ";
     $stmtOrders = $conn->prepare($queryOrders);
@@ -320,11 +320,13 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
     $pendingOrderIDs = [];
     $orderStatus = [];
     $orderDates = [];
+    $trackingIDs = [];
     if ($resultOrders->num_rows > 0) {
         while ($row = $resultOrders->fetch_assoc()) {
             $pendingOrderIDs[] = $row['id'];
             $orderStatus[$row['id']] = $row['order_status'];
             $orderDates[$row['id']] = $row['order_date'];
+            $trackingIDs[$row['id']] = $row['tracking_id'];
         }
     }
 
@@ -369,6 +371,9 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                 echo "<div class='order-item' id='order-card-$order_id'>"; // Added unique ID
                 echo "<p><strong>Order ID:</strong> $order_id</p>";
                 echo "<p class='order-status status-" . strtolower($orderStatus[$order_id]) . "'>Status: " . ucfirst($orderStatus[$order_id]) . "</p>";
+                
+                // Display tracking ID for shipped or delivered orders
+            
                 echo "<div class='item-list'>";
                 foreach ($n_ids as $n_id) {
                     if (isset($itemDetails[$n_id])) {
@@ -378,7 +383,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                         echo "<div>";
                         echo "<p><strong>Name:</strong> " . htmlspecialchars($item['name']) . "</p>";
                         echo "<p><strong>Type:</strong> " . htmlspecialchars($item['type']) . "</p>";
-                        echo "<p><strong>Price:</strong> $" . number_format($item['price'], 2) . "</p>";
+                        echo "<p><strong>Price:</strong> LKR " . number_format($item['price'], 2) . "</p>";
                         echo "</div>";
                         echo "</div>";
                     }
@@ -402,6 +407,10 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     echo "<button class='review-btn' onclick='openReviewModal($order_id, \"$n_id\")'>Add Reviews</button>";
                 }
                 echo "</div>";
+                if (in_array(strtolower($orderStatus[$order_id]), ['shipped', 'delivered'])) {
+                    $trackingID = $trackingIDs[$order_id] ?? 'N/A';
+                    echo "<p><strong>Tracking ID:</strong> " . htmlspecialchars($trackingID) . "</p>";
+                }
                 echo "</div>";
             }
             

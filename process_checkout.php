@@ -53,15 +53,17 @@ $email = trim($_POST['email'] ?? '');
 $address = trim($_POST['address'] ?? '');
 $duration = trim($_POST['package_duration'] ?? '');
 $renieve = trim($_POST['received_time'] ?? '');
+$start_date = trim($_POST['strt_date'] ?? '');
+$end_date = trim($_POST['end_date'] ?? '');
 
 // Validate inputs
-if (empty($fullname) || empty($email) || empty($address) || empty($duration) || empty($renieve)) {
+if (empty($fullname) || empty($email) || empty($address) || empty($duration) || empty($renieve) || empty($start_date) || empty($end_date)) {
     header("Location: checkout.php?error=1");
     exit;
 }
 
 // Prepare the order data to insert into the database
-$order_query = "INSERT INTO orders (c_id, fullname, email, address, duration, renieve, total_price) VALUES (?, ?, ?, ?, ?, ?, ?)";
+$order_query = "INSERT INTO orders (c_id, fullname, email, address, duration, renieve, total_price, start_date, end_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $order_stmt = $conn->prepare($order_query);
 
 if (!$order_stmt) {
@@ -69,7 +71,7 @@ if (!$order_stmt) {
 }
 
 // Bind parameters
-$order_stmt->bind_param("ssssssd", $c_id, $fullname, $email, $address, $duration, $renieve, $total_price);
+$order_stmt->bind_param("ssssssdss", $c_id, $fullname, $email, $address, $duration, $renieve, $total_price, $start_date, $end_date);
 if (!$order_stmt->execute()) {
     die("Error executing the order statement: " . $order_stmt->error);
 }

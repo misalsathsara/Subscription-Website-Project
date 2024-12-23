@@ -46,7 +46,7 @@ if (isset($_POST['order_id'])) {
                 echo "<td>" . htmlspecialchars($item['name']) . "</td>";
                 echo "<td>" . htmlspecialchars($item['type']) . "</td>";
                 echo "<td>" . htmlspecialchars($item['description']) . "</td>";
-                echo "<td>$" . number_format($item['price'], 2) . "</td>";
+                echo "<td>LKR " . number_format($item['price'], 2) . "</td>";
                 echo "<td><img src='" . htmlspecialchars($item['image']) . "' alt='" . htmlspecialchars($item['name']) . "' style='max-width: 50px; max-height: 50px;'></td>";
                 echo "</tr>";
             }

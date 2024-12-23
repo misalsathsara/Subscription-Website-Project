@@ -7,8 +7,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $order_id = mysqli_real_escape_string($conn, $_POST['order_id']);
     $status = mysqli_real_escape_string($conn, $_POST['status']);
 
-    // Update the order_status in the database
-    $query = "UPDATE orders SET order_status = '$status' WHERE id = '$order_id'";
+    // Generate a random tracking ID (e.g., 10 characters long, mix of letters and numbers)
+    $tracking_id = strtoupper(substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 0, 10));
+
+    // Update the order_status and tracking_id in the database
+    $query = "UPDATE orders SET order_status = '$status', tracking_id = '$tracking_id' WHERE id = '$order_id'";
     if (mysqli_query($conn, $query)) {
         echo 'success';
     } else {
@@ -19,3 +22,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_close($conn);
 }
 ?>
+

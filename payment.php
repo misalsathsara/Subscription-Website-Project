@@ -93,6 +93,8 @@ $conn->close();
             <p><strong>Address:</strong> <?php echo htmlspecialchars($order['address']); ?></p>
             <p><strong>Duration:</strong> <?php echo htmlspecialchars($order['duration']); ?></p>
             <p><strong>Received Time:</strong> <?php echo htmlspecialchars($order['renieve']); ?></p>
+            <p><strong>Start Date:</strong> <?php echo htmlspecialchars($order['start_date']); ?></p>
+            <p><strong>End Date:</strong> <?php echo htmlspecialchars($order['end_date']); ?></p>
             <p><strong>Total Price:</strong> LKR <?php echo number_format($total_price, 2); ?></p>
         </div>
 

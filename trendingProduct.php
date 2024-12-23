@@ -56,7 +56,7 @@ if (!empty($trendingProductIds)) {
                         echo str_repeat('★', $rating) . str_repeat('☆', 5 - $rating);
                         ?>
                     </div>
-                    <p class="card-text text-gradient fw-bold">Price: $<?php echo number_format($item['price'], 2); ?></p>
+                    <p class="card-text text-gradient fw-bold">Price: LKR <?php echo number_format($item['price'], 2); ?></p>
                     <div class="d-flex justify-content-around mt-3">
                         <button class="btn btn-outline-primary btn-sm fancy-btn" onclick="window.location.href='itemDetail.php?n_id=<?php echo $item['n_id']; ?>'">
                             <i class="fas fa-info-circle"></i>
