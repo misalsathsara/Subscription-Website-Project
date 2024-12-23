@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Santa Random Path Animation</title>
+    <title>SubscriBuy</title>
     <style>
         .santa-animation-wrapper {
             position: fixed; /* Full-screen wrapper */
