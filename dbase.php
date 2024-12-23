@@ -1,9 +1,9 @@
 <?php
-$host = 'localhost:3308'; 
-// $host ='localhost:3306';
+// $host = 'localhost:3308'; 
+$host ='localhost:3306';
 $db = 'SubscriBuy';
 $user = 'root';
-$pass = '';
+$pass = 'root';
 
 // Establish a database connection
 $conn = new mysqli($host, $user, $pass, $db);
