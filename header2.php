@@ -325,10 +325,10 @@ $wish_count = $wish_count ?? 0; // Set to 0 if $wish_count is not defined
                         <a class="nav-link" href="contact.php">Contact Us</a>
                     </li>
                 </ul>
-                <div class="search-bar ms-auto">
+                <!-- <div class="search-bar ms-auto">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn" type="submit"><i class="fa fa-search"></i></button>
-                </div>
+                </div> -->
       
 
 

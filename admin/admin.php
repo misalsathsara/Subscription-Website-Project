@@ -1,8 +1,10 @@
-<?php include('admin-header.php');
+<?php 
+$activePage = 'addadmin';
+include('admin-header.php');
 include '../dbase.php'; ?>
 <div id="content">
   
-    <main>
+    <main style="align-items: right; justify-content: right;">
         <div class="head-title">
             <div class="left">
                 <h1>Admin Management</h1>
@@ -23,7 +25,7 @@ include '../dbase.php'; ?>
                 <table>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Username</th>
                             <th>Email</th>
                             <th>Role</th>
                             <th>Action</th>
@@ -45,7 +47,7 @@ include '../dbase.php'; ?>
         <span class="close-btn">&times;</span>
         <h2>Add New Admin</h2>
         <form id="addAdminForm">
-    <input type="text" name="name" id="adminName" placeholder="Name" required>
+    <input type="text" name="name" id="adminName" placeholder="Username" required>
     <input type="email" name="email" id="adminEmail" placeholder="Email" required>
     <input type="password" name="password" id="adminPassword" placeholder="Password" required>
     <button type="submit" class="btn-download">Add Admin</button>

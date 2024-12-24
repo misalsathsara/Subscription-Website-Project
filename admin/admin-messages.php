@@ -1,6 +1,6 @@
 <?php
 
-$activePage = 'messages';
+$activePage = 'message';
 include('admin-header.php'); // Reuse admin header
 ?>
 

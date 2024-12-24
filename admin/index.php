@@ -310,7 +310,7 @@ $result = $conn->query($query);
             <i class='bx bxs-dollar-circle'></i>
             <span class="text">
                 <h3>LKR <?php echo number_format($total_sales, 2); ?></h3>
-                <p>Total Sales</p>
+                <p>Monthly Sales</p>
             </span>
         </li>
         </ul>

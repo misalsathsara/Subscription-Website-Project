@@ -1,7 +1,6 @@
 <?php
-
-// $host = 'localhost:3308'; 
-$host ='localhost';
+$host = 'localhost:3308'; 
+// $host ='localhost';
 $db = 'SubscriBuy';
 $user = 'root';
 $pass = '';

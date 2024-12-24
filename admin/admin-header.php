@@ -36,7 +36,7 @@ $activePage = isset($activePage) ? $activePage : '';
 				<span class="text">My Store</span>
 			</a>
 		</li>
-		<li>
+		<li class="<?= $activePage === 'analytic' ? 'active' : '' ?>">
 			<a href="analytic.php">
 				<i class='bx bxs-doughnut-chart'></i>
 				<span class="text">Analytics</span>
@@ -56,7 +56,7 @@ $activePage = isset($activePage) ? $activePage : '';
 		</li>
 	</ul>
 	<ul class="side-menu">
-		<li>
+		<li class="<?= $activePage === 'addadmin' ? 'active' : '' ?>">
 			<a href="admin.php">
 				<i class='bx bxs-cog'></i>
 				<span class="text">Settings</span>
@@ -73,8 +73,8 @@ $activePage = isset($activePage) ? $activePage : '';
 <section id="content">
     <nav>
         <i class='bx bx-menu'></i>
-        <a href="#" class="nav-link">Categories</a>
-        <form action="#">
+        <a href="#" class="nav-link">Admin Panel</a>
+        <!-- <form action="#">
             <div class="form-input">
                 <input type="search" placeholder="Search...">
                 <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
@@ -88,5 +88,5 @@ $activePage = isset($activePage) ? $activePage : '';
         </a>
         <a href="#" class="profile">
             <img src="img/people.png">
-        </a>
+        </a> -->
     </nav>
