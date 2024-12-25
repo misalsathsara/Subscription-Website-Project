@@ -61,8 +61,30 @@ if (isset($_POST['order_id'])) {
         echo "No n_id found for Order ID: " . $orderId;
     }
 
+    // Fetch the shipping address and order status from the orders table
+    $queryAddress = "SELECT address, order_status FROM orders WHERE id = ?";
+    $stmtAddress = $conn->prepare($queryAddress);
+    $stmtAddress->bind_param('i', $orderId);
+    $stmtAddress->execute();
+    $addressResult = $stmtAddress->get_result();
+
+    if ($addressResult->num_rows > 0) {
+        $order = $addressResult->fetch_assoc();
+        if (in_array($order['order_status'], ['recived', 'processed'])) {
+            echo "<div class='mt-4'>";
+            echo "<h4>Shipping Address</h4>";
+            echo "<p>" . htmlspecialchars($order['address']) . "</p>";
+            echo "</div>";
+        } else {
+            // echo "<div class='mt-4 text-danger'>Shipping address is only available for orders with status 'received' or 'processed'.</div>";
+        }
+    } else {
+        echo "No shipping address found for Order ID: " . $orderId;
+    }
+
     // Close the statement and connection
     $stmt->close();
+    $stmtAddress->close();
     $conn->close();
 } else {
     echo "Invalid request.";
