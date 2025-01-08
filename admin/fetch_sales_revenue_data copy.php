@@ -61,4 +61,3 @@ $conn->close();
 
 // Output the data as JSON
 echo json_encode($data);
-?>

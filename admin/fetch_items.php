@@ -14,7 +14,7 @@ if ($result->num_rows > 0) {
         echo "<td>" . htmlspecialchars($row['type']) . "</td>";
         echo "<td>" . htmlspecialchars($row['description']) . "</td>";
         echo "<td>" . htmlspecialchars($row['price']) . "</td>";
-        
+
         echo "<td>
                 <button class='update-btn' data-id='" . htmlspecialchars($row['n_id']) . "' style='
                     padding: 8px 12px;
@@ -44,10 +44,8 @@ if ($result->num_rows > 0) {
               </td>";
         echo "</tr>";
     }
-
 } else {
     echo "<tr><td colspan='6'>No items found.</td></tr>";
 }
 
 $conn->close();
-?>

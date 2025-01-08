@@ -44,4 +44,3 @@ if (empty($data)) {
 } else {
     echo json_encode($data); // Return the fetched data
 }
-?>

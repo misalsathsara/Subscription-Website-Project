@@ -42,7 +42,7 @@ if ($result->num_rows > 0) {
         // Fetch reviews for each item
         $review_sql = "SELECT c_id, rating, review_description 
                        FROM c_reviews 
-                       WHERE n_id = '".$row['n_id']."'";
+                       WHERE n_id = '" . $row['n_id'] . "'";
         $review_result = $conn->query($review_sql);
 
         $reviews = [];
@@ -64,4 +64,3 @@ $conn->close();
 // Return the items data as JSON
 header('Content-Type: application/json');
 echo json_encode($items);
-?>

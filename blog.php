@@ -46,7 +46,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     <a href="details.php?id=1" class="btn">Read More</a>
                 </div>
             </article>
-            
+
             <!-- Sample Article 2 -->
             <article class="article-card">
                 <img src="images/trending1.jpg" alt="Kitchen Tips">
@@ -56,7 +56,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     <a href="details.php?id=2" class="btn">Read More</a>
                 </div>
             </article>
-            
+
             <!-- Sample Article 3 -->
             <article class="article-card">
                 <img src="images/trending1.jpg" alt="Food Trends">
@@ -67,8 +67,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                 </div>
             </article>
 
-              <!-- Sample Article 1 -->
-              <article class="article-card">
+            <!-- Sample Article 1 -->
+            <article class="article-card">
                 <img src="images/trending1.jpg" alt="Healthy Recipes">
                 <div class="article-info">
                     <h3>10 Healthy Recipes for Every Meal</h3>
@@ -76,7 +76,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     <a href="details.php?id=1" class="btn">Read More</a>
                 </div>
             </article>
-            
+
             <!-- Sample Article 2 -->
             <article class="article-card">
                 <img src="images/trending1.jpg" alt="Kitchen Tips">
@@ -86,8 +86,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     <a href="details.php?id=2" class="btn">Read More</a>
                 </div>
             </article>
-            
-            
+
+
         </div>
     </section>
 
@@ -119,12 +119,12 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                     <a href="#" class="btn">Shop Now</a>
                 </div>
             </article>
-            
+
         </div>
     </section>
 
     <!-- Testimonials Section -->
-  
+
 
     <!-- Subscribe Section -->
     <section class="subscribe">

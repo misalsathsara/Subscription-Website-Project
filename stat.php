@@ -1,37 +1,37 @@
 <!-- Stat Start -->
 <style>
-.section-heading {
-    color: #0046ff;
-    /* Primary Blue */
-}
+    .section-heading {
+        color: #0046ff;
+        /* Primary Blue */
+    }
 
-.section-content p {
-    color: #606060;
-    /* Neutral grey for the text */
-}
+    .section-content p {
+        color: #606060;
+        /* Neutral grey for the text */
+    }
 
-.counter-box {
-    border-top: 2px solid #0046ff;
-    /* Primary Blue border */
-    padding-top: 1rem;
-    margin-top: 3rem;
-    margin-bottom: 2.5rem;
-    text-align: center;
-}
+    .counter-box {
+        border-top: 2px solid #0046ff;
+        /* Primary Blue border */
+        padding-top: 1rem;
+        margin-top: 3rem;
+        margin-bottom: 2.5rem;
+        text-align: center;
+    }
 
-.counter-box h1 {
-    color: #0046ff;
-    /* Primary Blue for counter text */
-}
+    .counter-box h1 {
+        color: #0046ff;
+        /* Primary Blue for counter text */
+    }
 
-.counter-box p {
-    color: #606060;
-    /* Neutral grey for labels */
-}
+    .counter-box p {
+        color: #606060;
+        /* Neutral grey for labels */
+    }
 
-.text-uppercase {
-    text-transform: uppercase;
-}
+    .text-uppercase {
+        text-transform: uppercase;
+    }
 </style>
 
 <div class="container my-5">

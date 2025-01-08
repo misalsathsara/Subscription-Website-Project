@@ -25,4 +25,3 @@ if (isset($_POST['c_name'], $_POST['c_email'], $_POST['c_tel'], $_POST['c_addres
     header('Location: user-profile.php');
     exit();
 }
-?>

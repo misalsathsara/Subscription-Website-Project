@@ -81,7 +81,7 @@ include 'admin-footer.php';
     // Call the function on page load
     $(document).ready(function() {
         fetchUserStatus();
-        
+
         // Set an interval to update the table every 5 seconds
         setInterval(fetchUserStatus, 5000);
     });

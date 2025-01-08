@@ -63,8 +63,8 @@
                     ©
                     <span id="copyright2" class="me-2">
                         <script>
-                        document.getElementById("copyright2").appendChild(document.createTextNode(new Date()
-                            .getFullYear()));
+                            document.getElementById("copyright2").appendChild(document.createTextNode(new Date()
+                                .getFullYear()));
                         </script>
                     </span>
                     SubscriBuy. All Rights Reserved.
@@ -75,83 +75,83 @@
 </footer>
 
 <style>
-/* Ensure the support links are aligned to the right */
-.col-lg-4.d-flex.justify-content-end {
-    text-align: right;
-}
+    /* Ensure the support links are aligned to the right */
+    .col-lg-4.d-flex.justify-content-end {
+        text-align: right;
+    }
 
-/* Ensure list items are displayed in a row */
-.list-unstyled {
-    margin: 0;
-    padding: 0;
-}
+    /* Ensure list items are displayed in a row */
+    .list-unstyled {
+        margin: 0;
+        padding: 0;
+    }
 
-.list-unstyled>li {
-    display: inline;
-}
+    .list-unstyled>li {
+        display: inline;
+    }
 
-.support {
-    padding-right: 20px;
-    /* Adjust spacing between items */
-}
+    .support {
+        padding-right: 20px;
+        /* Adjust spacing between items */
+    }
 
-/* Hover effects */
-.support a:hover {
-    color: #003366;
-    font-weight: bold;
-    transition: color 0.3s ease, font-weight 0.3s ease;
-}
+    /* Hover effects */
+    .support a:hover {
+        color: #003366;
+        font-weight: bold;
+        transition: color 0.3s ease, font-weight 0.3s ease;
+    }
 
-/* Map container style */
-.map-container {
-    position: relative;
-    /* padding-bottom: 56.25%;  */
-    height: 300px;
-    /* Use padding for aspect ratio */
-    width: 100%;
-    /* Responsive width */
-    max-width: 100%;
-    /* Ensure it doesn't exceed its parent */
-    background: #eee;
-    overflow: hidden;
-    /* Hide anything outside the container */
-}
+    /* Map container style */
+    .map-container {
+        position: relative;
+        /* padding-bottom: 56.25%;  */
+        height: 300px;
+        /* Use padding for aspect ratio */
+        width: 100%;
+        /* Responsive width */
+        max-width: 100%;
+        /* Ensure it doesn't exceed its parent */
+        background: #eee;
+        overflow: hidden;
+        /* Hide anything outside the container */
+    }
 
-.map-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    /* Remove default border */
-}
+    .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        /* Remove default border */
+    }
 
-/* Footer Padding */
-.footer {
-    padding-top: 3rem;
-    /* Adjust top padding */
-    padding-bottom: 3rem;
-    /* Adjust bottom padding */
-}
+    /* Footer Padding */
+    .footer {
+        padding-top: 3rem;
+        /* Adjust top padding */
+        padding-bottom: 3rem;
+        /* Adjust bottom padding */
+    }
 
-/* Adjust text size if needed */
-.footer p {
-    font-size: 1.2rem;
-    /* Smaller font size */
-}
+    /* Adjust text size if needed */
+    .footer p {
+        font-size: 1.2rem;
+        /* Smaller font size */
+    }
 
-/* Adjust the spacing in social media icons */
-.fs-4 .fa {
-    font-size: 1.2rem;
-    /* Smaller icons */
-}
+    /* Adjust the spacing in social media icons */
+    .fs-4 .fa {
+        font-size: 1.2rem;
+        /* Smaller icons */
+    }
 
-/* Adjust support links spacing */
-.support {
-    padding-right: 15px;
-    /* Reduced spacing between items */
-}
+    /* Adjust support links spacing */
+    .support {
+        padding-right: 15px;
+        /* Reduced spacing between items */
+    }
 </style>
 <!-- Footer End -->
 

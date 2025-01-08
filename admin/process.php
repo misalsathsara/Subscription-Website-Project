@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -67,7 +68,8 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .table th, .table td {
+        .table th,
+        .table td {
             padding: 12px 15px;
             border: 1px solid #ddd;
             text-align: center;
@@ -131,6 +133,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <a href="index.php" class="btn-dashboard"><i class="fas fa-tachometer-alt"></i> Go to Dashboard</a>
@@ -170,89 +173,97 @@
         </table>
     </div>
 
-   <!-- Modal -->
-<div class="modal fade" id="nIdModal" tabindex="-1" role="dialog" aria-labelledby="nIdModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="nIdModalLabel">Item Details</h5>
-                <br>
-                <h6 class="modal-title" id="nIdModalLabel">If item has processed click on Processed Button</h6>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div id="nIdContent">Loading...</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" id="submitBtn" class="btn btn-primary">Processed</button>
+    <!-- Modal -->
+    <div class="modal fade" id="nIdModal" tabindex="-1" role="dialog" aria-labelledby="nIdModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="nIdModalLabel">Item Details</h5>
+                    <br>
+                    <h6 class="modal-title" id="nIdModalLabel">If item has processed click on Processed Button</h6>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="nIdContent">Loading...</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="submitBtn" class="btn btn-primary">Processed</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<script>
-$(document).ready(function () {
-    $('#pendingOrders').DataTable({
-        serverSide: false, // Disable server-side processing
-        processing: true,  // Show a processing indicator
-        autoWidth: false,  // Disable automatic column width adjustment
-        pageLength: 10,    // Number of rows per page
-        responsive: true,
-        order: [[0, 'desc']]   // Enable responsive behavior for small screens
-    });
-
-        let currentOrderId;
-
-        // Load details into the modal and store the current order ID
-        $('.action-btn').on('click', function () {
-            currentOrderId = $(this).data('id'); // Get the ID of the current order
-            $.ajax({
-                url: 'fetch_n_ids.php',
-                method: 'POST',
-                data: { order_id: currentOrderId },
-                success: function (response) {
-                    $('#nIdContent').html(response); // Load the response into the modal
-                },
-                error: function () {
-                    $('#nIdContent').html('Failed to load data.');
-                }
+    <script>
+        $(document).ready(function() {
+            $('#pendingOrders').DataTable({
+                serverSide: false, // Disable server-side processing
+                processing: true, // Show a processing indicator
+                autoWidth: false, // Disable automatic column width adjustment
+                pageLength: 10, // Number of rows per page
+                responsive: true,
+                order: [
+                    [0, 'desc']
+                ] // Enable responsive behavior for small screens
             });
-        });
 
-        // Handle the Submit button click
-        // Handle the Submit button click
-        $('#submitBtn').on('click', function () {
-            if (!currentOrderId) {
-                alert('No order selected.');
-                return;
-            }
+            let currentOrderId;
 
-            $.ajax({
-                url: 'update_order_process.php',
-                method: 'POST',
-                data: { order_id: currentOrderId, status: 'processed' },
-                success: function (response) {
-                    if (response.trim() === 'success') {
-                        alert('Order updated successfully!');
-                        $('#nIdModal').modal('hide');
-                        // Refresh the page after the user clicks OK on the alert
-                        location.reload();
-                    } else {
-                        alert('Failed to update the order.');
+            // Load details into the modal and store the current order ID
+            $('.action-btn').on('click', function() {
+                currentOrderId = $(this).data('id'); // Get the ID of the current order
+                $.ajax({
+                    url: 'fetch_n_ids.php',
+                    method: 'POST',
+                    data: {
+                        order_id: currentOrderId
+                    },
+                    success: function(response) {
+                        $('#nIdContent').html(response); // Load the response into the modal
+                    },
+                    error: function() {
+                        $('#nIdContent').html('Failed to load data.');
                     }
-                },
-                error: function () {
-                    alert('An error occurred while updating the order.');
-                }
+                });
             });
-        });
 
-    });
-</script>
+            // Handle the Submit button click
+            // Handle the Submit button click
+            $('#submitBtn').on('click', function() {
+                if (!currentOrderId) {
+                    alert('No order selected.');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'update_order_process.php',
+                    method: 'POST',
+                    data: {
+                        order_id: currentOrderId,
+                        status: 'processed'
+                    },
+                    success: function(response) {
+                        if (response.trim() === 'success') {
+                            alert('Order updated successfully!');
+                            $('#nIdModal').modal('hide');
+                            // Refresh the page after the user clicks OK on the alert
+                            location.reload();
+                        } else {
+                            alert('Failed to update the order.');
+                        }
+                    },
+                    error: function() {
+                        alert('An error occurred while updating the order.');
+                    }
+                });
+            });
+
+        });
+    </script>
 
 </body>
+
 </html>

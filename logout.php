@@ -26,4 +26,3 @@ $_SESSION['logout_message'] = "You have successfully logged out.";
 // Redirect to the login page
 header('Location: index.php');
 exit;
-?>

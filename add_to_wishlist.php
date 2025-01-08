@@ -48,4 +48,3 @@ if (isset($_SESSION['username']) && isset($_POST['n_id'])) {
     echo json_encode(['error' => 'Unauthorized']);
 }
 $conn->close();
-?>

@@ -48,19 +48,19 @@ $conn->close();
                             <h5 class="card-title mb-1" style="font-size: 1rem;"><?php echo htmlspecialchars($item['name']); ?></h5>
                             <p class="text-muted mb-1">LKR <?php echo number_format($item['price'], 2); ?></p>
                             <div class="d-flex justify-content-between align-items-center">
-                            <form class="remove-from-wishlist-form" action="remove_from_wishlist.php" method="POST" style="display: inline;">
-    <input type="hidden" name="wishlist_id" value="<?php echo $item['wishlist_id']; ?>">
-    <button type="submit" class="btn btn-outline-danger btn-sm">
-        <i class="fas fa-trash-alt"></i> Remove
-    </button>
-</form>
-<form class="add-to-cart-form" action="add_to_cart.php" method="POST" style="display: inline;">
-    <input type="hidden" name="wishlist_id" value="<?php echo $item['wishlist_id']; ?>"> <!-- Pass wishlist ID -->
-    <input type="hidden" name="n_id" value="<?php echo $item['n_id']; ?>"> <!-- Pass item ID -->
-    <button type="submit" class="btn btn-outline-success btn-sm">
-        <i class="fas fa-shopping-cart"></i> Add to Cart
-    </button>
-</form>
+                                <form class="remove-from-wishlist-form" action="remove_from_wishlist.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="wishlist_id" value="<?php echo $item['wishlist_id']; ?>">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i> Remove
+                                    </button>
+                                </form>
+                                <form class="add-to-cart-form" action="add_to_cart.php" method="POST" style="display: inline;">
+                                    <input type="hidden" name="wishlist_id" value="<?php echo $item['wishlist_id']; ?>"> <!-- Pass wishlist ID -->
+                                    <input type="hidden" name="n_id" value="<?php echo $item['n_id']; ?>"> <!-- Pass item ID -->
+                                    <button type="submit" class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-shopping-cart"></i> Add to Cart
+                                    </button>
+                                </form>
 
                             </div>
                         </div>
@@ -79,74 +79,74 @@ $conn->close();
 
 
 <script>
-$(document).ready(function() {
-    // Handle adding to cart
-    $('form.add-to-cart-form').on('submit', function(e) {
-        e.preventDefault(); // Prevent the default form submission
-
-        const formData = $(this).serialize(); // Get form data
-
-        $.ajax({
-            url: 'add_to_cart.php', // The URL to send the request to
-            type: 'POST', // The HTTP method to use
-            data: formData, // The data to send
-            dataType: 'json', // The type of data expected back from the server
-            success: function(response) {
-                if (response.success) {
-                    // Show success message using SweetAlert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success!',
-                        text: response.message, // Display the success message
-                        showConfirmButton: true,
-                        timer: 3000 // Auto-close after 3 seconds
-                    }).then(() => {
-                        location.reload(); // Reload the page after showing the alert
-                    });
-                } else {
-                    // Show error message using JavaScript alert
-                    alert(response.error);
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('An unexpected error occurred: ' + textStatus);
-            }
-        });
-    });
-
-    // Handle removing from wishlist
-    document.querySelectorAll('.remove-from-wishlist-form').forEach(form => {
-        form.addEventListener('submit', function(e) {
+    $(document).ready(function() {
+        // Handle adding to cart
+        $('form.add-to-cart-form').on('submit', function(e) {
             e.preventDefault(); // Prevent the default form submission
 
-            const formData = new FormData(this);
+            const formData = $(this).serialize(); // Get form data
 
-            fetch('remove_from_wishlist.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    // Show success message using SweetAlert
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: data.message,
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then(() => {
-                        location.reload(); // Reload the page after showing the alert
-                    });
-                } else {
-                    // Show error message using JavaScript alert
-                    alert(data.error);
+            $.ajax({
+                url: 'add_to_cart.php', // The URL to send the request to
+                type: 'POST', // The HTTP method to use
+                data: formData, // The data to send
+                dataType: 'json', // The type of data expected back from the server
+                success: function(response) {
+                    if (response.success) {
+                        // Show success message using SweetAlert
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Success!',
+                            text: response.message, // Display the success message
+                            showConfirmButton: true,
+                            timer: 3000 // Auto-close after 3 seconds
+                        }).then(() => {
+                            location.reload(); // Reload the page after showing the alert
+                        });
+                    } else {
+                        // Show error message using JavaScript alert
+                        alert(response.error);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('An unexpected error occurred: ' + textStatus);
                 }
-            })
-            .catch(error => {
-                alert('An unexpected error occurred: ' + error.message);
+            });
+        });
+
+        // Handle removing from wishlist
+        document.querySelectorAll('.remove-from-wishlist-form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                const formData = new FormData(this);
+
+                fetch('remove_from_wishlist.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Show success message using SweetAlert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success',
+                                text: data.message,
+                                showConfirmButton: false,
+                                timer: 2000
+                            }).then(() => {
+                                location.reload(); // Reload the page after showing the alert
+                            });
+                        } else {
+                            // Show error message using JavaScript alert
+                            alert(data.error);
+                        }
+                    })
+                    .catch(error => {
+                        alert('An unexpected error occurred: ' + error.message);
+                    });
             });
         });
     });
-});
 </script>

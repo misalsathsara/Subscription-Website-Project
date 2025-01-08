@@ -9,7 +9,7 @@ $result = $conn->query($query);
 // Check if the query returned any rows
 if ($result->num_rows > 0) {
     // Output data of each row
-    while($row = $result->fetch_assoc()) {
+    while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td><div class='media-box'><i class='bi bi-person-circle' style='font-size: 1.5em;'></i><div class='media-box-body'><div class='text-truncate'>" . htmlspecialchars($row['fullname']) . "</div></div></div></td>";
         echo "<td>" . $row['id'] . "</td>"; // Displaying order ID instead of user ID
@@ -24,4 +24,3 @@ if ($result->num_rows > 0) {
 }
 
 $conn->close();
-?>

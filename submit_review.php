@@ -16,7 +16,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
         $stmtCustomer->bind_param("s", $username);
         $stmtCustomer->execute();
         $resultCustomer = $stmtCustomer->get_result();
-        
+
         if ($resultCustomer->num_rows === 1) {
             $c_id = $resultCustomer->fetch_assoc()['c_id'];
 
@@ -26,7 +26,7 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                 VALUES (?, ?, ?, ?)";
             $stmtInsertReview = $conn->prepare($queryInsertReview);
             $stmtInsertReview->bind_param("ssis", $c_id, $n_id, $rating, $review_description);
-            
+
             if ($stmtInsertReview->execute()) {
                 // Return success response
                 echo "success";
@@ -34,7 +34,6 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
                 // Return error message if the insertion fails
                 echo "Failed to insert review. Error: " . $stmtInsertReview->error;
             }
-
         } else {
             echo "Invalid customer.";
         }
@@ -44,4 +43,3 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 } else {
     echo "Please log in to submit reviews.";
 }
-?>

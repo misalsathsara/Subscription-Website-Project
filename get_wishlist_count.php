@@ -25,4 +25,3 @@ $row = $result->fetch_assoc();
 
 // Output the item count as JSON
 echo json_encode(['wish_count' => $row['wishlist_count']]);
-?>

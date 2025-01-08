@@ -14,34 +14,34 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
 <?php include('product_banner.php'); ?>
 <div class="container my-5">
 
-<?php
-include('dbase.php'); // Include your database connection file
+    <?php
+    include('dbase.php'); // Include your database connection file
 
-// Fetch unique categories from the items table
-$queryCategories = "SELECT DISTINCT type FROM items";
-$resultCategories = $conn->query($queryCategories);
+    // Fetch unique categories from the items table
+    $queryCategories = "SELECT DISTINCT type FROM items";
+    $resultCategories = $conn->query($queryCategories);
 
-$categories = [];
-if ($resultCategories->num_rows > 0) {
-    while ($row = $resultCategories->fetch_assoc()) {
-        $categories[] = htmlspecialchars($row['type']); // Escape the category name for security
+    $categories = [];
+    if ($resultCategories->num_rows > 0) {
+        while ($row = $resultCategories->fetch_assoc()) {
+            $categories[] = htmlspecialchars($row['type']); // Escape the category name for security
+        }
     }
-}
-?>
+    ?>
 
-<div class="d-flex justify-content-center mb-5">
-    <div class="p-4 bg-gradient rounded-lg shadow-lg filter-container d-flex gap-4 align-items-center">
-        <select class="form-select fancy-select" id="categoryFilter">
-            <option value="">All Categories</option>
-            <?php foreach ($categories as $category): ?>
-                <option value="<?= strtolower($category) ?>"><?= ucfirst($category) ?></option>
-            <?php endforeach; ?>
-        </select>
-        <input type="number" class="form-control fancy-input" id="minPrice" placeholder="Min Price">
-        <input type="number" class="form-control fancy-input" id="maxPrice" placeholder="Max Price">
-        <button class="btn btn-primary fancy-btn wide-btn" onclick="applyFilters()">Apply Filters</button>
+    <div class="d-flex justify-content-center mb-5">
+        <div class="p-4 bg-gradient rounded-lg shadow-lg filter-container d-flex gap-4 align-items-center">
+            <select class="form-select fancy-select" id="categoryFilter">
+                <option value="">All Categories</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= strtolower($category) ?>"><?= ucfirst($category) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <input type="number" class="form-control fancy-input" id="minPrice" placeholder="Min Price">
+            <input type="number" class="form-control fancy-input" id="maxPrice" placeholder="Max Price">
+            <button class="btn btn-primary fancy-btn wide-btn" onclick="applyFilters()">Apply Filters</button>
+        </div>
     </div>
-</div>
 
     <!-- Card Container -->
     <div class="row" id="card-container"></div>
@@ -184,7 +184,9 @@ if ($resultCategories->num_rows > 0) {
             $.ajax({
                 url: 'add_to_cart.php',
                 type: 'POST',
-                data: { n_id: n_id },
+                data: {
+                    n_id: n_id
+                },
                 success: function(response) {
                     if (response.success) {
                         showSuccessAlert('Added to cart');
@@ -206,7 +208,9 @@ if ($resultCategories->num_rows > 0) {
             $.ajax({
                 url: 'add_to_wishlist.php',
                 type: 'POST',
-                data: { n_id: n_id },
+                data: {
+                    n_id: n_id
+                },
                 success: function(response) {
                     if (response.success) {
                         showSuccessAlert('Added to wishlist');
@@ -289,7 +293,8 @@ if ($resultCategories->num_rows > 0) {
         border-radius: 25px;
     }
 
-    .fancy-select, .fancy-input {
+    .fancy-select,
+    .fancy-input {
         border-radius: 25px;
     }
 

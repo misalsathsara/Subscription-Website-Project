@@ -145,7 +145,9 @@
             $.ajax({
                 url: 'add_to_cart.php',
                 type: 'POST',
-                data: { n_id: n_id },
+                data: {
+                    n_id: n_id
+                },
                 success: function(response) {
                     if (response.success) {
                         showSuccessAlert('Added to cart');
@@ -167,7 +169,9 @@
             $.ajax({
                 url: 'add_to_wishlist.php',
                 type: 'POST',
-                data: { n_id: n_id },
+                data: {
+                    n_id: n_id
+                },
                 success: function(response) {
                     if (response.success) {
                         showSuccessAlert('Added to wishlist');
@@ -250,7 +254,8 @@
         border-radius: 25px;
     }
 
-    .fancy-select, .fancy-input {
+    .fancy-select,
+    .fancy-input {
         border-radius: 25px;
     }
 

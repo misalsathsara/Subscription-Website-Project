@@ -74,4 +74,3 @@ foreach (range(0, (strtotime($endDate) - strtotime($startDate)) / 86400) as $off
 }
 
 echo json_encode($result);
-?>

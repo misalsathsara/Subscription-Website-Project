@@ -39,43 +39,43 @@ if (!empty($trendingProductIds)) {
         if ($productResult && mysqli_num_rows($productResult) > 0):
             while ($item = mysqli_fetch_assoc($productResult)):
         ?>
-        <!-- Product Card -->
-        <div class="col-lg-3 col-md-4 col-sm-6 mb-5 d-flex justify-content-center">
-            <div class="card fancy-card border-0 rounded overflow-hidden shadow-sm text-center" style="transition: transform 0.5s ease, box-shadow 0.5s ease;">
-                <div class="card-img-wrapper position-relative">
-                    <img src="admin/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="card-img-top fancy-card-img" style="object-fit: cover; height: 250px;">
-                    <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-effect" style="opacity: 0; transition: opacity 0.4s ease;">
-                        <i class="fas fa-search fa-2x text-white"></i>
+                <!-- Product Card -->
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-5 d-flex justify-content-center">
+                    <div class="card fancy-card border-0 rounded overflow-hidden shadow-sm text-center" style="transition: transform 0.5s ease, box-shadow 0.5s ease;">
+                        <div class="card-img-wrapper position-relative">
+                            <img src="admin/<?php echo $item['image']; ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="card-img-top fancy-card-img" style="object-fit: cover; height: 250px;">
+                            <div class="card-img-overlay d-flex justify-content-center align-items-center overlay-effect" style="opacity: 0; transition: opacity 0.4s ease;">
+                                <i class="fas fa-search fa-2x text-white"></i>
+                            </div>
+                        </div>
+                        <div class="card-body px-4 py-3">
+                            <h5 class="card-title mb-2 text-truncate fancy-title"><?php echo htmlspecialchars($item['name']); ?></h5>
+                            <div class="star-rating mb-3">
+                                <?php
+                                $rating = round($item['avg_rating']);
+                                echo str_repeat('★', $rating) . str_repeat('☆', 5 - $rating);
+                                ?>
+                            </div>
+                            <p class="card-text text-gradient fw-bold">Price: LKR <?php echo number_format($item['price'], 2); ?></p>
+                            <div class="d-flex justify-content-around mt-3">
+                                <button class="btn btn-outline-primary btn-sm fancy-btn" onclick="window.location.href='itemDetail.php?n_id=<?php echo $item['n_id']; ?>'">
+                                    <i class="fas fa-info-circle"></i>
+                                </button>
+                                <button class="btn btn-outline-success btn-sm fancy-btn" onclick="handleAddToCart('<?php echo $item['n_id']; ?>')">
+                                    <i class="fas fa-cart-plus"></i>
+                                </button>
+                                <button class="btn btn-outline-danger btn-sm fancy-btn" onclick="handleAddToWishlist('<?php echo $item['n_id']; ?>')">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body px-4 py-3">
-                    <h5 class="card-title mb-2 text-truncate fancy-title"><?php echo htmlspecialchars($item['name']); ?></h5>
-                    <div class="star-rating mb-3">
-                        <?php
-                        $rating = round($item['avg_rating']);
-                        echo str_repeat('★', $rating) . str_repeat('☆', 5 - $rating);
-                        ?>
-                    </div>
-                    <p class="card-text text-gradient fw-bold">Price: LKR <?php echo number_format($item['price'], 2); ?></p>
-                    <div class="d-flex justify-content-around mt-3">
-                        <button class="btn btn-outline-primary btn-sm fancy-btn" onclick="window.location.href='itemDetail.php?n_id=<?php echo $item['n_id']; ?>'">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                        <button class="btn btn-outline-success btn-sm fancy-btn" onclick="handleAddToCart('<?php echo $item['n_id']; ?>')">
-                            <i class="fas fa-cart-plus"></i>
-                        </button>
-                        <button class="btn btn-outline-danger btn-sm fancy-btn" onclick="handleAddToWishlist('<?php echo $item['n_id']; ?>')">
-                            <i class="fas fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <?php
+            <?php
             endwhile;
         else:
-        ?>
-        <p class="text-center fw-bold">No trending products available right now.</p>
+            ?>
+            <p class="text-center fw-bold">No trending products available right now.</p>
         <?php endif; ?>
     </div>
 </div>
@@ -130,7 +130,8 @@ if (!empty($trendingProductIds)) {
         border-radius: 25px;
     }
 
-    .fancy-select, .fancy-input {
+    .fancy-select,
+    .fancy-input {
         border-radius: 25px;
     }
 
@@ -140,14 +141,17 @@ if (!empty($trendingProductIds)) {
     }
 </style>
 
-<script>function handleAddToCart(n_id) {
+<script>
+    function handleAddToCart(n_id) {
         <?php if (!isset($_SESSION['username'])) { ?>
             showAlert('You need to log in to add items to your cart!');
         <?php } else { ?>
             $.ajax({
                 url: 'add_to_cart.php',
                 type: 'POST',
-                data: { n_id: n_id },
+                data: {
+                    n_id: n_id
+                },
                 success: function(response) {
                     if (response.success) {
                         showSuccessAlert('Added to cart');
@@ -169,7 +173,9 @@ if (!empty($trendingProductIds)) {
             $.ajax({
                 url: 'add_to_wishlist.php',
                 type: 'POST',
-                data: { n_id: n_id },
+                data: {
+                    n_id: n_id
+                },
                 success: function(response) {
                     if (response.success) {
                         showSuccessAlert('Added to wishlist');
@@ -201,5 +207,4 @@ if (!empty($trendingProductIds)) {
             button: "OK",
         });
     }
-
 </script>

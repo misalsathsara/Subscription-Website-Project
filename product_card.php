@@ -10,7 +10,7 @@
         <div class="card-body px-4 py-3">
             <h5 class="card-title mb-2 text-truncate fancy-title"><?php echo $item['name']; ?></h5>
             <div class="star-rating mb-3">
-                <?php echo '★'.str_repeat('☆', 5 - round($item['avg_rating'])); ?>
+                <?php echo '★' . str_repeat('☆', 5 - round($item['avg_rating'])); ?>
             </div>
             <p class="card-text text-gradient fw-bold">Price: $<?php echo $item['price']; ?></p>
             <div class="d-flex justify-content-around mt-3">

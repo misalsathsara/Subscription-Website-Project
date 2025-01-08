@@ -53,10 +53,11 @@ while ($item = $item_result->fetch_assoc()) {
 $item_stmt->close();
 $order_stmt->close();
 $conn->close();
-?> 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -66,26 +67,30 @@ $conn->close();
         .container {
             margin-top: 30px;
         }
+
         .order-details {
             background-color: white;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .btn-custom {
             background-color: #007bff;
             color: white;
             border-radius: 5px;
         }
+
         .btn-custom:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1 class="text-center mb-5">Order Summary</h1>
-        
+
         <div class="order-details mb-4">
             <h3>Order ID: <?php echo $order['id']; ?></h3>
             <p><strong>Full Name:</strong> <?php echo htmlspecialchars($order['fullname']); ?></p>
@@ -130,7 +135,7 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    
+
     <script>
         document.getElementById('payment_method').addEventListener('change', function() {
             var paymentMethod = this.value;
@@ -138,49 +143,49 @@ $conn->close();
             creditCardFields.style.display = paymentMethod === 'credit_card' ? 'block' : 'none';
         });
 
-        $('#submitBtn').on('click', function () {
-    var formData = $('#paymentForm').serialize();
+        $('#submitBtn').on('click', function() {
+            var formData = $('#paymentForm').serialize();
 
-    $.ajax({
-        url: 'payment_process.php',
-        method: 'POST',
-        data: formData,
-        success: function (response) {
-            if (response.status === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Payment Successful',
-                    text: response.message,
-                    showConfirmButton: false,
-                    timer: 3000
-                })
-                .then(() => {
-                    // Redirect to order.php after payment success
-                    window.location.href = 'order.php';
-                });
+            $.ajax({
+                url: 'payment_process.php',
+                method: 'POST',
+                data: formData,
+                success: function(response) {
+                    if (response.status === 'success') {
+                        Swal.fire({
+                                icon: 'success',
+                                title: 'Payment Successful',
+                                text: response.message,
+                                showConfirmButton: false,
+                                timer: 3000
+                            })
+                            .then(() => {
+                                // Redirect to order.php after payment success
+                                window.location.href = 'order.php';
+                            });
 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Payment Failed',
-                    text: response.message,
-                    confirmButtonText: 'Try Again'
-                });
-            }
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error',
-                text: 'An unexpected error occurred. Please try again.',
-                confirmButtonText: 'OK'
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Payment Failed',
+                            text: response.message,
+                            confirmButtonText: 'Try Again'
+                        });
+                    }
+                },
+                error: function() {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An unexpected error occurred. Please try again.',
+                        confirmButtonText: 'OK'
+                    });
+                }
             });
-        }
-    });
-});
-
+        });
     </script>
 
     <?php include 'footer.php'; ?>
 </body>
+
 </html>

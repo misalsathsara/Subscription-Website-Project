@@ -1,6 +1,6 @@
 <?php
 // $host = 'localhost:3308'; 
-$host ='localhost';
+$host = 'localhost';
 $db = 'SubscriBuy';
 $user = 'root';
 $pass = '';
@@ -12,4 +12,3 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-?>

@@ -89,4 +89,3 @@ if (isset($_POST['order_id'])) {
 } else {
     echo "Invalid request.";
 }
-?>

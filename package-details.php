@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Package Details</title>
     <link rel="stylesheet" href="pkgstyle.css">
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -24,7 +26,7 @@
         <section class="package-details">
             <div class="package-info">
                 <h3>Weekly Essentials</h3>
-                <video class="package-image" autoplay muted loop >
+                <video class="package-image" autoplay muted loop>
                     <source src="package-detail.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
@@ -61,4 +63,5 @@
 
     <script src="details.js"></script>
 </body>
+
 </html>

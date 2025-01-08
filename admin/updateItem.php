@@ -13,15 +13,14 @@ if ($data) {
     $sql = "UPDATE items SET name = ?, type = ?, description = ?, price = ? WHERE n_id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('sssss', $name, $type, $description, $price, $id);
-    
+
     if ($stmt->execute()) {
         echo json_encode(['status' => 'success']);
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Failed to update item.']);
     }
-    
+
     $stmt->close();
 }
 
 $conn->close();
-?>

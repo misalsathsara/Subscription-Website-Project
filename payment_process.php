@@ -99,7 +99,6 @@ try {
 
     echo json_encode(['status' => 'success', 'message' => 'Payment successful!', 'transaction_id' => $transaction_id]);
     exit;
-
 } catch (Exception $e) {
     // Rollback transaction on error
     $conn->rollback();
@@ -107,4 +106,3 @@ try {
     echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
     exit;
 }
-?>

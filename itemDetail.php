@@ -89,6 +89,7 @@ $conn->close();
     .container {
         max-width: 1100px;
     }
+
     .product-page {
         padding: 30px;
         background-color: #f9f9f9;
@@ -96,22 +97,26 @@ $conn->close();
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         margin-bottom: 30px;
     }
+
     .product-header {
         border-bottom: 2px solid #e0e0e0;
         padding-bottom: 15px;
         margin-bottom: 20px;
         text-align: center;
     }
+
     .product-header h2 {
         font-size: 2.5rem;
         color: #333;
         margin-bottom: 10px;
     }
+
     .product-header .item-price {
         font-size: 2rem;
         color: #d9534f;
         font-weight: bold;
     }
+
     .product-image {
         border: 1px solid #e0e0e0;
         padding: 15px;
@@ -119,32 +124,39 @@ $conn->close();
         border-radius: 8px;
         transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
+
     .product-image:hover {
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         transform: scale(1.05);
     }
+
     .button-container {
         display: flex;
         justify-content: center;
         gap: 15px;
         margin-top: 25px;
     }
+
     .btn-custom {
         padding: 12px 25px;
         border-radius: 25px;
         font-size: 1.1rem;
         transition: background-color 0.3s ease, transform 0.3s ease;
     }
+
     .btn-custom:hover {
         transform: translateY(-3px);
     }
+
     .reviews-section {
         margin-top: 50px;
     }
+
     .reviews-section h3 {
         margin-bottom: 20px;
         text-align: center;
     }
+
     .review-item {
         background-color: #fff;
         padding: 20px;
@@ -153,19 +165,23 @@ $conn->close();
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
         transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
+
     .review-item:hover {
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         transform: translateY(-5px);
     }
+
     .star-rating {
         color: #ffcc00;
         font-size: 1.2rem;
     }
+
     .pagination {
         display: flex;
         justify-content: center;
         margin-top: 20px;
     }
+
     .pagination a {
         margin: 0 5px;
         padding: 10px 15px;
@@ -175,10 +191,12 @@ $conn->close();
         border-radius: 5px;
         transition: background-color 0.3s;
     }
+
     .pagination a:hover {
         background-color: #007bff;
         color: white;
     }
+
     .pagination .active {
         background-color: #007bff;
         color: white;
@@ -202,37 +220,40 @@ $conn->close();
                         <p class="card-text"><strong>Type:</strong> <br><?php echo htmlspecialchars($item['type']); ?></p>
                         <p class="card-text"><strong>Description:</strong> <br><?php echo nl2br(htmlspecialchars($item['description'])); ?></p>
                         <p class="card-text"><strong>Average Rating:</strong> <br>
-    <span class="star-rating2">
-        <?php 
-        // Get the average rating and ensure it's a float
-        $avgRating = round(floatval($item['avg_rating']), 1); 
-        $totalReviews = intval($item['total_reviews']);
-        
-        // Display the average rating
-        echo $avgRating . ' / 5 (' . $totalReviews . ' reviews)'; 
-        ?>
-    </span>
-</p>
+                            <span class="star-rating2">
+                                <?php
+                                // Get the average rating and ensure it's a float
+                                $avgRating = round(floatval($item['avg_rating']), 1);
+                                $totalReviews = intval($item['total_reviews']);
 
-<div class="star-rating">
-    <?php 
-    // Loop to display stars based on average rating
-    for ($i = 1; $i <= 5; $i++): 
-        // Determine if star should be filled or not
-        $isFilled = $i <= $avgRating; 
-    ?>
-        <span class="fas fa-star <?php echo $isFilled ? 'checked' : ''; ?>"></span>
-    <?php endfor; ?>
-</div>
+                                // Display the average rating
+                                echo $avgRating . ' / 5 (' . $totalReviews . ' reviews)';
+                                ?>
+                            </span>
+                        </p>
 
-<style>
-    .star-rating {
-        color: #ddd; /* Default color for unfilled stars */
-    }
-    .star-rating .checked {
-        color: #ffcc00; /* Color for filled stars */
-    }
-</style>
+                        <div class="star-rating">
+                            <?php
+                            // Loop to display stars based on average rating
+                            for ($i = 1; $i <= 5; $i++):
+                                // Determine if star should be filled or not
+                                $isFilled = $i <= $avgRating;
+                            ?>
+                                <span class="fas fa-star <?php echo $isFilled ? 'checked' : ''; ?>"></span>
+                            <?php endfor; ?>
+                        </div>
+
+                        <style>
+                            .star-rating {
+                                color: #ddd;
+                                /* Default color for unfilled stars */
+                            }
+
+                            .star-rating .checked {
+                                color: #ffcc00;
+                                /* Color for filled stars */
+                            }
+                        </style>
 
                         <div class="button-container mt-3">
                             <!-- Add to Cart Button -->
@@ -259,50 +280,53 @@ $conn->close();
         </div>
 
         <div class="reviews-section">
-    <h3>Customer Reviews</h3>
+            <h3>Customer Reviews</h3>
 
-    <?php if (empty($reviews)): ?>
-        <p>No reviews available for this item.</p>
-    <?php else: ?>
-        <?php foreach ($reviews as $review): ?>
-            <div class="review-item">
-                <div class="star-rating">
-                    <?php for ($i = 1; $i <= 5; $i++): ?>
-                        <span class="fas fa-star <?php echo ($i <= intval($review['rating'])) ? 'checked' : ''; ?>"></span>
-                    <?php endfor; ?>
-                </div>
-                <p><?php echo nl2br(htmlspecialchars($review['review_description'])); ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
-</div>
+            <?php if (empty($reviews)): ?>
+                <p>No reviews available for this item.</p>
+            <?php else: ?>
+                <?php foreach ($reviews as $review): ?>
+                    <div class="review-item">
+                        <div class="star-rating">
+                            <?php for ($i = 1; $i <= 5; $i++): ?>
+                                <span class="fas fa-star <?php echo ($i <= intval($review['rating'])) ? 'checked' : ''; ?>"></span>
+                            <?php endfor; ?>
+                        </div>
+                        <p><?php echo nl2br(htmlspecialchars($review['review_description'])); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
 
-<style>
-    .star-rating {
-        color: #ddd; /* Default color for unfilled stars */
-    }
-    .star-rating .checked {
-        color: #ffcc00; /* Color for filled stars */
-    }
-</style>
+        <style>
+            .star-rating {
+                color: #ddd;
+                /* Default color for unfilled stars */
+            }
+
+            .star-rating .checked {
+                color: #ffcc00;
+                /* Color for filled stars */
+            }
+        </style>
 
 
-            <!-- Pagination -->
-            <div class="pagination">
-                <?php if ($current_page > 1): ?>
-                    <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $current_page - 1; ?>">« Prev</a>
-                <?php endif; ?>
+        <!-- Pagination -->
+        <div class="pagination">
+            <?php if ($current_page > 1): ?>
+                <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $current_page - 1; ?>">« Prev</a>
+            <?php endif; ?>
 
-                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                    <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $i; ?>" class="<?php echo ($i == $current_page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
-                <?php endfor; ?>
+            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $i; ?>" class="<?php echo ($i == $current_page) ? 'active' : ''; ?>"><?php echo $i; ?></a>
+            <?php endfor; ?>
 
-                <?php if ($current_page < $total_pages): ?>
-                    <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $current_page + 1; ?>">Next »</a>
-                <?php endif; ?>
-            </div>
+            <?php if ($current_page < $total_pages): ?>
+                <a href="?n_id=<?php echo htmlspecialchars($n_id); ?>&page=<?php echo $current_page + 1; ?>">Next »</a>
+            <?php endif; ?>
         </div>
     </div>
+</div>
 </div>
 
 <?php include('footer.php'); ?>

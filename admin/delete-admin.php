@@ -45,4 +45,3 @@ if (isset($data['id'])) {
 }
 
 $conn->close();
-?>

@@ -37,60 +37,61 @@
 
 <!-- Additional Styles -->
 <style>
-.scrolling-logos {
-    background-color: #f6f6f6;
-    overflow: hidden;
-    padding: 60px 0;
-}
-
-@media (min-width: 768px) {
     .scrolling-logos {
-        padding: 80px 0;
+        background-color: #f6f6f6;
+        overflow: hidden;
+        padding: 60px 0;
     }
-}
 
-.scrolling-logos-heading {
-    font-weight: bold;
-    font-size: 25px;
-    color: #28303b;
-}
+    @media (min-width: 768px) {
+        .scrolling-logos {
+            padding: 80px 0;
+        }
+    }
 
-@media (min-width: 768px) {
     .scrolling-logos-heading {
-        font-size: 35px;
-    }
-}
-
-.logos-wrapper {
-    width: 100%; /* Ensures the wrapper spans the full width */
-    overflow: hidden;
-}
-
-
-.logos {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: max-content;
-    /* Ensure logos are wide enough for the container */
-    animation: scroll-left 40s linear infinite;
-    /* Slowed down the animation duration */
-}
-
-.scrolling-logo {
-    max-height: 50px;
-}
-
-@keyframes scroll-left {
-    0% {
-        transform: translateX(0);
-        /* Start at the original position */
+        font-weight: bold;
+        font-size: 25px;
+        color: #28303b;
     }
 
-    100% {
-        transform: translateX(-50%);
-        /* Move to the left by 50% to slow down and create a smoother loop */
+    @media (min-width: 768px) {
+        .scrolling-logos-heading {
+            font-size: 35px;
+        }
     }
-}
+
+    .logos-wrapper {
+        width: 100%;
+        /* Ensures the wrapper spans the full width */
+        overflow: hidden;
+    }
+
+
+    .logos {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        width: max-content;
+        /* Ensure logos are wide enough for the container */
+        animation: scroll-left 40s linear infinite;
+        /* Slowed down the animation duration */
+    }
+
+    .scrolling-logo {
+        max-height: 50px;
+    }
+
+    @keyframes scroll-left {
+        0% {
+            transform: translateX(0);
+            /* Start at the original position */
+        }
+
+        100% {
+            transform: translateX(-50%);
+            /* Move to the left by 50% to slow down and create a smoother loop */
+        }
+    }
 </style>
 <!-- Bank Section End -->

@@ -25,15 +25,22 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
     <style>
         /* Modal Styles */
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1000; /* Sit on top */
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1000;
+            /* Sit on top */
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0, 0, 0, 0.6); /* Black w/ opacity */
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.6);
+            /* Black w/ opacity */
             justify-content: center;
             align-items: center;
         }
@@ -43,7 +50,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
             border: 1px solid #888;
             border-radius: 10px;
             padding: 20px;
-            width: 300px; /* Fixed width for the modal */
+            width: 300px;
+            /* Fixed width for the modal */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
         }
@@ -59,7 +67,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
         }
 
         .modal-button {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
+            /* Green */
             color: white;
             border: none;
             padding: 10px 15px;
@@ -68,7 +77,8 @@ if (isset($_SESSION['username']) && !empty($_SESSION['username'])) {
         }
 
         .modal-button:hover {
-            background-color: #45a049; /* Darker green */
+            background-color: #45a049;
+            /* Darker green */
         }
     </style>
 </head>

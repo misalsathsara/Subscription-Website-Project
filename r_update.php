@@ -18,4 +18,3 @@ if (isset($_POST['order_id']) && isset($_POST['status'])) {
         echo "Failed to update order status. Error: " . $stmtUpdateStatus->error;
     }
 }
-?>

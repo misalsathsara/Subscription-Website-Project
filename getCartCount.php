@@ -19,4 +19,3 @@ $row = $result->fetch_assoc();
 
 // Output the item count as JSON
 echo json_encode(['item_count' => $row['item_count']]);
-?>

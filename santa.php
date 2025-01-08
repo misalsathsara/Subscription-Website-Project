@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SubscriBuy</title>
     <style>
         .santa-animation-wrapper {
-            position: fixed; /* Full-screen wrapper */
+            position: fixed;
+            /* Full-screen wrapper */
             top: 0;
             left: 0;
-            height: 100%; /* Covers the entire screen */
-            width: 150%; /* Covers the entire screen */
-            overflow: hidden; /* Keeps animation within the viewport */
+            height: 100%;
+            /* Covers the entire screen */
+            width: 150%;
+            /* Covers the entire screen */
+            overflow: hidden;
+            /* Keeps animation within the viewport */
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            z-index: 1000; /* Keep it above other content */
-            pointer-events: none; /* Allows clicks to pass through */
+            z-index: 1000;
+            /* Keep it above other content */
+            pointer-events: none;
+            /* Allows clicks to pass through */
         }
 
         .santa-sprite {
@@ -46,11 +53,17 @@
         }
 
         @keyframes santa-snow-fall {
-            0% { top: -10px; }
-            100% { top: 100vh; }
+            0% {
+                top: -10px;
+            }
+
+            100% {
+                top: 100vh;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="santa-animation-wrapper">
         <div class="santa-sprite"></div>
@@ -102,4 +115,5 @@
         moveSanta();
     </script>
 </body>
+
 </html>

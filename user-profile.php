@@ -34,12 +34,14 @@ $conn->close();
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         background-color: #fff;
     }
+
     .profile-header {
         background: linear-gradient(135deg, #007bff, #00c6ff);
         color: #fff;
         padding: 40px;
         text-align: center;
     }
+
     .profile-header img {
         width: 100px;
         height: 100px;
@@ -47,22 +49,25 @@ $conn->close();
         border: 3px solid #fff;
         margin-bottom: 10px;
     }
+
     .profile-header h2 {
         font-weight: bold;
         font-size: 1.75rem;
     }
+
     .info-item input {
         background-color: #f8f9fa;
         border: none;
         border-radius: 5px;
         box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     }
+
     .btn-custom {
         width: 120px;
         border-radius: 50px;
     }
 
-    label{
+    label {
         font-weight: bold;
     }
 </style>

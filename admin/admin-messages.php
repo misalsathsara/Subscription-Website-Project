@@ -23,7 +23,7 @@ include('admin-header.php'); // Reuse admin header
     <div class="table-data">
         <div class="order">
             <table>
-                 <?php include 'fetch_messages.php'; ?> <!-- Fetch messages dynamically -->
+                <?php include 'fetch_messages.php'; ?> <!-- Fetch messages dynamically -->
             </table>
         </div>
     </div>
@@ -33,25 +33,24 @@ include 'admin-footer.php';
 ?>
 
 <script>
-// Delete button functionality
-document.addEventListener('click', function (e) {
-    if (e.target && e.target.classList.contains('delete-btn')) {
-        const messageId = e.target.getAttribute('data-id');
+    // Delete button functionality
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('delete-btn')) {
+            const messageId = e.target.getAttribute('data-id');
 
-        // Confirmation before delete
-        if (confirm('Are you sure you want to delete this message?')) {
-            fetch(`delete_message.php?id=${messageId}`)
-                .then(response => response.text())
-                .then(data => {
-                    if (data === 'success') {
-                        alert('Message deleted successfully.');
-                        location.reload(); // Reload the page to reflect changes
-                    } else {
-                        alert('Failed to delete the message.');
-                    }
-                });
+            // Confirmation before delete
+            if (confirm('Are you sure you want to delete this message?')) {
+                fetch(`delete_message.php?id=${messageId}`)
+                    .then(response => response.text())
+                    .then(data => {
+                        if (data === 'success') {
+                            alert('Message deleted successfully.');
+                            location.reload(); // Reload the page to reflect changes
+                        } else {
+                            alert('Failed to delete the message.');
+                        }
+                    });
+            }
         }
-    }
-});
+    });
 </script>
-

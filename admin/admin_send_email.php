@@ -21,11 +21,11 @@ try {
     $mail->SMTPAuth   = true;
     $mail->Host       = 'smtp.gmail.com';
     $mail->Username   = 'chamodi.malshika@ecyber.com';
-    $mail->Password   = 'eogb lklw pzqk jauk'; 
+    $mail->Password   = 'eogb lklw pzqk jauk';
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
     $mail->Port       = 465;
 
-    
+
     $recipientEmail = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
     $originalMessage = filter_var($_POST['message'] ?? '', FILTER_SANITIZE_STRING);
     $adminResponse = filter_var($_POST['admin_message'] ?? '', FILTER_SANITIZE_STRING);
@@ -56,7 +56,7 @@ try {
         <blockquote>" . nl2br(htmlspecialchars($adminResponse)) . "</blockquote>
         <p>Best regards,<br>Admin Team</p>
     ";
-    $mail->AltBody = 
+    $mail->AltBody =
         "Dear User,\n\n" .
         "You have received a response to your inquiry:\n\n" .
         "Original Message:\n" . htmlspecialchars($originalMessage) . "\n\n" .
@@ -65,7 +65,7 @@ try {
 
     // Send email
     $mail->send();
-$response['status'] = 'success';
+    $response['status'] = 'success';
     $response['message'] = 'Email sent successfully!';
 } catch (Exception $e) {
     $response['message'] = 'Error: ' . $e->getMessage();

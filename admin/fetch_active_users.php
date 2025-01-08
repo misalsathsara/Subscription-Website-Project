@@ -28,4 +28,3 @@ if ($result && $result->num_rows > 0) {
 } else {
     echo "<tr><td colspan='2'>No users found.</td></tr>";
 }
-?>

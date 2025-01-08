@@ -116,4 +116,3 @@ unset($_SESSION['cart_items']);
 // Redirect to the payment page
 header("Location: payment.php");
 exit;
-?>

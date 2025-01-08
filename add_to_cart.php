@@ -100,4 +100,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['n_id']) && !empty($_PO
 }
 
 $conn->close();
-?>

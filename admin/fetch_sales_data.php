@@ -6,7 +6,7 @@ $query = "SELECT MONTHNAME(order_date) AS month, SUM(total_price) AS total_sales
 $result = $conn->query($query);
 
 $data = [];
-while($row = $result->fetch_assoc()) {
+while ($row = $result->fetch_assoc()) {
     $data[] = [
         'month' => $row['month'],
         'sales' => (float) $row['total_sales']
@@ -15,4 +15,3 @@ while($row = $result->fetch_assoc()) {
 
 $conn->close();
 echo json_encode($data);
-?>
