@@ -3,7 +3,7 @@
 $host = 'localhost';
 $db = 'SubscriBuy';
 $user = 'root';
-$pass = '';
+$pass = 'root';
 
 // Establish a database connection
 $conn = new mysqli($host, $user, $pass, $db);
